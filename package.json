@@ -13,12 +13,12 @@
     "@vitejs/plugin-react": "latest",
     "clsx": "^2.1.1",
     "framer-motion": "latest",
-    "gsap": "latest",
     "lucide-react": "^1.25.0",
     "maplibre-gl": "^5.24.0",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "latest",
+    "react-router-dom": "^7.18.1",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {

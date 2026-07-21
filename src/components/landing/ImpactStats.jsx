@@ -127,7 +127,7 @@ function StatItem({ numeric, suffix, label, format }) {
   );
 }
 
-export default function StatsSection() {
+export default function ImpactStats() {
   const containerRef = useRef(null);
 
   return (

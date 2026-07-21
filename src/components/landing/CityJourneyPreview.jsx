@@ -22,7 +22,7 @@ function getFrameIndex(progress) {
   return Math.round(clamped * (LAST_FRAME - FIRST_FRAME));
 }
 
-export default function ScrollFrameSection() {
+export default function CityJourneyPreview() {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
   const activeFrameRef = useRef(0);
@@ -84,7 +84,7 @@ export default function ScrollFrameSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-20 -mt-[100svh] motion-reduce:mt-0"
+      className="relative z-20"
       style={{
         height: shouldReduceMotion
           ? "100svh"
@@ -128,13 +128,8 @@ export default function ScrollFrameSection() {
             exit={{ scale: 0.5, opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 28 }}
           >
-            <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-md border border-white/20 text-white px-3 py-2.5 rounded-full shadow-2xl text-xs sm:text-sm font-medium tracking-wide">
-              <span className="size-5 rounded-full bg-white flex items-center justify-center text-primary shrink-0">
-                <LuArrowDown
-                  className="size-3.5 animate-bounce"
-                  strokeWidth={2.5}
-                />
-              </span>
+            <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-md border border-white/20 text-white px-5 py-3.5 rounded-full shadow-2xl text-xs sm:text-sm font-medium tracking-wide">
+              <LuArrowDown className="size-5 animate-bounce" />
               <span className="whitespace-nowrap">Scroll</span>
             </div>
           </motion.div>

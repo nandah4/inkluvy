@@ -92,7 +92,7 @@ const steps = [
   },
 ];
 
-export default function HowItWorksSection() {
+export default function JourneySteps() {
   const containerRef = useRef(null);
 
   return (

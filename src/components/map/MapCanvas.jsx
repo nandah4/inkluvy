@@ -349,6 +349,7 @@ function useMarkerContext() {
 function MapMarker({
   longitude,
   latitude,
+  coordinates,
   children,
   onClick,
   onMouseEnter,
@@ -360,6 +361,9 @@ function MapMarker({
   ...markerOptions
 }) {
   const { map } = useMap();
+
+  const finalLng = longitude ?? (Array.isArray(coordinates) ? coordinates[0] : 0);
+  const finalLat = latitude ?? (Array.isArray(coordinates) ? coordinates[1] : 0);
 
   const callbacksRef = useRef({
     onClick,
@@ -383,7 +387,7 @@ function MapMarker({
       ...markerOptions,
       element: document.createElement("div"),
       draggable,
-    }).setLngLat([longitude, latitude]);
+    }).setLngLat([finalLng, finalLat]);
 
     const handleClick = (e) => callbacksRef.current.onClick?.(e);
     const handleMouseEnter = (e) =>

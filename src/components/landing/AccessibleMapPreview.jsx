@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LuArrowRight,
@@ -21,7 +22,7 @@ import {
   MarkerContent,
   MapControls,
   MapRoute,
-} from "../ui/map";
+} from "../map/MapCanvas";
 
 const headerVariants = {
   hidden: {
@@ -183,7 +184,7 @@ const routeStops = [
 
 const routeCoordinates = routeStops.map((stop) => [stop.lng, stop.lat]);
 
-export default function MapPreviewSection() {
+export default function AccessibleMapPreview() {
   const [activeStopId, setActiveStopId] = useState("01");
   const [showPopup, setShowPopup] = useState(true);
   const activeStop =
@@ -200,7 +201,7 @@ export default function MapPreviewSection() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 px-6"
+        className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 px-6 sm:px-10 lg:px-16"
       >
         <h2 className="font-base text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-gray-900">
           Explore the Map
@@ -223,50 +224,50 @@ export default function MapPreviewSection() {
           {/* Top Full-Width Header Search Bar */}
           <motion.div
             variants={topBarVariants}
-            className="w-full bg-[#F5F5F3] rounded-xl px-5 py-3 border border-gray-200/80 shadow-2xs flex items-center justify-between"
+            className="w-full bg-[#F5F5F3] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 border border-gray-200/80 shadow-2xs flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5"
           >
-            <div className="flex items-center gap-3.5 min-w-0">
-              <div className="size-9 rounded-full bg-gray-50 flex items-center justify-center text-gray-700 border border-gray-100 shrink-0">
-                <LuGlobe className="size-5 text-gray-800" />
+            <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+              <div className="size-8 sm:size-9 rounded-full bg-gray-50 flex items-center justify-center text-gray-700 border border-gray-100 shrink-0">
+                <LuGlobe className="size-4 sm:size-5 text-gray-800" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-medium text-sm sm:text-base text-gray-900 truncate">
+                <h3 className="font-medium text-xs sm:text-base text-gray-900 truncate">
                   Search an accessible route or place...
                 </h3>
-                <p className="text-xs text-gray-500 truncate mt-0.5 font-medium">
+                <p className="text-[11px] sm:text-xs text-gray-500 truncate mt-0.5 font-medium">
                   Malang · Real-time · Wheelchair, Ramp & Lift
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0 ml-3">
-              <a
-                href="https://www.google.com/maps/place/Museum+Brawijaya+Malang/@-7.9858423,112.6319039,15z/data=!4m9!3m8!1s0x2dd62bc362ddc9d5:0x8a87b81b75e94b68!5m3!4m1!1f0!8m2!3d-7.9858663!4d112.6319658!16m1!1e2?entry=ttu"
-                className="group rounded-full px-4 py-2 border border-gray-200/90 bg-primary hover:bg-gray-50 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-2xs transition-all duration-300"
+            <div className="flex items-center gap-2 shrink-0">
+              <Link
+                to="/map"
+                className="group rounded-full px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-200/90 bg-black text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 shadow-2xs transition-all duration-300"
                 aria-label="Explore Accessible Map"
               >
-                <span className="font-medium">Explore Accessible Map</span>
-                <LuArrowRight className="size-4 text-white group-hover:translate-x-1 transition-transform" />
-              </a>
+                <span className="font-medium text-xs sm:text-sm whitespace-nowrap">Explore Map</span>
+                <LuArrowRight className="size-3.5 sm:size-4 text-white group-hover:translate-x-1 transition-transform" />
+              </Link>
 
               <button
                 type="button"
-                className="size-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 shadow-2xs transition-colors"
+                className="size-8 sm:size-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 shadow-2xs transition-colors shrink-0"
                 aria-label="Filter"
               >
-                <LuSlidersHorizontal className="size-4" />
+                <LuSlidersHorizontal className="size-3.5 sm:size-4" />
               </button>
             </div>
           </motion.div>
 
           {/* Main Full-Width Map Canvas Card */}
-          <div className="rounded-xl overflow-hidden min-h-[530px] h-[530px] relative border border-gray-200/80 shadow-sm flex flex-col justify-between">
+          <div className="rounded-xl overflow-hidden min-h-[480px] sm:min-h-[530px] h-[480px] sm:h-[530px] relative border border-gray-200/80 shadow-sm flex flex-col justify-between">
             {/* Real Mapcn Interactive Map */}
             <Map
               center={[112.63, -7.977]}
               zoom={13.2}
               attributionControl={false}
-              className="w-full h-full min-h-[500px]"
+              className="w-full h-full min-h-[460px] sm:min-h-[500px]"
             >
               {/* Polyline Route Path */}
               <MapRoute
@@ -291,7 +292,7 @@ export default function MapPreviewSection() {
                   >
                     <MarkerContent>
                       <div
-                        className={`px-3.5 py-1.5 rounded-full text-xs font-bold shadow-md border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-md border transition-all cursor-pointer flex items-center gap-1.5 ${
                           isSelected
                             ? "bg-[#F5F5F3] text-gray-900 border-white scale-110 z-30"
                             : "bg-white text-gray-800 border-gray-200 hover:scale-105 z-20"
@@ -305,7 +306,7 @@ export default function MapPreviewSection() {
                               : "bg-amber-500"
                           }`}
                         />
-                        <span className="font-medium">{stop.title}</span>
+                        <span className="font-medium whitespace-nowrap">{stop.title}</span>
                       </div>
                     </MarkerContent>
                   </MapMarker>
@@ -322,10 +323,10 @@ export default function MapPreviewSection() {
                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-xl border border-gray-200/80 w-72 pointer-events-auto"
+                className="absolute top-3 right-3 left-3 sm:left-auto sm:right-4 sm:top-4 z-30 bg-white/95 backdrop-blur-md rounded-xl p-3 sm:p-3.5 shadow-xl border border-gray-200/80 w-auto sm:w-72 max-w-sm pointer-events-auto"
               >
                 {/* Image Banner */}
-                <div className="relative h-32 rounded-lg overflow-hidden mb-3">
+                <div className="relative h-28 sm:h-32 rounded-lg overflow-hidden mb-3">
                   <img
                     src={activeStop.image}
                     alt={activeStop.title}
@@ -372,38 +373,40 @@ export default function MapPreviewSection() {
             {/* Bottom Floating Card Widgets Overlay */}
             <motion.div
               variants={bottomWidgetsVariants}
-              className="absolute bottom-4 left-4 right-4 z-20 grid grid-cols-1 md:grid-cols-12 gap-3.5 pointer-events-auto"
+              className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3.5 pointer-events-auto"
             >
               {/* Card 1: Plan Custom Route (LEFT SIDE - 4 cols) */}
-              <div className="md:col-span-4 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-md border border-gray-200/80 flex flex-col items-center justify-center text-center">
-                <h4 className="font-bold text-xs sm:text-sm text-gray-900">
-                  Plan Custom Route
-                </h4>
-                <p className="text-xs text-gray-500 mt-0.5 font-medium">
-                  Set access needs & filters
-                </p>
+              <div className="md:col-span-4 bg-white/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-md border border-gray-200/80 flex flex-row md:flex-col items-center justify-between md:justify-center text-left md:text-center gap-2">
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900">
+                    Plan Custom Route
+                  </h4>
+                  <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5 font-medium">
+                    Set access needs & filters
+                  </p>
+                </div>
                 <button
                   type="button"
-                  className="mt-2 size-8 rounded-full bg-primary hover:scale-105 transition-transform shadow-xs text-white flex items-center justify-center"
+                  className="size-7 sm:size-8 rounded-full bg-primary hover:scale-105 transition-transform shadow-xs text-white flex items-center justify-center shrink-0"
                 >
-                  <LuPlus className="size-4.5 text-white" />
+                  <LuPlus className="size-4 text-white" />
                 </button>
               </div>
 
               {/* Card 2: Waypoints & Route Conditions Board (RIGHT SIDE - 8 cols) */}
-              <div className="md:col-span-8 bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-md border border-gray-200/80 flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2.5">
-                  <h4 className="font-bold text-xs sm:text-sm text-gray-900 flex items-center gap-1.5">
-                    <LuShieldCheck className="size-4 text-emerald-600" />
-                    <span>Route Waypoints & Conditions</span>
+              <div className="md:col-span-8 bg-[#ffffff]/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-md border border-gray-200/80 flex flex-col justify-between">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-bold text-xs sm:text-sm text-gray-900 flex items-center gap-1.5 min-w-0">
+                    <LuShieldCheck className="size-3.5 sm:size-4 text-emerald-600 shrink-0" />
+                    <span className="truncate">Route Waypoints & Conditions</span>
                   </h4>
-                  <span className="text-xs font-bold text-primary hover:underline cursor-pointer flex items-center gap-0.5">
+                  <span className="text-[11px] sm:text-xs font-bold text-black hover:underline cursor-pointer flex items-center gap-0.5 shrink-0 ml-1">
                     View all ({routeStops.length}){" "}
                     <LuChevronRight className="size-3.5" />
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-0.5">
+                <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar pb-0.5">
                   {routeStops.map((stop) => (
                     <div
                       key={stop.id}
@@ -411,7 +414,7 @@ export default function MapPreviewSection() {
                         setActiveStopId(stop.id);
                         setShowPopup(true);
                       }}
-                      className={`min-w-[155px] p-2.5 rounded-lg border transition-all cursor-pointer ${
+                      className={`min-w-[135px] sm:min-w-[155px] p-2 sm:p-2.5 rounded-lg border transition-all cursor-pointer shrink-0 ${
                         activeStopId === stop.id
                           ? "bg-primary/15 border-primary shadow-2xs"
                           : "bg-gray-50/80 border-gray-200/80 hover:bg-gray-100/80"
@@ -429,7 +432,7 @@ export default function MapPreviewSection() {
                         <span
                           className={`size-2 rounded-full shrink-0 ${stop.conditionColor}`}
                         />
-                        <p className="text-xs text-gray-600 font-medium truncate">
+                        <p className="text-[11px] sm:text-xs text-gray-600 font-medium truncate">
                           {stop.condition}
                         </p>
                       </div>
