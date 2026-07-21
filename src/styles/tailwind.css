@@ -1,0 +1,211 @@
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-SemiBold.ttf") format("truetype");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex_36pt-Black.ttf") format("truetype");
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+  html[data-text-scale="large"] {
+    font-size: 18px;
+  }
+  html[data-text-scale="larger"] {
+    font-size: 20px;
+  }
+  html[data-contrast="high"] {
+    filter: contrast(1.25);
+  }
+  body {
+    @apply m-0 min-w-[320px] bg-canvas font-sans antialiased;
+  }
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .city-grid {
+    background-image:
+      linear-gradient(rgba(21, 34, 56, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(21, 34, 56, 0.055) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+/* MapLibre popup overrides — strip only the outer wrappers, keep the inner card intact */
+.maplibregl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+.maplibregl-popup-content > div {
+  background: transparent !important;
+  padding: 0 !important;
+}
+.maplibregl-popup-tip {
+  display: none !important;
+}
+
+/* Mapcn markers are real MapLibre controls styled to match Inkluvy's design system. */
+.akseskota-marker {
+  position: relative;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.akseskota-marker__icon {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 2px solid #ffffff;
+  border-radius: 9999px;
+  background: #ffbf00; /* Amber/Golden Yellow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); /* Minimal shadow */
+  color: #1c1917; /* High contrast dark charcoal */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.akseskota-marker:hover .akseskota-marker__icon {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+.akseskota-marker__icon svg {
+  width: 16px;
+  height: 16px;
+}
+.akseskota-marker--active .akseskota-marker__icon {
+  width: 44px;
+  height: 44px;
+  border-color: #ffffff;
+  background: #ffbf00; /* Amber/Golden Yellow */
+  box-shadow: 0 4px 12px rgba(255, 191, 0, 0.35);
+  color: #000000;
+}
+.akseskota-marker__pulse {
+  position: absolute;
+  inset: -1px;
+  border-radius: 9999px;
+  background: rgba(255, 191, 0, 0.4); /* Yellow pulse */
+  animation: akseskota-marker-pulse 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes akseskota-marker-pulse {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.95;
+  }
+  70%,
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akseskota-marker__pulse {
+    animation: none;
+  }
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom location pin cursor for Feature 1 (yellow-500 icon without circle border) */
+.cursor-location-pin {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='%23EAB308' stroke='%23ffffff' stroke-width='1.5'%3E%3Cpath d='M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0'%2F%3E%3Ccircle cx='12' cy='10' r='3' fill='%23ffffff'%2F%3E%3C%2Fsvg%3E")
+      16 28,
+    pointer;
+}
+
+/* Custom flag cursor for Feature 2 (yellow-500 icon without circle border) */
+.cursor-flag {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='%23EAB308' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z'%3E%3C%2Fpath%3E%3Cline x1='4' x2='4' y1='22' y2='15'%3E%3C%2Fline%3E%3C%2Fsvg%3E")
+      4 4,
+    pointer;
+}
+
+/* Custom help/SOS cursor for Feature 3 (yellow-500 icon without circle border) */
+.cursor-sos-help {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='%23EAB308' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C%2Fcircle%3E%3Cpath d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'%3E%3C%2Fpath%3E%3Cline x1='12' x2='12.01' y1='17' y2='17'%3E%3C%2Fline%3E%3C%2Fsvg%3E")
+      16 16,
+    pointer;
+}
