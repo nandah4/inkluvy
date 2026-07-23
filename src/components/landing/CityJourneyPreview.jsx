@@ -111,7 +111,7 @@ export default function CityJourneyPreview() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onMouseMove={handleMouseMove}
-            className="relative w-full aspect-[16/9] max-h-[70vh] sm:max-h-[74vh] rounded-2xl sm:rounded-3xl lg:rounded-[30px] overflow-hidden border border-gray-200/60 cursor-none"
+            className="relative w-full aspect-[16/9] max-h-[70vh] sm:max-h-[82vh] rounded-2xl sm:rounded-3xl lg:rounded-[30px] overflow-hidden border border-gray-200/60 cursor-none"
           >
             {/* Let's Navigate Easily Centered Badge with scroll reveal animation */}
             <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-base sm:text-2xl font-medium text-white tracking-wide text-center select-none pointer-events-none whitespace-nowrap">
