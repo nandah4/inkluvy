@@ -4,16 +4,27 @@ import {
   useScroll,
   useReducedMotion,
   AnimatePresence,
+  useTransform,
+  useMotionValue,
+  useMotionValueEvent,
 } from "framer-motion";
 import { LuCheck, LuArrowDown } from "react-icons/lu";
 
 const FIRST_FRAME = 1;
-const LAST_FRAME = 33;
+const LAST_FRAME = 57;
 const frameSources = Array.from(
   { length: LAST_FRAME - FIRST_FRAME + 1 },
   (_, i) => {
-    const num = String(FIRST_FRAME + i).padStart(3, "0");
-    return `/images/hero-frame/frame_${num}.jpg`;
+    const num = FIRST_FRAME + i;
+    let filename = "";
+    if (num < 10) {
+      filename = `frame-0${num}.jpg`;
+    } else if (num <= 41) {
+      filename = `frame-0${num}.jpg`;
+    } else {
+      filename = `frame-${num}.jpg`;
+    }
+    return `/images/hero-frames/${filename}`;
   },
 );
 
@@ -102,6 +113,11 @@ export default function CityJourneyPreview() {
             onMouseMove={handleMouseMove}
             className="relative w-full aspect-[16/9] max-h-[70vh] sm:max-h-[74vh] rounded-2xl sm:rounded-3xl lg:rounded-[30px] overflow-hidden border border-gray-200/60 cursor-none"
           >
+            {/* Let's Navigate Easily Centered Badge with scroll reveal animation */}
+            <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-base sm:text-2xl font-medium text-white tracking-wide text-center select-none pointer-events-none whitespace-nowrap">
+              Let's Navigate Easily with Inkluvy.
+            </h1>
+
             {/* Frame-by-frame image */}
             <img
               src={frameSources[activeFrame]}

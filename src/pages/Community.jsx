@@ -18,6 +18,8 @@ import {
 } from "react-icons/lu";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import SectionIcon from "../components/ui/SectionIcon";
+import { ACCESSIBILITY_STATUS } from "../lib/accessibilityStatus";
 
 const initialPosts = [
   {
@@ -30,7 +32,7 @@ const initialPosts = [
     title: "Lift Aksesibel Stasiun Kota Kembali Beroperasi Normal 🎉",
     content:
       "Tim Inkluvy dan petugas stasiun baru saja menyelesaikan perbaikan lift peron 2. Sudah dicoba dengan kursi roda elektrik dan berfungsi sangat halus!",
-    tag: "Verified Update",
+    tag: ACCESSIBILITY_STATUS.safe.label,
     tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
     likes: 42,
     comments: 12,
@@ -47,7 +49,7 @@ const initialPosts = [
     title: "Perbaikan Trotoar Sementara — Rampa Kayu Disediakan 🚧",
     content:
       "Ada pengerjaan galian kabel di sepanjang trotoar Jl. Veteran. Kontraktor menyediakan rampa kayu sementara dengan landaian 5 derajat. Harap hati-hati jika lewat malam hari.",
-    tag: "Obstacle Warning",
+    tag: ACCESSIBILITY_STATUS.vulnerable.label,
     tagColor: "bg-amber-50 text-amber-800 border-amber-200",
     likes: 28,
     comments: 8,
@@ -94,8 +96,8 @@ export default function Community() {
               likes: post.isLiked ? post.likes - 1 : post.likes + 1,
               isLiked: !post.isLiked,
             }
-          : post
-      )
+          : post,
+      ),
     );
   };
 
@@ -144,26 +146,46 @@ export default function Community() {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F5F5F3]">
       <Navbar />
 
-      <main className="pt-24 pb-20 overflow-x-hidden">
+      <motion.main
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+        className="pt-24 sm:pt-28 pb-20 overflow-x-hidden"
+      >
         {/* Community Hero Header */}
-        <section className="relative py-8 sm:py-12 lg:py-16 border-gray-100">
-          <div className="mx-auto px-4 sm:px-8 lg:px-16 text-center max-w-4xl">
-            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-semibold text-gray-800 shadow-2xs mb-4 sm:mb-6">
+        <section className="relative pb-12 sm:pb-16 lg:pb-20">
+          <div className="mx-auto px-6 sm:px-10 lg:px-16 text-center max-w-4xl">
+            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-gray-800 shadow-2xs mb-6 mx-auto">
               <LuUsers className="size-3.5 sm:size-4 text-emerald-500" />
               <span>Inkluvy Community Hub</span>
             </div>
 
-            <h1 className="font-sans text-2xl sm:text-4xl lg:text-6xl font-medium tracking-tight text-gray-900 leading-tight">
-              Together for Accessible & Inclusive Cities
+            <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-medium leading-[1.35] sm:leading-[1.25] lg:leading-[1.2] max-w-3xl mx-auto text-gray-900">
+              <span>Together</span>{" "}
+              <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
+                <img
+                  src="/images/community_hero_illustration.png"
+                  className="size-full object-cover"
+                  alt="diverse community"
+                />
+              </span>{" "}
+              <span>for Accessible</span>{" "}
+              <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
+                <img
+                  src="/images/community/community_elevator_update.png"
+                  className="size-full object-cover"
+                  alt="wheelchair lift status"
+                />
+              </span>{" "}
+              <span>& Inclusive Cities</span>
             </h1>
 
-            <p className="mt-3 sm:mt-5 text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mx-auto">
-              Connect with fellow citizens, share real-time obstacle updates,
-              verify accessible routes, and help everyone move through the city
-              with freedom.
+            <p className="mt-5 text-sm sm:text-base lg:text-lg text-gray-500 font-normal leading-relaxed max-w-2xl mx-auto">
+              Share real-time obstacle updates, verify accessible routes, and
+              help everyone move through the city with confidence and freedom.
             </p>
           </div>
         </section>
@@ -174,17 +196,20 @@ export default function Community() {
           className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-16 pt-4 sm:pt-6"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
-            
             {/* Left Feed Column (8 Cols) */}
             <div className="lg:col-span-8 flex flex-col gap-4 sm:gap-6">
-              
               {/* Search Bar & Quick Category Filters Component */}
-              <div className="bg-[#F5F5F3] rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-gray-200/80 flex flex-col gap-3 sm:gap-3.5 shadow-2xs">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-gray-200/80 flex flex-col gap-3 sm:gap-3.5 shadow-2xs">
                 <div className="flex items-center justify-between gap-2 sm:gap-3">
-                  <h3 className="font-semibold text-xs sm:text-base text-gray-900 flex items-center gap-1.5 sm:gap-2">
-                    <LuSlidersHorizontal className="size-3.5 sm:size-4 text-gray-700" />
-                    <span>Search Updates & Filters</span>
-                  </h3>
+                  <div className="flex items-center gap-2.5">
+                    <SectionIcon
+                      icon={LuSlidersHorizontal}
+                      colorClass="from-gray-50 text-gray-900"
+                    />
+                    <h3 className="font-semibold text-xs sm:text-base text-gray-900">
+                      Search Updates & Filters
+                    </h3>
+                  </div>
 
                   <button
                     type="button"
@@ -221,9 +246,8 @@ export default function Community() {
                 <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pt-0.5">
                   {[
                     "All",
-                    "Verified Update",
-                    "Obstacle Warning",
-                    "Community Praise",
+                    ACCESSIBILITY_STATUS.safe.label,
+                    ACCESSIBILITY_STATUS.vulnerable.label,
                   ].map((cat) => (
                     <button
                       key={cat}
@@ -247,9 +271,6 @@ export default function Community() {
                   <span>Live Community Updates</span>
                   <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
                 </h2>
-                <span className="text-[11px] sm:text-xs text-gray-500 font-medium">
-                  Showing {filteredPosts.length} posts
-                </span>
               </div>
 
               {/* Feed List */}
@@ -259,7 +280,7 @@ export default function Community() {
                     key={post.id}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-[#F5F5F3] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex flex-col gap-3 sm:gap-4 transition-all hover:shadow-xs"
+                    className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex flex-col gap-3 sm:gap-4 transition-all hover:shadow-xs"
                   >
                     {/* Author Header */}
                     <div className="flex items-center justify-between gap-2 sm:gap-3">
@@ -357,13 +378,14 @@ export default function Community() {
                 ))
               ) : (
                 /* Empty State if Search Result is empty */
-                <div className="bg-[#F5F5F3] rounded-xl p-6 sm:p-8 text-center border border-gray-200/80 flex flex-col items-center justify-center gap-2.5 sm:gap-3">
+                <div className="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200/80 flex flex-col items-center justify-center gap-2.5 sm:gap-3">
                   <LuSearch className="size-6 sm:size-8 text-gray-400" />
                   <h4 className="font-bold text-sm sm:text-base text-gray-900">
                     No community updates found
                   </h4>
                   <p className="text-[11px] sm:text-xs text-gray-500 max-w-sm">
-                    No results match "{searchQuery}". Try searching for another keyword or location.
+                    No results match "{searchQuery}". Try searching for another
+                    keyword or location.
                   </p>
                   <button
                     type="button"
@@ -382,12 +404,17 @@ export default function Community() {
             {/* Right Sidebar Column (4 Cols) */}
             <div className="lg:col-span-4 flex flex-col gap-6">
               {/* Leaderboard Card */}
-              <div className="bg-[#F5F5F3] rounded-xl sm:rounded-2xl p-6 border border-gray-200/80 shadow-xs flex flex-col gap-5">
+              <div className="bg-white rounded-xl sm:rounded-2xl p-6 border border-gray-200/80 shadow-xs flex flex-col gap-5">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-base text-gray-900 flex items-center gap-2">
-                    <LuTrophy className="size-5 text-amber-500" />
-                    <span>Top Mappers This Month</span>
-                  </h3>
+                  <div className="flex items-center gap-2.5">
+                    <SectionIcon
+                      icon={LuTrophy}
+                      colorClass="from-amber-50 text-amber-600"
+                    />
+                    <h3 className="font-semibold text-base text-gray-900">
+                      Top Mappers This Month
+                    </h3>
+                  </div>
                   <span className="text-sm text-gray-500 font-medium">
                     Malang
                   </span>
@@ -418,25 +445,25 @@ export default function Community() {
                         </div>
                       </div>
 
-                      <div className="text-right shrink-0">
-                        <span className="font-bold text-xs text-black block">
-                          {user.points}
-                        </span>
-                        <span className="text-[10px] text-gray-500">
-                          {user.reports}
-                        </span>
-                      </div>
+                      <span className="text-xs font-medium text-gray-600">
+                        {user.reports}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Upcoming Events Card */}
-              <div className="bg-[#F5F5F3] rounded-xl sm:rounded-2xl p-6 border border-gray-200/80 shadow-xs flex flex-col gap-4">
-                <h3 className="font-semibold text-base text-gray-900 flex items-center gap-2 ">
-                  <LuSparkles className="size-4 text-yellow-500 fill-yellow-500" />
-                  <span>Upcoming Community Events</span>
-                </h3>
+              <div className="bg-white rounded-xl sm:rounded-2xl p-6 border border-gray-200/80 shadow-xs flex flex-col gap-4">
+                <div className="flex items-center gap-2.5">
+                  <SectionIcon
+                    icon={LuSparkles}
+                    colorClass="from-amber-50 text-amber-600"
+                  />
+                  <h3 className="font-semibold text-base text-gray-900">
+                    Upcoming Community Events
+                  </h3>
+                </div>
 
                 <div className="space-y-4">
                   <div className="bg-white rounded-xl p-3.5 border border-gray-200/80 shadow-xs flex flex-col gap-3">
@@ -469,7 +496,7 @@ export default function Community() {
             </div>
           </div>
         </div>
-      </main>
+      </motion.main>
 
       {/* Modal: Create Post / Report */}
       {showCreateModal && (

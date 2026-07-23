@@ -7,6 +7,7 @@ import JourneySteps from "../components/landing/JourneySteps";
 import ProductFeatures from "../components/landing/ProductFeatures";
 import AccessibleMapPreview from "../components/landing/AccessibleMapPreview";
 import CommunityVoices from "../components/landing/CommunityVoices";
+import VerifiedPartners from "../components/landing/VerifiedPartners";
 import PlanRouteCta from "../components/landing/PlanRouteCta";
 
 export default function Landing() {
@@ -21,6 +22,7 @@ export default function Landing() {
         <ProductFeatures />
         <AccessibleMapPreview />
         <CommunityVoices />
+        {/* <VerifiedPartners /> */}
         <PlanRouteCta />
       </main>
       <Footer />

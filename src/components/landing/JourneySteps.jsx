@@ -131,7 +131,7 @@ export default function JourneySteps() {
             whileInView="visible"
             viewport={{ once: false }}
             variants={lineVariants}
-            className="absolute top-[32px] left-[12%] right-[12%] h-[1.5px] border-t border-dashed border-gray-200 z-0 hidden md:block" 
+            className="absolute top-[26px] left-[12%] right-[12%] h-[1.5px] border-t border-dashed border-gray-200 z-0 hidden md:block" 
           />
 
           {/* Vertical Connecting Line (Mobile) */}

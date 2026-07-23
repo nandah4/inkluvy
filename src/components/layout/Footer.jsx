@@ -7,6 +7,10 @@ import {
   FaInstagram,
   FaYoutube,
 } from "react-icons/fa6";
+import {
+  ACCOUNT_NAVIGATION,
+  PRIMARY_NAVIGATION,
+} from "../../lib/navigation";
 
 const footerVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -22,7 +26,7 @@ const footerVariants = {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-background text-gray-900 pt-16 sm:pt-20 pb-10 sm:pb-12 border-t border-gray-200/80">
+    <footer className="relative overflow-hidden bg-background text-gray-900 pt-16 sm:pt-20 pb-10 sm:pb-12">
       <motion.div
         variants={footerVariants}
         initial="hidden"
@@ -47,71 +51,41 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Right Columns: 3 Navigation Columns matching reference */}
+          {/* Right Columns: navigation mirrors the available app routes */}
           <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10">
-            {/* Column 1: Our Company */}
+            {/* Primary navigation — shared with the navbar */}
             <div className="flex flex-col gap-3">
               <h4 className="font-bold text-gray-900 text-base sm:text-lg mb-1 sm:mb-2">
-                Our Company
+                Explore
               </h4>
-              <Link
-                to="/"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                About Us
-              </Link>
-              <Link
-                to="/"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                How It Works
-              </Link>
-              <Link
-                to="/"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Core Features
-              </Link>
-              <Link
-                to="/community"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Community Stories
-              </Link>
+              {PRIMARY_NAVIGATION.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
 
-            {/* Column 2: Products & Features */}
+            {/* Profile controls available from the navbar */}
             <div className="flex flex-col gap-3">
               <h4 className="font-bold text-gray-900 text-base sm:text-lg mb-1 sm:mb-2">
-                Products
+                Account
               </h4>
-              <Link
-                to="/map"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Accessible Map
-              </Link>
-              <Link
-                to="/map"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Route Planner
-              </Link>
-              <Link
-                to="/community"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Real-time Reports
-              </Link>
-              <Link
-                to="/community"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Emergency SOS
-              </Link>
+              {ACCOUNT_NAVIGATION.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
 
-            {/* Column 3: Contact & Legal */}
+            {/* Support and contact */}
             <div className="flex flex-col gap-3">
               <h4 className="font-bold text-gray-900 text-base sm:text-lg mb-1 sm:mb-2">
                 Contact
@@ -123,22 +97,10 @@ export default function Footer() {
                 hello@inkluvy.id
               </a>
               <Link
-                to="/community"
+                to="/support"
                 className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
               >
                 Support Center
-              </Link>
-              <Link
-                to="/"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                to="/"
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                Terms of Service
               </Link>
             </div>
           </div>

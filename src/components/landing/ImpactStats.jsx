@@ -4,7 +4,7 @@ import { FaBuilding } from "react-icons/fa";
 
 const stats = [
   { numeric: 500, suffix: "+", label: "Accessible points mapped" },
-  { numeric: 20, suffix: "+", label: "Cities covered" },
+  { numeric: 100, suffix: "+", label: "Cities covered" },
   {
     numeric: 1200,
     suffix: "+",
@@ -120,7 +120,7 @@ function StatItem({ numeric, suffix, label, format }) {
       >
         0{suffix}
       </span>
-      <span className="mt-3 text-sm sm:text-base text-gray-400 font-normal text-center">
+      <span className="mt-3 text-sm sm:text-base text-gray-500 font-normal text-center">
         {label}
       </span>
     </motion.div>

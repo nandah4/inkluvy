@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LuArrowRight,
   LuCheck,
   LuChevronRight,
   LuGlobe,
   LuHeart,
+  LuImage,
   LuMapPin,
   LuPlus,
   LuSearch,
+  LuShieldAlert,
   LuShieldCheck,
   LuSlidersHorizontal,
   LuStar,
@@ -23,6 +25,7 @@ import {
   MapControls,
   MapRoute,
 } from "../map/MapCanvas";
+import { ACCESSIBILITY_STATUS } from "../../lib/accessibilityStatus";
 
 const headerVariants = {
   hidden: {
@@ -95,100 +98,121 @@ const bottomWidgetsVariants = {
   },
 };
 
+// Interactive map stops matching /map page for consistency
 const routeStops = [
   {
     id: "01",
-    title: "Stasiun Kota",
-    detail: "Lift & Ramp verified active",
+    title: "Jl. Ijen Boulevard Ramp",
+    detail: "Verified Accessible & Safe · 3° Gentle Slope",
     time: "09:00",
-    status: "active",
-    type: "Verified Access",
-    condition: "Lift & Ramp Verified",
+    status: "verified",
+    type: "Wheelchair Ramp",
+    vulnerability: "safe",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.safe.label,
     conditionColor: "bg-emerald-500",
     score: "4.9",
-    image: "/images/features/feature-1.png",
-    lng: 112.6375,
-    lat: -7.9785,
+    image: "/images/map/map_ramp_condition.png",
+    lng: 112.6245,
+    lat: -7.9722,
+    reporter: "Syahla Aulia",
+    reporterAvatar: "/images/profile-avatar.png",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   {
     id: "02",
-    title: "Simpang Merdeka",
-    detail: "Tactile paving & low slope",
-    time: "09:20",
+    title: "Museum Brawijaya Entrance",
+    detail: "Elevator & Restroom Active",
+    time: "09:15",
     status: "verified",
-    type: "Wheelchair Approved",
-    condition: "Low Slope & Tactile Paving",
+    type: "Cultural Venue",
+    vulnerability: "safe",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.safe.label,
     conditionColor: "bg-emerald-500",
     score: "4.8",
-    image: "/images/features/feature-2.png",
-    lng: 112.6326,
-    lat: -7.9825,
+    image: "/images/map/map_museum_entrance.png",
+    lng: 112.6289,
+    lat: -7.9785,
+    reporter: "Siti Rahma",
+    reporterAvatar: "/images/avatars/avatar_siti.png",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   {
     id: "03",
-    title: "Taman Kota",
-    detail: "Accessible drop-off zone",
-    time: "09:40",
-    status: "pending",
-    type: "Community Verified",
-    condition: "Accessible Drop-off Zone",
-    conditionColor: "bg-emerald-500",
-    score: "4.7",
-    image: "/images/features/feature-3.png",
-    lng: 112.6285,
-    lat: -7.9865,
+    title: "Trotoar Jl. Veteran",
+    detail: "Construction · Temporary Wooden Ramp",
+    time: "09:30",
+    status: "warning",
+    type: "Obstacle Warning",
+    vulnerability: "vulnerable",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.vulnerable.label,
+    conditionColor: "bg-amber-500",
+    score: "4.2",
+    image: "/images/map/map_construction_obstacle.png",
+    lng: 112.6319,
+    lat: -7.9858,
+    reporter: "Fadhil Rizky",
+    reporterAvatar: "/images/avatars/avatar_fadhil.png",
+    badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
   },
   {
     id: "04",
-    title: "Balai Kota Access",
-    detail: "Wide sidewalk · 100% paved",
-    time: "10:00",
-    status: "pending",
-    type: "Low Slope Path",
-    condition: "100% Paved Sidewalk",
+    title: "Stasiun Malang Kota Baru",
+    detail: "Lift Peron 2 Active & Staff Ready",
+    time: "09:45",
+    status: "verified",
+    type: "Transit Elevator Hub",
+    vulnerability: "safe",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.safe.label,
     conditionColor: "bg-emerald-500",
     score: "4.9",
-    image: "/images/features/feature-1.png",
-    lng: 112.634,
-    lat: -7.9755,
+    image: "/images/map/map_station_elevator.png",
+    lng: 112.6375,
+    lat: -7.9892,
+    reporter: "Budi Santoso",
+    reporterAvatar: "/images/avatars/avatar_budi.png",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   {
     id: "05",
-    title: "Monas Access Gate",
-    detail: "Elevator active · ramp open",
-    time: "10:20",
-    status: "pending",
-    type: "Elevator Active",
-    condition: "Elevator Active & Open Ramp",
-    conditionColor: "bg-emerald-500",
-    score: "4.8",
-    image: "/images/features/feature-2.png",
-    lng: 112.625,
-    lat: -7.973,
-  },
-  {
-    id: "06",
-    title: "Halte Central",
-    detail: "Wheelchair accessible ramp",
-    time: "10:30",
-    status: "pending",
-    type: "Destination Ready",
-    condition: "Wheelchair Ramp Ready",
-    conditionColor: "bg-emerald-500",
-    score: "4.9",
-    image: "/images/features/feature-3.png",
-    lng: 112.621,
-    lat: -7.969,
+    title: "Pasar Besar Tactile Path",
+    detail: "Tactile blocks partially worn out",
+    time: "10:00",
+    status: "warning",
+    type: "Tactile Block Warning",
+    vulnerability: "vulnerable",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.vulnerable.label,
+    conditionColor: "bg-amber-500",
+    score: "4.0",
+    image: "/images/community/community_sidewalk_ramp.png",
+    lng: 112.6345,
+    lat: -7.983,
+    reporter: "Maya Indah",
+    reporterAvatar: "/images/avatars/avatar_maya.png",
+    badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
   },
 ];
 
 const routeCoordinates = routeStops.map((stop) => [stop.lng, stop.lat]);
 
 export default function AccessibleMapPreview() {
-  const [activeStopId, setActiveStopId] = useState("01");
+  const [activeStopId, setActiveStopId] = useState("02");
   const [showPopup, setShowPopup] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState("all");
+
+  const filteredStops = routeStops.filter((stop) => {
+    if (selectedFilter === "all") return true;
+    if (selectedFilter === "safe") return stop.vulnerability === "safe";
+    if (selectedFilter === "vulnerable") return stop.vulnerability === "vulnerable";
+    return true;
+  });
+
   const activeStop =
-    routeStops.find((stop) => stop.id === activeStopId) ?? routeStops[0];
+    filteredStops.find((stop) => stop.id === activeStopId) ?? filteredStops[0] ?? routeStops[0];
 
   return (
     <section
@@ -247,7 +271,7 @@ export default function AccessibleMapPreview() {
                 aria-label="Explore Accessible Map"
               >
                 <span className="font-medium text-xs sm:text-sm whitespace-nowrap">Explore Map</span>
-                <LuArrowRight className="size-3.5 sm:size-4 text-white group-hover:translate-x-1 transition-transform" />
+                <LuArrowRight className="size-4 text-white group-hover:translate-x-1 transition-transform" />
               </Link>
 
               <button
@@ -255,7 +279,7 @@ export default function AccessibleMapPreview() {
                 className="size-8 sm:size-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 shadow-2xs transition-colors shrink-0"
                 aria-label="Filter"
               >
-                <LuSlidersHorizontal className="size-3.5 sm:size-4" />
+                <LuSlidersHorizontal className="size-4" />
               </button>
             </div>
           </motion.div>
@@ -264,8 +288,8 @@ export default function AccessibleMapPreview() {
           <div className="rounded-xl overflow-hidden min-h-[480px] sm:min-h-[530px] h-[480px] sm:h-[530px] relative border border-gray-200/80 shadow-sm flex flex-col justify-between">
             {/* Real Mapcn Interactive Map */}
             <Map
-              center={[112.63, -7.977]}
-              zoom={13.2}
+              center={[112.6319, -7.9808]}
+              zoom={13.6}
               attributionControl={false}
               className="w-full h-full min-h-[460px] sm:min-h-[500px]"
             >
@@ -278,13 +302,14 @@ export default function AccessibleMapPreview() {
               />
 
               {/* Floating Pill Markers on Map */}
-              {routeStops.map((stop) => {
+              {filteredStops.map((stop) => {
                 const isSelected = activeStopId === stop.id;
                 return (
                   <MapMarker
                     key={stop.id}
                     longitude={stop.lng}
                     latitude={stop.lat}
+                    coordinates={[stop.lng, stop.lat]}
                     onClick={() => {
                       setActiveStopId(stop.id);
                       setShowPopup(true);
@@ -294,18 +319,21 @@ export default function AccessibleMapPreview() {
                       <div
                         className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-md border transition-all cursor-pointer flex items-center gap-1.5 ${
                           isSelected
-                            ? "bg-[#F5F5F3] text-gray-900 border-white scale-110 z-30"
-                            : "bg-white text-gray-800 border-gray-200 hover:scale-105 z-20"
+                            ? "bg-[#79B9F3] text-white border-[#5ca8ee] scale-110 z-30 shadow-lg"
+                            : stop.vulnerability === "vulnerable"
+                            ? "bg-amber-50 text-amber-900 border-amber-300 shadow-2xs z-10 font-semibold"
+                            : "bg-white text-gray-800 border-gray-200/90 hover:border-gray-300 shadow-2xs z-20"
                         }`}
                       >
-                        <span
-                          className={`size-2 rounded-full ${
-                            stop.status === "verified" ||
-                            stop.status === "active"
-                              ? "bg-emerald-500"
-                              : "bg-amber-500"
-                          }`}
-                        />
+                        {stop.vulnerability === "vulnerable" ? (
+                          <LuShieldAlert className="size-4 text-amber-600 shrink-0" />
+                        ) : (
+                          <LuMapPin
+                            className={`size-4 ${
+                              isSelected ? "text-white" : "text-primary"
+                            }`}
+                          />
+                        )}
                         <span className="font-medium whitespace-nowrap">{stop.title}</span>
                       </div>
                     </MarkerContent>
@@ -340,7 +368,7 @@ export default function AccessibleMapPreview() {
                     <LuX className="size-4" />
                   </button>
                   <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full text-xs font-bold text-gray-900 flex items-center gap-1 shadow-xs">
-                    <LuStar className="size-3.5 text-amber-500 fill-amber-500" />
+                    <LuStar className="size-4 text-amber-500 fill-amber-500" />
                     <span>{activeStop.score}</span>
                   </div>
                 </div>
@@ -351,20 +379,41 @@ export default function AccessibleMapPreview() {
                     <h4 className="font-bold text-sm text-gray-900 truncate">
                       {activeStop.title}
                     </h4>
-                    <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200/60 shrink-0">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${
+                      activeStop.vulnerability === "vulnerable"
+                        ? "bg-amber-50 text-amber-800 border-amber-200"
+                        : "bg-emerald-50 text-emerald-700 border-emerald-200"
+                    }`}>
                       {activeStop.type}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 mt-1 font-normal leading-relaxed">
                     {activeStop.detail}
                   </p>
+                  
+                  {/* Reporter Info */}
+                  <div className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-gray-100 text-[11px] text-gray-500">
+                    <img
+                      src={activeStop.reporterAvatar}
+                      alt={activeStop.reporter}
+                      className="size-4 rounded-full object-cover border border-gray-200 shrink-0"
+                    />
+                    <span className="flex items-center gap-1">
+                      Uploaded by <strong>{activeStop.reporter}</strong>
+                      <LuShieldCheck className="size-3 text-emerald-600 shrink-0" title="Verified Reporter" />
+                    </span>
+                  </div>
+
                   <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs">
-                    <span className="font-mono text-gray-400">
+                    <span className="font-mono text-gray-400 font-medium">
                       {activeStop.time} AM
                     </span>
-                    <span className="font-bold text-primary hover:underline cursor-pointer">
+                    <Link
+                      to="/map"
+                      className="font-bold text-black hover:underline flex items-center gap-0.5"
+                    >
                       View Route →
-                    </span>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -375,66 +424,107 @@ export default function AccessibleMapPreview() {
               variants={bottomWidgetsVariants}
               className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3.5 pointer-events-auto"
             >
-              {/* Card 1: Plan Custom Route (LEFT SIDE - 4 cols) */}
-              <div className="md:col-span-4 bg-white/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-md border border-gray-200/80 flex flex-row md:flex-col items-center justify-between md:justify-center text-left md:text-center gap-2">
+              {/* Card 1: Safety Status Layer Filter (LEFT SIDE - 4 cols) */}
+              <div className="md:col-span-4 bg-white/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3 shadow-md border border-gray-200/80 flex flex-col justify-start gap-2.5 text-left">
                 <div>
                   <h4 className="font-bold text-xs sm:text-sm text-gray-900">
-                    Plan Custom Route
+                    Safety Filter
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5 font-medium">
-                    Set access needs & filters
+                  <p className="text-[10px] sm:text-[11px] text-gray-500 mt-0.5 font-medium">
+                    Filter markers by route condition
                   </p>
                 </div>
-                <button
-                  type="button"
-                  className="size-7 sm:size-8 rounded-full bg-primary hover:scale-105 transition-transform shadow-xs text-white flex items-center justify-center shrink-0"
-                >
-                  <LuPlus className="size-4 text-white" />
-                </button>
+                
+                <div className="flex flex-row md:flex-col lg:flex-row gap-1.5 w-full md:mt-1.5">
+                  {[
+                    { id: "all", label: "All", badge: "🔍" },
+                    { id: "safe", label: ACCESSIBILITY_STATUS.safe.label, badge: ACCESSIBILITY_STATUS.safe.badge },
+                    { id: "vulnerable", label: ACCESSIBILITY_STATUS.vulnerable.label, badge: ACCESSIBILITY_STATUS.vulnerable.badge },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setSelectedFilter(item.id)}
+                      className={`flex-1 py-1 px-2 rounded-lg text-[11px] sm:text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
+                        selectedFilter === item.id
+                          ? "bg-black text-white border-black shadow-2xs"
+                          : "bg-[#F5F5F3] text-gray-700 border-gray-200/60 hover:bg-gray-100"
+                      }`}
+                    >
+                      <span className="text-[9px] sm:text-[10px] font-bold shrink-0">{item.badge}</span>
+                      <span className="whitespace-nowrap">{item.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* Card 2: Waypoints & Route Conditions Board (RIGHT SIDE - 8 cols) */}
-              <div className="md:col-span-8 bg-[#ffffff]/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-md border border-gray-200/80 flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
+              {/* Card 2: Route Details Waypoint Card with Thumbnail & Author (RIGHT SIDE - 8 cols) */}
+              <div className="md:col-span-8 bg-white/95 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 shadow-md border border-gray-200/80 flex flex-col justify-between gap-2.5">
+                <div className="flex items-center justify-between">
                   <h4 className="font-bold text-xs sm:text-sm text-gray-900 flex items-center gap-1.5 min-w-0">
-                    <LuShieldCheck className="size-3.5 sm:size-4 text-emerald-600 shrink-0" />
-                    <span className="truncate">Route Waypoints & Conditions</span>
+                    <span className="truncate">Route Details</span>
                   </h4>
-                  <span className="text-[11px] sm:text-xs font-bold text-black hover:underline cursor-pointer flex items-center gap-0.5 shrink-0 ml-1">
-                    View all ({routeStops.length}){" "}
-                    <LuChevronRight className="size-3.5" />
-                  </span>
+                  <Link
+                    to="/map"
+                    className="text-[11px] sm:text-xs font-bold text-black hover:underline flex items-center gap-0.5 shrink-0 ml-1"
+                  >
+                    View all ({filteredStops.length}){" "}
+                    <LuChevronRight className="size-4" />
+                  </Link>
                 </div>
 
-                <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar pb-0.5">
-                  {routeStops.map((stop) => (
+                <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-0.5">
+                  {filteredStops.map((stop) => (
                     <div
                       key={stop.id}
                       onClick={() => {
                         setActiveStopId(stop.id);
                         setShowPopup(true);
                       }}
-                      className={`min-w-[135px] sm:min-w-[155px] p-2 sm:p-2.5 rounded-lg border transition-all cursor-pointer shrink-0 ${
+                      className={`min-w-[190px] sm:min-w-[220px] p-2 rounded-lg border transition-all cursor-pointer shrink-0 flex items-start gap-2.5 ${
                         activeStopId === stop.id
-                          ? "bg-primary/15 border-primary shadow-2xs"
-                          : "bg-gray-50/80 border-gray-200/80 hover:bg-gray-100/80"
+                          ? "bg-[#79B9F3]/10 border-[#79B9F3] shadow-2xs"
+                          : "bg-[#F5F5F3]/50 border-gray-200/80 hover:bg-gray-100"
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-1 mb-1">
-                        <span className="font-bold text-xs text-gray-900 truncate">
-                          {stop.id}. {stop.title}
-                        </span>
-                        <span className="text-[10px] font-mono text-gray-400">
-                          {stop.time}
-                        </span>
+                      {/* Image Thumbnail */}
+                      <div className="size-11 sm:size-12 rounded-lg overflow-hidden border border-gray-200/80 shrink-0">
+                        <img src={stop.image} alt={stop.title} className="w-full h-full object-cover" />
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <span
-                          className={`size-2 rounded-full shrink-0 ${stop.conditionColor}`}
-                        />
-                        <p className="text-[11px] sm:text-xs text-gray-600 font-medium truncate">
-                          {stop.condition}
-                        </p>
+
+                      <div className="min-w-0 flex-1 flex flex-col justify-between h-11 sm:h-12">
+                        <div className="min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="font-bold text-[11px] sm:text-xs text-gray-900 truncate">
+                              {stop.title}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1 mt-0.5">
+                            <span
+                              className={`size-2 rounded-full shrink-0 ${
+                                stop.vulnerability === "vulnerable" ? "bg-amber-500" : "bg-emerald-500"
+                              }`}
+                            />
+                            <span className="text-[9px] sm:text-[10px] text-gray-500 truncate font-semibold">
+                              {stop.vulnerability === "vulnerable"
+                                ? ACCESSIBILITY_STATUS.vulnerable.label
+                                : ACCESSIBILITY_STATUS.safe.verifiedLabel}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Author Info */}
+                        <div className="flex items-center gap-1 pt-1 border-t border-gray-100 text-[9px] sm:text-[10px] text-gray-400">
+                          <img
+                            src={stop.reporterAvatar}
+                            alt={stop.reporter}
+                            className="w-4 h-4 rounded-full object-cover border border-gray-200 shrink-0"
+                          />
+                          <span className="truncate flex items-center gap-1">
+                            By {stop.reporter}
+                            <LuShieldCheck className="size-3 text-emerald-600 shrink-0" title="Verified Reporter" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}

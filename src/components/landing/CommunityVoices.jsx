@@ -7,34 +7,44 @@ const testimonialsData = [
     id: "01",
     name: "Siti Rahma",
     email: "siti@inkluvy.id",
-    role: "Accessibility Advocate",
+    role: "Wheelchair Commuter",
     city: "Malang",
     avatar: "/images/avatars/avatar_siti.png",
     quote:
-      "“Inkluvy has scaled city mobility in a way that wouldn't have been possible otherwise, allowing wheelchair users to move with confidence.”",
+      "“Navigating public places in my wheelchair used to be a guessing game. Inkluvy lets me plan route ramps beforehand, allowing me to travel with total confidence.”",
   },
   {
     id: "02",
     name: "Budi Santoso",
     email: "budi@inkluvy.id",
-    role: "Retiree & Senior Member",
+    role: "Elderly Cane User",
     city: "Jakarta",
     avatar: "/images/avatars/avatar_budi.png",
     quote:
-      "“Recommended low-slope sidewalks and even paths make my morning walks worry-free. Inkluvy gives elderly citizens independence to enjoy the city again.”",
+      "“Navigating uneven streets with a cane is exhausting. Inkluvy shows me paths with low-slopes and smooth paving, giving me back my independent daily walks.”",
   },
   {
     id: "03",
-    name: "Maya & Aris",
-    email: "maya@inkluvy.id",
-    role: "Family Commuters",
-    city: "Bandung",
-    avatar: "/images/avatars/avatar_maya.png",
+    name: "Aris Wijaya",
+    email: "aris@inkluvy.id",
+    role: "Wheelchair Athlete",
+    city: "Malang",
+    avatar: "/images/avatars/avatar_aris.png",
     quote:
-      "“Carrying a baby stroller used to be a nightmare on public transit. With Inkluvy, we know exactly which stations have working elevators before leaving home.”",
+      "“Since my accident, travel felt impossible. But Inkluvy's routing directs me only through verified step-free paths, returning my freedom to train and commute independently.”",
   },
   {
     id: "04",
+    name: "Hendra Putra",
+    email: "hendra@inkluvy.id",
+    role: "Amputee Student",
+    city: "Bandung",
+    avatar: "/images/avatars/avatar_hendra.png",
+    quote:
+      "“Navigating stairs on crutches drains my energy. Inkluvy's lift-availability alerts save me from getting stuck. It is a game-changer for physical disabled students like me.”",
+  },
+  {
+    id: "05",
     name: "Fadhil Rizky",
     email: "fadhil@inkluvy.id",
     role: "Sidewalk Mapper",
@@ -139,7 +149,7 @@ export default function CommunityVoices() {
 
             {/* Right Column: White Card Containing Profile List */}
             <div className="lg:col-span-6 h-full">
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm border border-gray-200/90 flex flex-col justify-between h-full">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-gray-200/90 flex flex-col justify-between h-full">
                 {/* Title Header kept as requested */}
                 <h3 className="font-medium text-base sm:text-lg text-gray-900 flex items-center mb-2">
                   Community Profiles
@@ -191,7 +201,7 @@ export default function CommunityVoices() {
                           <span
                             className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
                               isActive
-                                ? "bg-primary/10 text-primary border-primary/30 font-semibold"
+                                ? "bg-[#F4F4F4] text-black border-gray-200/50 font-semibold"
                                 : "bg-[#F4F4F4] text-gray-500 border-gray-200/50"
                             }`}
                           >

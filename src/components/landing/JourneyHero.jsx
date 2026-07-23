@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  motion,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   LuMapPin,
   LuSearch,
@@ -112,11 +109,13 @@ export default function JourneyHero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="home" className="relative min-h-[90vh] flex flex-col justify-center items-center py-24 sm:py-32 overflow-hidden bg-white">
+    <section
+      id="home"
+      className="relative min-h-[90vh] flex flex-col justify-center items-center py-24 sm:py-32 overflow-hidden bg-white"
+    >
       {/* Background: Smooth blended vertical gradient aurora stripes, clipped by rounded-full container */}
-      {/* Outer edges extend past viewport so only inner rounded side is visible */}
       <div className="absolute inset-0 pointer-events-none select-none">
-        {/* === LEFT SIDE: Perfect circle, half offscreen, no clip === */}
+        {/* LEFT SIDE: Perfect circle, half offscreen, no clip === */}
         <div
           className="absolute top-1/2 -translate-y-1/2 rounded-full z-0"
           style={{ width: "600px", height: "600px", left: "-320px" }}
@@ -234,8 +233,8 @@ export default function JourneyHero() {
             <LuSparkles className="size-3 sm:size-3.5 fill-yellow-500 text-yellow-500" />
             Verified Access
           </span>
-          <span className="text-gray-400 shrink-0">•</span>
-          <span className="text-gray-400 font-medium truncate sm:whitespace-normal">
+          <span className="text-gray-500 shrink-0">•</span>
+          <span className="text-gray-500 font-medium truncate sm:whitespace-normal">
             Scaling 100+ accessible routes daily
           </span>
         </motion.div>
@@ -247,7 +246,7 @@ export default function JourneyHero() {
           animate="visible"
           className="max-w-5xl mx-auto"
         >
-          <h1 className="font-sans text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900">
+          <h1 className="font-sans text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900 leading-[1.3] sm:leading-[1.2]">
             Every Step{" "}
             <motion.span
               variants={inlineIconVariantsRight}
@@ -283,94 +282,135 @@ export default function JourneyHero() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
-          className="mx-auto mt-8 w-full text-left sm:mt-14 max-w-full sm:max-w-2xl lg:max-w-4xl"
+          className="relative mx-auto mt-28 md:mt-40 w-full text-left max-w-full sm:max-w-4xl rounded-2xl rounded-tl-none border border-gray-200 p-6 bg-white shadow shadow-black/5"
         >
-          {/* Widget Form Body */}
-          <motion.div className="flex w-full flex-row items-center justify-start gap-2.5 sm:gap-3 overflow-x-auto py-1 no-scrollbar">
-            {/* Field 1: Looking for */}
-            <motion.div
-              variants={widgetCardVariants}
-              whileHover={
-                shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
-              }
-              className="border border-gray-200 min-w-[170px] shrink-0 flex-1 rounded-xl bg-white p-3 sm:p-3.5 sm:min-w-[200px] transition-all duration-200 hover:shadow-md hover:border-gray-300"
-            >
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
-                  <LuMapPin className="size-3.5" />
-                </span>
-                <label className="block text-[11px] sm:text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Looking for
-                </label>
-              </div>
-              <input
-                type="text"
-                placeholder="Find a Destination"
-                className="mt-2 text-sm sm:text-base w-full border-0 bg-transparent p-0 font-normal text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-0"
-              />
-            </motion.div>
+          {/* Top-Left Connected Tab */}
+          <div className="absolute -top-[48px] -left-[1px] h-[40px] bg-white border-t border-x border-gray-200 rounded-t-xl px-8 py-6 text-xs sm:text-sm font-medium text-gray-900 flex items-center gap-1.5 z-10">
+            <span>Find Your Way</span>
+          </div>
+          {/* Widget Form Body in 2x2 Grid */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Field 1: Start From */}
+              <motion.div
+                variants={widgetCardVariants}
+                whileHover={
+                  shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
+                }
+                className="border border-gray-200 rounded-xl bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md hover:border-gray-300"
+              >
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
+                    <LuNavigation className="size-3.5" />
+                  </span>
+                  <label className="block text-[11px] sm:text-xs font-medium uppercase text-gray-600">
+                    Start From
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Current Location / Point A"
+                  defaultValue="Stasiun Malang (Peron 1)"
+                  className="mt-2 text-xs sm:text-sm w-full border-0 bg-transparent p-0 font-normal text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+                />
+              </motion.div>
 
-            {/* Field 2: Access Need */}
-            <motion.div
-              variants={widgetCardVariants}
-              whileHover={
-                shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
-              }
-              className="border border-gray-200 min-w-[170px] shrink-0 flex-grow rounded-xl bg-white p-3 sm:p-3.5 sm:min-w-[200px] transition-all duration-200 hover:shadow-md hover:border-gray-300"
-            >
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
-                  <LuAccessibility className="size-3.5" />
-                </span>
-                <label className="block text-[11px] sm:text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Access Need
-                </label>
-              </div>
-              <div className="relative mt-2 flex cursor-pointer items-center justify-between">
-                <select className="w-full cursor-pointer appearance-none border-0 bg-transparent p-0 pr-6 text-sm sm:text-base font-normal text-gray-900 focus:outline-none focus:ring-0">
-                  <option>Select Access Need</option>
-                  <option>Wheelchair Ramps</option>
-                  <option>Tactile Guiding Blocks</option>
-                  <option>Elevators & Lifts</option>
-                  <option>Accessible Restrooms</option>
-                </select>
-                <LuChevronDown className="pointer-events-none absolute right-0 size-4 text-slate-500" />
-              </div>
-            </motion.div>
+              {/* Field 2: Destination */}
+              <motion.div
+                variants={widgetCardVariants}
+                whileHover={
+                  shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
+                }
+                className="border border-gray-200 rounded-xl bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md hover:border-gray-300"
+              >
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
+                    <LuMapPin className="size-3.5" />
+                  </span>
+                  <label className="block text-[11px] sm:text-xs font-medium uppercase text-gray-600">
+                    Destination
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Where do you want to go?"
+                  defaultValue="Balai Kota Malang"
+                  className="mt-2 text-xs sm:text-sm w-full border-0 bg-transparent p-0 font-normal text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+                />
+              </motion.div>
 
-            {/* Field 3: Location */}
-            <motion.div
-              variants={widgetCardVariants}
-              whileHover={
-                shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
-              }
-              className="border border-gray-200 min-w-[150px] shrink-0 flex-grow rounded-xl bg-white p-3 sm:p-3.5 sm:min-w-[180px] transition-all duration-200 hover:shadow-md hover:border-gray-300"
-            >
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
-                  <LuCompass className="size-3.5" />
-                </span>
-                <label className="block text-[11px] sm:text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Location
-                </label>
-              </div>
-              <input
-                type="text"
-                placeholder="All Cities"
-                defaultValue="Malang"
-                className="mt-2 text-sm sm:text-base w-full border-0 bg-transparent p-0 font-medium text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0"
-              />
-            </motion.div>
+              {/* Field 3: Access Need */}
+              <motion.div
+                variants={widgetCardVariants}
+                whileHover={
+                  shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
+                }
+                className="border border-gray-200 rounded-xl bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md hover:border-gray-300"
+              >
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
+                    <LuAccessibility className="size-3.5" />
+                  </span>
+                  <label className="block text-[11px] sm:text-xs font-medium uppercase text-gray-600">
+                    Access Need
+                  </label>
+                </div>
+                <div className="relative mt-2 flex cursor-pointer items-center justify-between">
+                  <select className="w-full cursor-pointer appearance-none border-0 bg-transparent p-0 pr-6 text-xs sm:text-sm font-normal text-gray-900 focus:outline-none focus:ring-0">
+                    <option value="">Select Access Need</option>
+                    <option value="wheelchair">
+                      👩‍🦽 Wheelchair & Low Slope (&lt;5° Ramp)
+                    </option>
+                    <option value="blind">
+                      🦯 Blind & Tactile Guiding (Guiding Blocks)
+                    </option>
+                    <option value="senior">
+                      🦼 Senior & Low Stairs (Gentle Pathway)
+                    </option>
+                    <option value="deaf">
+                      👂 Visual & Elevator Access (Lifts & Signals)
+                    </option>
+                  </select>
+                  <LuChevronDown className="pointer-events-none absolute right-0 size-4 text-slate-500" />
+                </div>
+              </motion.div>
 
-            {/* Submit/Discover Button */}
-            <Link
-              to="/map"
-              className="flex min-h-[46px] sm:min-h-12 w-auto shrink-0 items-center justify-center gap-2 rounded-xl bg-black px-6 sm:px-7 py-3 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-90 shadow-sm"
-            >
-              <LuSearch className="size-4" />
-              <span>Find Route</span>
-            </Link>
-          </motion.div>
+              {/* Field 4: Location */}
+              <motion.div
+                variants={widgetCardVariants}
+                whileHover={
+                  shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
+                }
+                className="border border-gray-200 rounded-xl bg-white p-3 sm:p-3.5 transition-all duration-200 hover:shadow-md hover:border-gray-300"
+              >
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="grid size-5.5 sm:size-6 place-items-center rounded bg-primary/20 text-primary">
+                    <LuCompass className="size-3.5" />
+                  </span>
+                  <label className="block text-[11px] sm:text-xs font-medium uppercase text-gray-600">
+                    Location
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  placeholder="All Cities"
+                  defaultValue="Malang"
+                  className="mt-2 text-xs sm:text-sm w-full border-0 bg-transparent p-0 font-medium text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0"
+                />
+              </motion.div>
+            </div>
+
+            {/* Centered Submit Button */}
+            <div className="flex justify-center pt-2">
+              <Link
+                to="/map"
+                className="flex min-h-[46px] sm:min-h-12 w-full sm:w-auto sm:px-6 py-3 items-center justify-center gap-2 rounded-xl bg-black text-sm font-semibold text-white transition-all duration-200 hover:bg-gray-800 shadow-sm hover:scale-[1.01] cursor-pointer"
+              >
+                <LuSearch className="size-4" />
+                <span>Find Route</span>
+              </Link>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -56,15 +56,15 @@ export default function PlanRouteCta() {
             {/* Action Buttons (Centered at Top Area) */}
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
               <a
-                href="#map-preview"
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-gray-900 px-7 py-3.5 text-sm sm:text-base font-medium text-white shadow-lg hover:bg-gray-800 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                href="/map"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-black px-7 py-3.5 text-sm sm:text-base font-medium text-white shadow-lg hover:bg-gray-800 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Explore Interactive Map</span>
                 <LuArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
               <a
-                href="#community"
+                href="#map"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300/90 bg-white/90 backdrop-blur-md px-6 py-3.5 text-sm sm:text-base font-medium text-gray-800 shadow-2xs transition-all duration-300 hover:bg-white hover:border-gray-400"
               >
                 <LuMapPin className="size-4 text-black" />
