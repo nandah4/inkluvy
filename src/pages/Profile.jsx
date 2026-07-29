@@ -207,7 +207,7 @@ export default function Profile() {
 
               <Link
                 to="/map"
-                className="w-full py-3.5 bg-black text-white rounded-xl text-xs font-bold shadow-3xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                className="w-full py-3.5 bg-gradient-to-b from-black to-black/50 text-white rounded-xl text-xs font-bold shadow-3xs flex items-center justify-center gap-1.5 hover:from-black hover:to-black/70 transition-colors cursor-pointer"
               >
                 <LuPlus className="size-4" />
                 <span>Join Mapping Mission</span>

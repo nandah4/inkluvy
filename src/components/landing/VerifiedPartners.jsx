@@ -11,46 +11,46 @@ import {
 const trustHighlights = [
   {
     icon: LuShieldCheck,
-    title: "100% Data Terverifikasi",
+    title: "100% Verified Data",
     description:
-      "Setiap rampa, ubin pemandu, dan lift publik diverifikasi langsung oleh relawan kontributor lokal sebelum dipublikasikan di peta.",
-    badge: "5+ Verifikator / Laporan",
+      "Every ramp, tactile paving route, and public lift is verified by local contributors before it is published on the map.",
+    badge: "5+ Verifiers per Report",
   },
   {
     icon: LuBus,
-    title: "Integrasi Transit Publik",
+    title: "Public Transit Integration",
     description:
-      "Terhubung langsung dengan titik transit bus lantai rendah (Low-floor) dan stasiun kereta api dengan jalur rampa prioritas.",
-    badge: "Koneksi Real-time",
+      "Connected to low-floor bus stops and train stations with prioritised ramp access.",
+    badge: "Real-Time Connection",
   },
   {
     icon: LuUsers,
-    title: "Jaringan Relawan SOS",
+    title: "SOS Volunteer Network",
     description:
-      "Lebih dari 250+ relawan pemuda dan komunitas disabilitas lokal Malang yang siap siaga merespons panggilan navigasi darurat.",
+      "More than 250 local youth and disability-community volunteers in Malang are ready to respond to emergency navigation requests.",
     badge: "24/7 Response Readiness",
   },
 ];
 
 const partnerLogos = [
   {
-    name: "Dinas Perhubungan Kota Malang",
-    category: "Pemerintah Daerah",
+    name: "Malang City Transportation Department",
+    category: "Local Government",
     icon: LuBuilding2,
   },
   {
     name: "Pertuni Malang",
-    category: "Persatuan Tunanetra Indonesia",
+    category: "Indonesian Blind Association",
     icon: LuUsers,
   },
   {
     name: "HWDI Jawa Timur",
-    category: "Himpunan Wanita Disabilitas",
+    category: "Indonesian Women with Disabilities Association",
     icon: LuShieldCheck,
   },
   {
     name: "Stasiun Malang Kota Baru",
-    category: "Aksesibilitas Kereta",
+    category: "Rail Accessibility",
     icon: LuBus,
   },
 ];
@@ -64,14 +64,15 @@ export default function VerifiedPartners() {
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200/80 px-3.5 py-1.5 rounded-full text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <LuShieldCheck className="size-4 text-emerald-600" />
-            <span>Ekosistem Terpercaya</span>
+            <span>Trusted Ecosystem</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-950 leading-snug">
-            Dipercaya oleh Komunitas & Pioneer Kota Inklusif
+            Trusted by Communities and Inclusive City Pioneers
           </h2>
           <p className="text-sm sm:text-base text-gray-600 mt-3 leading-relaxed">
-            Inkluvy berkolaborasi erat dengan organisasi disabilitas, pemerintah daerah, dan jaringan transit publik untuk menjamin keakuratan navigasi kota.
+            Inkluvy works closely with disability organisations, local government,
+            and public transit networks to keep city navigation accurate.
           </p>
         </div>
 
@@ -107,7 +108,7 @@ export default function VerifiedPartners() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-gray-100 flex items-center gap-1.5 text-xs font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">
-                  <span>Lihat Standar Aksesibilitas</span>
+                  <span>View Accessibility Standards</span>
                   <LuArrowUpRight className="size-4" />
                 </div>
               </motion.div>
@@ -120,15 +121,15 @@ export default function VerifiedPartners() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 mb-8 border-b border-gray-150">
             <div>
               <h4 className="text-base font-bold text-gray-950">
-                Mitra Strategis & Jaringan Verifikasi Kota
+                Strategic Partners and City Verification Network
               </h4>
               <p className="text-xs text-gray-500 mt-1">
-                Bekerjasama menjaga inklusivitas ruang publik dan transportasi umum di Malang.
+                Working together to keep Malang's public spaces and transit inclusive.
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50/80 border border-emerald-200 px-3.5 py-2 rounded-xl shrink-0 self-start sm:self-auto">
               <LuCheck className="size-4 text-emerald-600" />
-              <span>1,480+ Fasilitas Terverifikasi</span>
+              <span>1,480+ Verified Facilities</span>
             </div>
           </div>
 

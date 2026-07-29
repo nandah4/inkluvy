@@ -13,6 +13,8 @@ import {
   LuNavigation,
   LuClock,
   LuPhoneCall,
+  LuLifeBuoy,
+  LuAccessibility,
 } from "react-icons/lu";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -28,22 +30,17 @@ const faqData = [
   {
     question: "How do I report an accessibility obstacle on the map?",
     answer:
-      "Go to the 'Map' page, tap on any location point, and click the 'Report Obstacle' button. Fill in the route status, description, and upload a photo if possible to update the community map.",
+      "Tap the 'Report Route Condition' button on the navigation screen or in the Community section. Fill out the obstacle location, route status, description, and optionally upload a photo evidence. Your report earns you +50 Contributor Points once published.",
   },
   {
-    question: "How long does it take for a report to be verified?",
+    question: "Is Inkluvy free to use for persons with disabilities?",
     answer:
-      "After a report is submitted, nearby volunteers and local operations team members are notified. Typically, reports are verified within 15 to 30 minutes through community cross-validation.",
+      "Yes! Inkluvy is 100% free for all citizens, wheelchair users, low-vision individuals, and senior citizens. Our mission is to make urban mobility inclusive and open for everyone.",
   },
   {
-    question: "Can I request live volunteer assistance through the app?",
+    question: "What should I do if I need emergency route assistance?",
     answer:
-      "Yes! By triggering the 'Emergency SOS' button on the Map page, Inkluvy alerts nearby active volunteers in the community. You can also call our Malang Hub dispatch line directly for immediate assistance.",
-  },
-  {
-    question: "Does the voice guidance feature work offline?",
-    answer:
-      "Voice and haptic guidance works offline if you have pre-loaded the local area map. For real-time updates and emergency SOS assistance, an active internet connection is recommended.",
+      "Call our 24/7 Emergency Dispatch Helpline directly at 0800-1-INKLUVY (465588) or click 'Request Volunteer Escort' in the Support section. Nearby verified community mappers will be notified.",
   },
 ];
 
@@ -95,20 +92,12 @@ export default function Support() {
 
           <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-medium leading-[1.35] sm:leading-[1.25] lg:leading-[1.2] tracking-tight text-gray-900 max-w-3xl mx-auto">
             <span>We're Here to Help,</span>{" "}
-            <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
-              <img
-                src="/images/support_hero_illustration.png"
-                className="size-full object-cover"
-                alt="support help desk"
-              />
+            <span className="inline-flex items-center justify-center bg-gradient-to-tr from-rose-500 to-red-300 p-1.5 sm:p-2.5 lg:p-3 rounded-xl text-white shadow-xs mx-1 sm:mx-1.5 align-middle -rotate-6 shrink-0">
+              <LuLifeBuoy className="size-4 sm:size-6 lg:size-8 text-white" />
             </span>{" "}
-            <span> Every Step</span>{" "}
-            <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
-              <img
-                src="/images/every_step_illustration.png"
-                className="size-full object-cover"
-                alt="stepping on tactile path"
-              />
+            <span>Every Step</span>{" "}
+            <span className="inline-flex items-center justify-center bg-gradient-to-tr from-amber-400 to-yellow-200 p-1.5 sm:p-2.5 lg:p-3 rounded-xl text-white shadow-xs mx-1 sm:mx-1.5 align-middle rotate-6 shrink-0">
+              <LuAccessibility className="size-4 sm:size-6 lg:size-8 text-white" />
             </span>{" "}
             <span>of the Way</span>
           </h1>
@@ -272,8 +261,8 @@ export default function Support() {
                         <option value="sos-volunteer">
                           SOS Volunteer Inquiry
                         </option>
-                        <option value="points-rank">
-                          Mapper Points & Rewards
+                        <option value="reports">
+                          Total Reports & Contributions
                         </option>
                       </select>
                     </div>
@@ -295,7 +284,7 @@ export default function Support() {
 
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-xl bg-black text-white text-xs font-bold shadow-md hover:bg-gray-800 transition-colors"
+                      className="w-full py-4 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs font-bold shadow-md hover:from-black hover:to-black/70 transition-colors"
                     >
                       Submit Ticket
                     </button>

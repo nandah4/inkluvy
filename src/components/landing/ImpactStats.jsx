@@ -3,7 +3,7 @@ import { motion, useInView, animate } from "framer-motion";
 import { FaBuilding } from "react-icons/fa";
 
 const stats = [
-  { numeric: 500, suffix: "+", label: "Accessible points mapped" },
+  { numeric: 500, suffix: "+", label: "Total reports submitted" },
   { numeric: 100, suffix: "+", label: "Cities covered" },
   {
     numeric: 1200,

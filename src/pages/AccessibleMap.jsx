@@ -428,7 +428,7 @@ export default function AccessibleMap() {
             className={`px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl border backdrop-blur-md shadow-md flex items-center gap-1.5 sm:gap-2 text-xs font-bold transition-all ${
               isSidebarOpen
                 ? "bg-white/95 text-gray-800 border-gray-200/90"
-                : "bg-black text-white border-black"
+                : "bg-gradient-to-b from-black to-black/50 text-white border-black"
             }`}
             title={
               isSidebarOpen ? "Minimize Sidebar" : "Open Route Planner Sidebar"
@@ -540,7 +540,7 @@ export default function AccessibleMap() {
             <button
               type="button"
               onClick={() => setShowReportModal(true)}
-              className="w-full py-1.5 rounded-lg text-xs font-bold bg-black text-white hover:bg-gray-800 transition-all shadow-2xs flex items-center justify-center gap-1"
+              className="w-full py-1.5 rounded-lg text-xs font-bold bg-gradient-to-b from-black to-black/50 text-white hover:from-black hover:to-black/70 transition-all shadow-2xs flex items-center justify-center gap-1"
             >
               <LuPlus className="size-3" />
               <span>Report Route Condition</span>
@@ -615,7 +615,7 @@ export default function AccessibleMap() {
                         onClick={() => setActiveStopId(stop.id)}
                         className={`p-3 rounded-xl border transition-all cursor-pointer flex flex-col gap-2 ${
                           isSelected
-                            ? "bg-black text-white border-black shadow-md"
+                            ? "bg-gradient-to-b from-black to-black/50 text-white border-black shadow-md"
                             : "bg-white hover:bg-gray-50 border-gray-200 text-gray-900"
                         }`}
                       >
@@ -796,7 +796,7 @@ export default function AccessibleMap() {
                     onClick={() => setSelectedFilter(f.type)}
                     className={`py-2 px-2 rounded-xl text-xs font-bold border text-center transition-all ${
                       selectedFilter === f.type
-                        ? "bg-black text-white border-black"
+                        ? "bg-gradient-to-b from-black to-black/50 text-white border-black"
                         : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                     }`}
                   >
@@ -952,7 +952,7 @@ export default function AccessibleMap() {
               onClick={() => setSelectedFilter(item.type)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                 selectedFilter === item.type
-                  ? "bg-black text-white shadow-2xs"
+                  ? "bg-gradient-to-b from-black to-black/50 text-white shadow-2xs"
                   : "bg-[#F5F5F3] text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -975,7 +975,7 @@ export default function AccessibleMap() {
               <button
                 type="button"
                 onClick={() => setSelectedImageModal(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black transition-colors z-10"
+                className="absolute top-4 right-4 p-2 rounded-full bg-gradient-to-b from-black to-black/50 text-white hover:from-black hover:to-black/70 transition-colors z-10"
               >
                 <LuX className="size-5" />
               </button>
@@ -1108,7 +1108,7 @@ export default function AccessibleMap() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   alert(
-                    "Report published successfully! You earned +50 Contributor Points 🎉",
+                    "Report published successfully! Your total reports have been updated. 🎉",
                   );
                   setShowReportModal(false);
                 }}
@@ -1176,7 +1176,7 @@ export default function AccessibleMap() {
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-black text-white text-xs font-bold shadow-md hover:bg-gray-800 transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs font-bold shadow-md hover:from-black hover:to-black/70 transition-colors"
                   >
                     Report Now
                   </button>

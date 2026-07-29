@@ -6,6 +6,9 @@ import AccessibleMap from "./pages/AccessibleMap";
 import Support from "./pages/Support";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
+import PostDetail from "./pages/PostDetail";
+import UserProfileDetail from "./pages/UserProfileDetail";
+import EventDetail from "./pages/EventDetail";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/map" element={<AccessibleMap />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/community/post/:id" element={<PostDetail />} />
+          <Route path="/community/user/:id" element={<UserProfileDetail />} />
+          <Route path="/community/event/:id" element={<EventDetail />} />
           <Route path="/support" element={<Support />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />

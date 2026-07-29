@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LuArrowRight,
   LuHeart,
@@ -14,71 +15,17 @@ import {
   LuThumbsUp,
   LuTrophy,
   LuUsers,
+  LuUpload,
   LuX,
 } from "react-icons/lu";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import SectionIcon from "../components/ui/SectionIcon";
 import { ACCESSIBILITY_STATUS } from "../lib/accessibilityStatus";
-
-const initialPosts = [
-  {
-    id: 1,
-    author: "Syahla Aulia",
-    avatar: "/images/profile-avatar.png",
-    role: "Verified Contributor",
-    time: "2 hours ago",
-    location: "Stasiun Malang Kota Baru",
-    title: "Lift Aksesibel Stasiun Kota Kembali Beroperasi Normal 🎉",
-    content:
-      "Tim Inkluvy dan petugas stasiun baru saja menyelesaikan perbaikan lift peron 2. Sudah dicoba dengan kursi roda elektrik dan berfungsi sangat halus!",
-    tag: ACCESSIBILITY_STATUS.safe.label,
-    tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    likes: 42,
-    comments: 12,
-    isLiked: false,
-    image: "/images/community/community_elevator_update.png",
-  },
-  {
-    id: 2,
-    author: "Fadhil Rizky",
-    avatar: "/images/avatars/avatar_fadhil.png",
-    role: "Gold Mapper",
-    time: "5 hours ago",
-    location: "Jl. Veteran (Depan UB Gate 1)",
-    title: "Perbaikan Trotoar Sementara — Rampa Kayu Disediakan 🚧",
-    content:
-      "Ada pengerjaan galian kabel di sepanjang trotoar Jl. Veteran. Kontraktor menyediakan rampa kayu sementara dengan landaian 5 derajat. Harap hati-hati jika lewat malam hari.",
-    tag: ACCESSIBILITY_STATUS.vulnerable.label,
-    tagColor: "bg-amber-50 text-amber-800 border-amber-200",
-    likes: 28,
-    comments: 8,
-    isLiked: false,
-    image: "/images/community/community_sidewalk_ramp.png",
-  },
-];
-
-const leaderboards = [
-  {
-    rank: 1,
-    name: "Fadhil Rizky",
-    role: "Gold Mapper",
-    points: "2,450 pts",
-    reports: "210 Reports",
-    avatar: "/images/avatars/avatar_fadhil.png",
-  },
-  {
-    rank: 2,
-    name: "Siti Rahma",
-    role: "Silver Mapper",
-    points: "1,980 pts",
-    reports: "185 Reports",
-    avatar: "/images/avatars/avatar_siti.png",
-  },
-];
+import { mockPosts, mockUsers, mockEvents } from "../data/communityData";
 
 export default function Community() {
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState(mockPosts);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -106,13 +53,15 @@ export default function Community() {
     if (!newTitle.trim() || !newContent.trim()) return;
 
     const newPost = {
-      id: Date.now(),
+      id: `post-${Date.now()}`,
+      authorId: "syahla-aulia",
       author: "Syahla Aulia",
       avatar: "/images/profile-avatar.png",
       role: "Community Member",
       time: "Just now",
       location: newLocation || "Malang City",
       title: newTitle,
+      summary: newContent,
       content: newContent,
       tag: newTag,
       tagColor:
@@ -120,7 +69,7 @@ export default function Community() {
           ? "bg-amber-50 text-amber-800 border-amber-200"
           : "bg-emerald-50 text-emerald-700 border-emerald-200",
       likes: 0,
-      comments: 0,
+      commentsCount: 0,
       isLiked: false,
     };
 
@@ -131,7 +80,6 @@ export default function Community() {
     setShowCreateModal(false);
   };
 
-  // Filter posts based on search query and category
   const filteredPosts = posts.filter((post) => {
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -165,27 +113,19 @@ export default function Community() {
 
             <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-medium leading-[1.35] sm:leading-[1.25] lg:leading-[1.2] max-w-3xl mx-auto text-gray-900">
               <span>Together</span>{" "}
-              <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
-                <img
-                  src="/images/community_hero_illustration.png"
-                  className="size-full object-cover"
-                  alt="diverse community"
-                />
+              <span className="inline-flex items-center justify-center bg-gradient-to-tr from-emerald-500 to-emerald-300 p-1.5 sm:p-2.5 lg:p-3 rounded-xl text-white shadow-xs mx-1 sm:mx-1.5 align-middle -rotate-6 shrink-0">
+                <LuUsers className="size-4 sm:size-6 lg:size-8 text-white" />
               </span>{" "}
               <span>for Accessible</span>{" "}
-              <span className="inline-flex align-middle w-10 h-7 sm:w-14 sm:h-10 lg:w-16 lg:h-11 rounded-full overflow-hidden border border-gray-200 shadow-sm mx-1 sm:mx-2 -translate-y-0.5 shrink-0">
-                <img
-                  src="/images/community/community_elevator_update.png"
-                  className="size-full object-cover"
-                  alt="wheelchair lift status"
-                />
+              <span className="inline-flex items-center justify-center bg-gradient-to-tr from-primary to-blue-300 p-1.5 sm:p-2.5 lg:p-3 rounded-xl text-white shadow-xs mx-1 sm:mx-1.5 align-middle rotate-6 shrink-0">
+                <LuSparkles className="size-4 sm:size-6 lg:size-8 text-white" />
               </span>{" "}
               <span>& Inclusive Cities</span>
             </h1>
 
             <p className="mt-5 text-sm sm:text-base lg:text-lg text-gray-500 font-normal leading-relaxed max-w-2xl mx-auto">
-              Share real-time obstacle updates, verify accessible routes, and
-              help everyone move through the city with confidence and freedom.
+              Share route updates, verify public accessibility features, and
+              help everyone navigate freely and safely.
             </p>
           </div>
         </section>
@@ -198,7 +138,7 @@ export default function Community() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
             {/* Left Feed Column (8 Cols) */}
             <div className="lg:col-span-8 flex flex-col gap-4 sm:gap-6">
-              {/* Search Bar & Quick Category Filters Component */}
+              {/* Search Bar & Quick Category Filters */}
               <div className="bg-white rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-gray-200/80 flex flex-col gap-3 sm:gap-3.5 shadow-2xs">
                 <div className="flex items-center justify-between gap-2 sm:gap-3">
                   <div className="flex items-center gap-2.5">
@@ -207,14 +147,14 @@ export default function Community() {
                       colorClass="from-gray-50 text-gray-900"
                     />
                     <h3 className="font-semibold text-xs sm:text-base text-gray-900">
-                      Search Updates & Filters
+                      Search Reports & Filter
                     </h3>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(true)}
-                    className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg bg-black px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-medium text-white shadow-2xs hover:bg-gray-800 transition-all shrink-0"
+                    className="inline-flex items-center gap-1 sm:gap-1.5 rounded-lg bg-gradient-to-b from-black to-black/50 px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 text-[11px] sm:text-xs font-medium text-white shadow-2xs hover:from-black hover:to-black/70 transition-all shrink-0"
                   >
                     <LuPlus className="size-3 sm:size-3.5" />
                     <span>Create Report</span>
@@ -226,7 +166,7 @@ export default function Community() {
                   <LuSearch className="absolute left-3 size-3.5 sm:size-4 text-gray-400 pointer-events-none" />
                   <input
                     type="text"
-                    placeholder="Search updates, locations, or keywords..."
+                    placeholder="Search reports, locations, or keywords..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-9 sm:pl-10 pr-9 sm:pr-10 py-2 sm:py-2.5 bg-white border border-gray-200 rounded-xl text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
@@ -255,7 +195,7 @@ export default function Community() {
                       onClick={() => setSelectedCategory(cat)}
                       className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-medium whitespace-nowrap transition-all ${
                         selectedCategory === cat
-                          ? "bg-black text-white shadow-2xs font-semibold"
+                          ? "bg-gradient-to-b from-black to-black/50 text-white shadow-2xs font-semibold"
                           : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200/60"
                       }`}
                     >
@@ -268,7 +208,7 @@ export default function Community() {
               {/* Feed Header */}
               <div className="flex items-center justify-between pt-1 sm:pt-2">
                 <h2 className="font-semibold text-lg sm:text-xl text-gray-900 flex items-center gap-2">
-                  <span>Live Community Updates</span>
+                  <span>Live Community Reports</span>
                   <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
                 </h2>
               </div>
@@ -280,18 +220,21 @@ export default function Community() {
                     key={post.id}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex flex-col gap-3 sm:gap-4 transition-all hover:shadow-xs"
+                    className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex flex-col gap-3 sm:gap-4 transition-all hover:shadow-sm"
                   >
-                    {/* Author Header */}
+                    {/* Author Header Row (Clickable to User Profile) */}
                     <div className="flex items-center justify-between gap-2 sm:gap-3">
-                      <div className="flex items-center gap-2.5 sm:gap-3">
+                      <Link
+                        to={`/community/user/${post.authorId || 'syahla-aulia'}`}
+                        className="group flex items-center gap-2.5 sm:gap-3"
+                      >
                         <img
                           src={post.avatar}
                           alt={post.author}
                           className="size-9 sm:size-11 rounded-full object-cover border border-gray-200 shrink-0"
                         />
                         <div>
-                          <h3 className="font-bold text-xs sm:text-base text-gray-900 flex items-center gap-1 sm:gap-1.5">
+                          <h3 className="font-bold text-xs sm:text-base text-gray-900 group-hover:text-primary transition-colors flex items-center gap-1 sm:gap-1.5">
                             <span>{post.author}</span>
                             <span className="size-3.5 sm:size-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
                               <LuShieldCheck className="size-2 sm:size-2.5 stroke-[3]" />
@@ -301,7 +244,7 @@ export default function Community() {
                             {post.role} • {post.time}
                           </p>
                         </div>
-                      </div>
+                      </Link>
 
                       <span
                         className={`text-[10px] sm:text-xs font-semibold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border ${post.tagColor} shrink-0`}
@@ -311,81 +254,78 @@ export default function Community() {
                     </div>
 
                     {/* Location Badge */}
-                    <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-600 font-medium bg-white/80 border border-gray-200/60 px-2.5 py-1 rounded-lg w-fit">
-                      <LuMapPin className="size-3 sm:size-3.5 text-primary shrink-0" />
+                    <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-600 font-medium bg-emerald-50/60 border border-emerald-200/70 px-2.5 py-1 rounded-lg w-fit">
+                      <LuMapPin className="size-3 sm:size-3.5 text-emerald-600 shrink-0" />
                       <span>{post.location}</span>
                     </div>
 
-                    {/* Content Title & Body */}
-                    <div>
-                      <h4 className="font-bold text-sm sm:text-lg text-gray-900 mb-1 sm:mb-2">
+                    {/* Content Title & Body (Clickable to Post Detail) */}
+                    <Link to={`/community/post/${post.id}`} className="group block">
+                      <h4 className="font-bold text-sm sm:text-lg text-gray-900 group-hover:text-primary transition-colors mb-1 sm:mb-2">
                         {post.title}
                       </h4>
-                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
-                        {post.content}
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal line-clamp-3">
+                        {post.summary || post.content}
                       </p>
-                    </div>
+                    </Link>
 
-                    {/* Post Image (if available) */}
+                    {/* Post Image (Clickable to Post Detail) */}
                     {post.image && (
-                      <div className="rounded-xl overflow-hidden max-h-56 sm:max-h-72 w-full border border-gray-200/60">
+                      <Link to={`/community/post/${post.id}`} className="block rounded-xl overflow-hidden max-h-56 sm:max-h-72 w-full border border-gray-200/60">
                         <img
                           src={post.image}
-                          alt=""
-                          className="w-full h-full object-cover"
+                          alt={post.title}
+                          className="w-full h-full object-cover hover:scale-101 transition-transform duration-300"
                         />
-                      </div>
+                      </Link>
                     )}
 
                     {/* Footer Actions */}
-                    <div className="pt-2 sm:pt-3 flex items-center justify-between text-[11px] sm:text-xs text-gray-600 font-medium">
+                    <div className="pt-2 sm:pt-3 flex items-center justify-between text-[11px] sm:text-xs text-gray-600 font-medium border-t border-gray-100">
                       <div className="flex items-center gap-3 sm:gap-4">
                         <button
                           type="button"
                           onClick={() => handleLike(post.id)}
                           className={`flex items-center gap-1 sm:gap-1.5 transition-colors ${
                             post.isLiked
-                              ? "text-primary font-bold"
+                              ? "text-rose-600 font-bold"
                               : "hover:text-gray-900"
                           }`}
                         >
                           <LuHeart
                             className={`size-3.5 sm:size-4 ${
-                              post.isLiked ? "fill-primary text-primary" : ""
+                              post.isLiked ? "fill-rose-500 text-rose-500" : ""
                             }`}
                           />
                           <span>{post.likes} Likes</span>
                         </button>
 
-                        <button
-                          type="button"
+                        <Link
+                          to={`/community/post/${post.id}`}
                           className="flex items-center gap-1 sm:gap-1.5 hover:text-gray-900 transition-colors"
                         >
                           <LuMessageSquare className="size-3.5 sm:size-4" />
-                          <span>{post.comments} Comments</span>
-                        </button>
+                          <span>{post.commentsCount || post.comments || 0} Comments</span>
+                        </Link>
                       </div>
 
-                      <button
-                        type="button"
-                        className="flex items-center gap-1 hover:text-gray-900 transition-colors"
+                      <Link
+                        to={`/community/post/${post.id}`}
+                        className="font-bold text-black hover:underline"
                       >
-                        <LuShare2 className="size-3 sm:size-3.5" />
-                        <span>Share</span>
-                      </button>
+                        View Report Details →
+                      </Link>
                     </div>
                   </motion.article>
                 ))
               ) : (
-                /* Empty State if Search Result is empty */
                 <div className="bg-white rounded-xl p-6 sm:p-8 text-center border border-gray-200/80 flex flex-col items-center justify-center gap-2.5 sm:gap-3">
                   <LuSearch className="size-6 sm:size-8 text-gray-400" />
                   <h4 className="font-bold text-sm sm:text-base text-gray-900">
-                    No community updates found
+                    No reports found
                   </h4>
                   <p className="text-[11px] sm:text-xs text-gray-500 max-w-sm">
-                    No results match "{searchQuery}". Try searching for another
-                    keyword or location.
+                    No results match "{searchQuery}".
                   </p>
                   <button
                     type="button"
@@ -395,7 +335,7 @@ export default function Community() {
                     }}
                     className="mt-1 sm:mt-2 text-xs font-bold text-black underline underline-offset-4"
                   >
-                    Clear Search Filters
+                    Reset Search Filters
                   </button>
                 </div>
               )}
@@ -421,14 +361,15 @@ export default function Community() {
                 </div>
 
                 <div className="flex flex-col gap-3.5">
-                  {leaderboards.map((user) => (
-                    <div
-                      key={user.rank}
-                      className="bg-white rounded-xl p-3.5 border border-gray-200/70 flex items-center justify-between gap-3 shadow-2xs"
+                  {mockUsers.map((user, index) => (
+                    <Link
+                      key={user.id}
+                      to={`/community/user/${user.id}`}
+                      className="bg-white hover:bg-gray-50 rounded-xl p-3.5 border border-gray-200/70 flex items-center justify-between gap-3 shadow-2xs transition-all group"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <span className="font-bold text-xs size-6 rounded-full bg-gray-100 text-gray-700 flex items-center justify-center shrink-0">
-                          #{user.rank}
+                          #{index + 1}
                         </span>
                         <img
                           src={user.avatar}
@@ -436,24 +377,24 @@ export default function Community() {
                           className="size-9 rounded-full object-cover border border-gray-200 shrink-0"
                         />
                         <div className="min-w-0">
-                          <h4 className="font-bold text-xs sm:text-sm text-gray-900 truncate">
+                          <h4 className="font-bold text-xs sm:text-sm text-gray-900 group-hover:text-primary transition-colors truncate">
                             {user.name}
                           </h4>
                           <p className="text-[11px] text-gray-500 font-normal truncate">
-                            {user.role}
+                            {user.tier}
                           </p>
                         </div>
                       </div>
 
-                      <span className="text-xs font-medium text-gray-600">
-                        {user.reports}
+                      <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg shrink-0 text-right">
+                        {user.reportsCount} Total Reports
                       </span>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Upcoming Events Card */}
+              {/* Upcoming Events Card (Clickable to Event Detail) */}
               <div className="bg-white rounded-xl sm:rounded-2xl p-6 border border-gray-200/80 shadow-xs flex flex-col gap-4">
                 <div className="flex items-center gap-2.5">
                   <SectionIcon
@@ -465,32 +406,27 @@ export default function Community() {
                   </h3>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="bg-white rounded-xl p-3.5 border border-gray-200/80 shadow-xs flex flex-col gap-3">
-                    <span className="text-[11px] font-bold text-black uppercase tracking-wider">
-                      Sat, 28 July 2026 • 08:00 AM
-                    </span>
-                    <h4 className="font-bold text-sm text-gray-900">
-                      Malang Accessibility Walk & Mapping Day
-                    </h4>
-                    <p className="text-xs text-gray-600 font-normal">
-                      Kumpul di Alun-Alun Malang untuk memetakan trotoar & rampa
-                      publik bersama relawan disabilitas.
-                    </p>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-3.5 border border-gray-200/80 shadow-xs flex flex-col gap-3">
-                    <span className="text-[11px] font-bold text-black uppercase tracking-wider">
-                      Sun, 5 August 2026 • 10:00 AM
-                    </span>
-                    <h4 className="font-bold text-sm text-gray-900">
-                      Workshop Navigasi Suara untuk Tunanetra
-                    </h4>
-                    <p className="text-xs text-gray-600 font-normal">
-                      Pelatihan penggunaan fitur panduan suara haptic Inkluvy di
-                      Gedung UB TV.
-                    </p>
-                  </div>
+                <div className="space-y-3.5">
+                  {mockEvents.map((evt) => (
+                    <Link
+                      key={evt.id}
+                      to={`/community/event/${evt.id}`}
+                      className="bg-white hover:bg-gray-50 rounded-xl p-3.5 border border-gray-200/80 shadow-2xs flex flex-col gap-2 transition-all group block"
+                    >
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md w-fit uppercase tracking-wider">
+                        {evt.date} • {evt.time}
+                      </span>
+                      <h4 className="font-bold text-sm text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                        {evt.title}
+                      </h4>
+                      <p className="text-xs text-gray-600 font-normal line-clamp-2">
+                        {evt.description}
+                      </p>
+                      <span className="text-[11px] font-bold text-black group-hover:underline pt-1">
+                        View Event Details →
+                      </span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
@@ -499,105 +435,123 @@ export default function Community() {
       </motion.main>
 
       {/* Modal: Create Post / Report */}
-      {showCreateModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200 relative"
-          >
-            <button
-              type="button"
-              onClick={() => setShowCreateModal(false)}
-              className="absolute top-5 right-5 size-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+      <AnimatePresence>
+        {showCreateModal && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-gray-200 relative max-h-[90vh] overflow-y-auto"
             >
-              <LuX className="size-4" />
-            </button>
+              <button
+                type="button"
+                onClick={() => setShowCreateModal(false)}
+                className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+              >
+                <LuX className="size-4" />
+              </button>
 
-            <h3 className="font-bold text-xl text-gray-900 mb-1">
-              Post Community Update
-            </h3>
-            <p className="text-xs text-gray-500 mb-6">
-              Share real-time route conditions, lift updates, or report an
-              obstacle for citizens.
-            </p>
+              <h3 className="font-bold text-xl text-gray-900 mb-3">
+                Create a Community Report
+              </h3>
 
-            <form onSubmit={handleCreatePost} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                  Title
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Lift Peron 2 Stasiun Malang Aktif Kembali"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none"
-                  required
-                />
-              </div>
+              <p className="text-xs md:text-sm text-gray-500 mb-6 leading-relaxed">
+                Share real-time route conditions, lift updates, or report a
+                physical obstacle on the street.
+              </p>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                  Location / Place Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Jl. Veteran No. 8, Malang"
-                  value={newLocation}
-                  onChange={(e) => setNewLocation(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none"
-                />
-              </div>
+              <form onSubmit={handleCreatePost} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Report Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Example: Station Platform 2 Lift Is Working Again"
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
+                    required
+                  />
+                </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                  Category / Tag
-                </label>
-                <select
-                  value={newTag}
-                  onChange={(e) => setNewTag(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none"
-                >
-                  <option value="Obstacle Warning">Obstacle Warning 🚧</option>
-                  <option value="Verified Update">Verified Update ✅</option>
-                  <option value="Community Praise">Community Praise 🎉</option>
-                </select>
-              </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Location / Place Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Example: Jl. Veteran No. 8, Malang"
+                    value={newLocation}
+                    onChange={(e) => setNewLocation(e.target.value)}
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                  Content / Details
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Describe the condition, slope, lift status, or accessible route info..."
-                  value={newContent}
-                  onChange={(e) => setNewContent(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none resize-none"
-                  required
-                />
-              </div>
+                {/* Category & Photo Evidence in 1 Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                      Category
+                    </label>
+                    <select
+                      value={newTag}
+                      onChange={(e) => setNewTag(e.target.value)}
+                      className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none cursor-pointer transition-all"
+                    >
+                      <option value="Obstacle Warning">Obstacle Warning 🚧</option>
+                      <option value="Verified Update">Verified Update ✅</option>
+                      <option value="Community Praise">Community Praise 🎉</option>
+                    </select>
+                  </div>
 
-              <div className="pt-4 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setShowCreateModal(false)}
-                  className="px-5 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-black text-white text-xs font-bold shadow-md hover:bg-gray-800"
-                >
-                  Publish Update
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      )}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                      Photo Evidence
+                    </label>
+                    <label className="flex items-center justify-center gap-2 bg-[#F5F5F3] hover:bg-gray-200/60 border border-dashed border-gray-300 rounded-xl px-3 py-2.5 cursor-pointer text-xs md:text-sm font-medium text-gray-700 transition-colors">
+                      <LuUpload className="size-4 text-gray-500 shrink-0" />
+                      <span className="truncate">Upload Photo</span>
+                      <input type="file" accept="image/*" className="hidden" />
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Report Details
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder="Describe the ramp condition, lift status, or an alternative route..."
+                    value={newContent}
+                    onChange={(e) => setNewContent(e.target.value)}
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none resize-none transition-all"
+                    required
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center justify-end gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreateModal(false)}
+                    className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs font-bold shadow-md hover:from-black hover:to-black/70 transition-colors"
+                  >
+                    Publish Report
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

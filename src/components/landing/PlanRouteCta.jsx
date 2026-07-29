@@ -57,7 +57,7 @@ export default function PlanRouteCta() {
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
               <a
                 href="/map"
-                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-black px-7 py-3.5 text-sm sm:text-base font-medium text-white shadow-lg hover:bg-gray-800 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 px-7 py-3.5 text-sm sm:text-base font-medium text-white shadow-lg hover:from-black hover:to-black/70 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Explore Interactive Map</span>
                 <LuArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />

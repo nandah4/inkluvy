@@ -267,7 +267,7 @@ export default function AccessibleMapPreview() {
             <div className="flex items-center gap-2 shrink-0">
               <Link
                 to="/map"
-                className="group rounded-full px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-200/90 bg-black text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 shadow-2xs transition-all duration-300"
+                className="group rounded-full px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-200/90 bg-gradient-to-b from-black to-black/50 text-white text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 shadow-2xs hover:from-black hover:to-black/70 transition-all duration-300"
                 aria-label="Explore Accessible Map"
               >
                 <span className="font-medium text-xs sm:text-sm whitespace-nowrap">Explore Map</span>
@@ -447,7 +447,7 @@ export default function AccessibleMapPreview() {
                       onClick={() => setSelectedFilter(item.id)}
                       className={`flex-1 py-1 px-2 rounded-lg text-[11px] sm:text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
                         selectedFilter === item.id
-                          ? "bg-black text-white border-black shadow-2xs"
+                          ? "bg-gradient-to-b from-black to-black/50 text-white border-black shadow-2xs"
                           : "bg-[#F5F5F3] text-gray-700 border-gray-200/60 hover:bg-gray-100"
                       }`}
                     >

@@ -404,7 +404,7 @@ export default function JourneyHero() {
             <div className="flex justify-center pt-2">
               <Link
                 to="/map"
-                className="flex min-h-[46px] sm:min-h-12 w-full sm:w-auto sm:px-6 py-3 items-center justify-center gap-2 rounded-xl bg-black text-sm font-semibold text-white transition-all duration-200 hover:bg-gray-800 shadow-sm hover:scale-[1.01] cursor-pointer"
+                className="flex min-h-[46px] sm:min-h-12 w-full sm:w-auto sm:px-6 py-3 items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-black to-black/50 text-sm font-semibold text-white transition-all duration-200 hover:bg-gray-800 shadow-sm hover:scale-[1.01] cursor-pointer"
               >
                 <LuSearch className="size-4" />
                 <span>Find Route</span>

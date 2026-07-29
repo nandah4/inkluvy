@@ -311,7 +311,7 @@ export default function Notifications() {
 
                                 <Link
                                   to={`/map?stop=${notif.stopId}`}
-                                  className="px-4 py-2 rounded-xl bg-black text-white hover:bg-gray-800 text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1"
+                                  className="px-4 py-2 rounded-xl bg-gradient-to-b from-black to-black/50 text-white hover:from-black hover:to-black/70 text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1"
                                 >
                                   <span>{notif.actionLabel}</span>
                                   <LuChevronRight className="size-3.5" />

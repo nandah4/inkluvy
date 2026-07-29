@@ -11,20 +11,13 @@ import {
 import { LuCheck, LuArrowDown } from "react-icons/lu";
 
 const FIRST_FRAME = 1;
-const LAST_FRAME = 57;
+const LAST_FRAME = 96;
 const frameSources = Array.from(
   { length: LAST_FRAME - FIRST_FRAME + 1 },
   (_, i) => {
     const num = FIRST_FRAME + i;
-    let filename = "";
-    if (num < 10) {
-      filename = `frame-0${num}.jpg`;
-    } else if (num <= 41) {
-      filename = `frame-0${num}.jpg`;
-    } else {
-      filename = `frame-${num}.jpg`;
-    }
-    return `/images/hero-frames/${filename}`;
+    const padded = String(num).padStart(3, "0");
+    return `/images/hero-frame-2/frame_${padded}.png`;
   },
 );
 
@@ -99,7 +92,7 @@ export default function CityJourneyPreview() {
       style={{
         height: shouldReduceMotion
           ? "100svh"
-          : `${(LAST_FRAME - FIRST_FRAME + 1) * 12 + 100}vh`,
+          : `${(LAST_FRAME - FIRST_FRAME + 1) * 7.5 + 100}vh`,
       }}
       aria-label="Scroll-driven city journey preview"
     >
