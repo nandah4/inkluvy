@@ -17,7 +17,7 @@ const frameSources = Array.from(
   (_, i) => {
     const num = FIRST_FRAME + i;
     const padded = String(num).padStart(3, "0");
-    return `/images/hero-frame-2/frame_${padded}.png`;
+    return `/images/hero-frame-2/frame_${padded}.webp`;
   },
 );
 
