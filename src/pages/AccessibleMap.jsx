@@ -42,6 +42,7 @@ import {
   MapRoute,
 } from "../components/map/MapCanvas";
 import { ACCESSIBILITY_STATUS } from "../lib/accessibilityStatus";
+import AI3DPovModal from "../components/map/AI3DPovModal";
 
 // Route coordinates through Malang city
 const routeCoordinates = [
@@ -259,6 +260,8 @@ export default function AccessibleMap() {
   const [showReportModal, setShowReportModal] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedImageModal, setSelectedImageModal] = useState(null);
+  const [show3DPovModal, setShow3DPovModal] = useState(false);
+  const [povLocationName, setPovLocationName] = useState("");
 
   const [searchParams] = useSearchParams();
 
@@ -654,7 +657,7 @@ export default function AccessibleMap() {
                           {stop.details}
                         </p>
 
-                        {/* Real Spot Condition Image Preview */}
+                      {/* Real Spot Condition Image Preview with 3D POV Badge */}
                         {stop.image && (
                           <div
                             onClick={(e) => {
@@ -672,6 +675,19 @@ export default function AccessibleMap() {
                               <LuImage className="size-4" />
                               <span>View Condition Photo</span>
                             </div>
+
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPovLocationName(stop.name);
+                                setShow3DPovModal(true);
+                              }}
+                              className="absolute bottom-2 left-2 z-10 bg-black/80 hover:bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-lg border border-emerald-500/40 backdrop-blur-xs flex items-center gap-1 shadow-sm transition-all cursor-pointer"
+                            >
+                              <LuSparkles className="size-3 text-emerald-400 animate-pulse" />
+                              <span>POV 360° AI</span>
+                            </button>
                           </div>
                         )}
 
@@ -1013,11 +1029,31 @@ export default function AccessibleMap() {
                     {selectedImageModal.updatedTime}
                   </span>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPovLocationName(selectedImageModal.name);
+                    setShow3DPovModal(true);
+                  }}
+                  className="mt-3.5 w-full py-4 rounded-xl bg-gradient-to-b from-black to-black/50 hover:from-black hover:to-black/70 text-white text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <LuSparkles className="size-4 text-white" />
+                  <span>POV 360° AI</span>
+                </button>
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+
+      {/* 3D POV AI Viewer Modal Component */}
+      <AI3DPovModal
+        isOpen={show3DPovModal}
+        onClose={() => setShow3DPovModal(false)}
+        locationName={povLocationName}
+        imageUrl="/images/3d-pov/sample_360.png"
+      />
 
       {/* Emergency SOS Modal */}
       <AnimatePresence>

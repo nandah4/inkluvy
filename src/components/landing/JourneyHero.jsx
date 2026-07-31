@@ -272,8 +272,9 @@ export default function JourneyHero() {
           animate="visible"
           className="mt-8 text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto font-normal"
         >
-          Discover accessible routes across the city, backed by real reports
-          from real people — and help, whenever you need it.
+          Discover accessible routes across the city, preview locations with AI
+          3D Spatial Visualization , and navigate safely with real-time
+          community reports.
         </motion.p>
 
         {/* Search Planner Widget */}

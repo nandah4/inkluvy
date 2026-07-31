@@ -84,6 +84,16 @@ const features = [
     cursorClass: "cursor-sos-help",
     imageLeft: false, // Text on Left, Image on Right
   },
+  {
+    id: "feature-4",
+    tag: "AI 3D Spatial POV",
+    title: "Inspect Spots in Interactive 360° 3D",
+    description:
+      "Preview any reported location with immersive 360° POV spatial visualization synthesized directly from photo reports before you travel. Inspect wheelchair ramp slopes, elevator doors, and tactile paving in real time.",
+    image: "/images/features/feature-3d.png",
+    cursorClass: "cursor-location-pin",
+    imageLeft: true, // Image on Left, Text on Right
+  },
 ];
 
 export default function ProductFeatures() {
