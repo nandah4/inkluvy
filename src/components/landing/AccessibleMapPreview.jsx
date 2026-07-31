@@ -5,9 +5,11 @@ import {
   LuArrowRight,
   LuCheck,
   LuChevronRight,
+  LuFilter,
   LuGlobe,
   LuHeart,
   LuImage,
+  LuLifeBuoy,
   LuMapPin,
   LuPlus,
   LuSearch,
@@ -140,7 +142,7 @@ const routeStops = [
   },
   {
     id: "03",
-    title: "Trotoar Jl. Veteran",
+    title: "Jl. Veteran Sidewalk",
     detail: "Construction · Temporary Wooden Ramp",
     time: "09:30",
     status: "warning",
@@ -159,8 +161,8 @@ const routeStops = [
   },
   {
     id: "04",
-    title: "Stasiun Malang Kota Baru",
-    detail: "Lift Peron 2 Active & Staff Ready",
+    title: "Malang Kota Baru Station",
+    detail: "Platform 2 Elevator Active & Staff Ready",
     time: "09:45",
     status: "verified",
     type: "Transit Elevator Hub",
@@ -195,6 +197,45 @@ const routeStops = [
     reporterAvatar: "/images/avatars/avatar_maya.png",
     badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
   },
+  {
+    id: "06",
+    title: "Open Cable Trench & Collapsed Sidewalk",
+    detail: "Extremely Dangerous · Impassable",
+    time: "10:10",
+    status: "danger",
+    type: "Severe Hazard",
+    vulnerability: "danger",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.danger.labelWithBadge,
+    condition: ACCESSIBILITY_STATUS.danger.label,
+    conditionColor: "bg-orange-600",
+    score: "1.2",
+    image: "/images/map/danger_route_hole.png",
+    lng: 112.62635,
+    lat: -7.97475,
+    reporter: "Dimas Anggara",
+    reporterAvatar: "/images/avatars/avatar_budi_disability_1784680279512.png",
+    badgeColor:
+      "bg-orange-600 text-white border-orange-700 font-bold shadow-xs animate-pulse",
+  },
+  {
+    id: "07",
+    title: "[SOS] Wheelchair Assistance Needed",
+    detail: "Immediate Help Req · Awaiting Volunteer",
+    time: "10:15",
+    status: "sos",
+    type: "Emergency SOS",
+    vulnerability: "vulnerable",
+    vulnerabilityLabel: "🚨 Emergency SOS",
+    condition: "Emergency SOS",
+    conditionColor: "bg-rose-600",
+    score: "1.0",
+    image: "/images/map/danger_route_hole.png",
+    lng: 112.6268,
+    lat: -7.976,
+    reporter: "Siti Aminah",
+    reporterAvatar: "/images/avatars/avatar_siti_disability_1784680263685.png",
+    badgeColor: "bg-rose-600 text-white border-rose-700 font-bold animate-pulse",
+  },
 ];
 
 const routeCoordinates = routeStops.map((stop) => [stop.lng, stop.lat]);
@@ -207,7 +248,10 @@ export default function AccessibleMapPreview() {
   const filteredStops = routeStops.filter((stop) => {
     if (selectedFilter === "all") return true;
     if (selectedFilter === "safe") return stop.vulnerability === "safe";
-    if (selectedFilter === "vulnerable") return stop.vulnerability === "vulnerable";
+    if (selectedFilter === "vulnerable")
+      return stop.vulnerability === "vulnerable" && stop.status !== "sos";
+    if (selectedFilter === "danger") return stop.vulnerability === "danger";
+    if (selectedFilter === "sos") return stop.status === "sos";
     return true;
   });
 
@@ -293,9 +337,32 @@ export default function AccessibleMapPreview() {
               attributionControl={false}
               className="w-full h-full min-h-[460px] sm:min-h-[500px]"
             >
-              {/* Polyline Route Path */}
+              {/* Polyline Route Path - Segmented by condition matching /map */}
               <MapRoute
-                coordinates={routeCoordinates}
+                coordinates={[
+                  [112.6245, -7.9722],
+                  [112.6255, -7.9735],
+                ]}
+                color="#79B9F3"
+                width={5}
+                opacity={0.9}
+              />
+              <MapRoute
+                coordinates={[
+                  [112.6255, -7.9735],
+                  [112.6272, -7.976],
+                ]}
+                color="#EA580C"
+                width={7}
+                opacity={0.95}
+              />
+              <MapRoute
+                coordinates={[
+                  [112.6272, -7.976],
+                  [112.6289, -7.9785],
+                  [112.6319, -7.9858],
+                  [112.6375, -7.9892],
+                ]}
                 color="#79B9F3"
                 width={5}
                 opacity={0.9}
@@ -319,13 +386,27 @@ export default function AccessibleMapPreview() {
                       <div
                         className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-md border transition-all cursor-pointer flex items-center gap-1.5 ${
                           isSelected
-                            ? "bg-[#79B9F3] text-white border-[#5ca8ee] scale-110 z-30 shadow-lg"
+                            ? stop.vulnerability === "danger"
+                              ? "bg-orange-600 text-white border-orange-700 scale-110 z-30 shadow-lg"
+                              : stop.status === "sos"
+                              ? "bg-rose-600 text-white border-rose-700 scale-110 z-30 shadow-lg"
+                              : "bg-[#79B9F3] text-white border-[#5ca8ee] scale-110 z-30 shadow-lg"
+                            : stop.vulnerability === "danger"
+                            ? "bg-orange-600 text-white border-orange-700 shadow-md z-28 font-bold animate-pulse"
+                            : stop.status === "sos"
+                            ? "bg-rose-600 text-white border-rose-700 shadow-md z-28 font-bold animate-pulse"
                             : stop.vulnerability === "vulnerable"
                             ? "bg-amber-50 text-amber-900 border-amber-300 shadow-2xs z-10 font-semibold"
                             : "bg-white text-gray-800 border-gray-200/90 hover:border-gray-300 shadow-2xs z-20"
                         }`}
                       >
-                        {stop.vulnerability === "vulnerable" ? (
+                        {stop.vulnerability === "danger" || stop.status === "sos" ? (
+                          <LuShieldAlert
+                            className={`size-4 shrink-0 ${
+                              isSelected ? "text-white" : "text-white animate-bounce"
+                            }`}
+                          />
+                        ) : stop.vulnerability === "vulnerable" ? (
                           <LuShieldAlert className="size-4 text-amber-600 shrink-0" />
                         ) : (
                           <LuMapPin
@@ -435,24 +516,54 @@ export default function AccessibleMapPreview() {
                   </p>
                 </div>
                 
-                <div className="flex flex-row md:flex-col lg:flex-row gap-1.5 w-full md:mt-1.5">
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full py-0.5 md:mt-1">
                   {[
-                    { id: "all", label: "All", badge: "🔍" },
-                    { id: "safe", label: ACCESSIBILITY_STATUS.safe.label, badge: ACCESSIBILITY_STATUS.safe.badge },
-                    { id: "vulnerable", label: ACCESSIBILITY_STATUS.vulnerable.label, badge: ACCESSIBILITY_STATUS.vulnerable.badge },
+                    {
+                      id: "all",
+                      label: "All",
+                      icon: <LuFilter className="size-3 text-gray-500 shrink-0" />,
+                    },
+                    {
+                      id: "safe",
+                      label: ACCESSIBILITY_STATUS.safe.label,
+                      icon: (
+                        <LuCheck className="size-3 text-emerald-500 font-bold stroke-[3] shrink-0" />
+                      ),
+                    },
+                    {
+                      id: "vulnerable",
+                      label: ACCESSIBILITY_STATUS.vulnerable.label,
+                      icon: (
+                        <LuShieldAlert className="size-3 text-amber-500 shrink-0" />
+                      ),
+                    },
+                    {
+                      id: "danger",
+                      label: ACCESSIBILITY_STATUS.danger.label,
+                      icon: (
+                        <LuShieldAlert className="size-3 text-orange-500 shrink-0" />
+                      ),
+                    },
+                    {
+                      id: "sos",
+                      label: "Emergency SOS",
+                      icon: (
+                        <LuLifeBuoy className="size-3 text-rose-500 animate-pulse shrink-0" />
+                      ),
+                    },
                   ].map((item) => (
                     <button
                       key={item.id}
                       type="button"
                       onClick={() => setSelectedFilter(item.id)}
-                      className={`flex-1 py-1 px-2 rounded-lg text-[11px] sm:text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
+                      className={`py-1.5 px-2.5 rounded-lg text-[11px] sm:text-xs font-bold border flex items-center justify-center gap-1.5 transition-all whitespace-nowrap ${
                         selectedFilter === item.id
                           ? "bg-gradient-to-b from-black to-black/50 text-white border-black shadow-2xs"
                           : "bg-[#F5F5F3] text-gray-700 border-gray-200/60 hover:bg-gray-100"
                       }`}
                     >
-                      <span className="text-[9px] sm:text-[10px] font-bold shrink-0">{item.badge}</span>
-                      <span className="whitespace-nowrap">{item.label}</span>
+                      {item.icon}
+                      <span>{item.label}</span>
                     </button>
                   ))}
                 </div>

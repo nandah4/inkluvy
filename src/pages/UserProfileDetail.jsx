@@ -99,7 +99,6 @@ export default function UserProfileDetail() {
           </h1>
 
           <p className="text-xs sm:text-sm text-gray-600 font-normal leading-relaxed max-w-2xl">
-            <span className="font-semibold text-gray-900">{user.role}</span> •{" "}
             <span>{user.location || "Malang, Jawa Timur"}</span> —{" "}
             <span className="italic">
               "

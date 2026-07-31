@@ -1,74 +1,150 @@
-# Inkluvy
+<div align="center">
+  <p align="center">
+    <img src="public/logo/Logo.png" alt="Inkluvy Logo" height="75" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="public/images/competitive/citech-logo.png" alt="CITECH 2026 Organizer Logo" height="75" />
+  </p>
+  
+  # Inkluvy
+  ### Platform Navigasi dan Keselamatan Darurat bagi Penyandang Disabilitas di Perkotaan
+  
+  **Aplikasi Navigasi Inklusif Cerdas Berbasis Crowdsourcing & AI 3D Spatial Visualization**
 
-Inkluvy is an accessibility-first city navigation prototype. It helps people with disabilities identify safer routes, understand real-world accessibility conditions, request assistance when needed, and contribute updates that make the map more useful for everyone.
+[![Competitive Event](https://img.shields.io/badge/CITECH-2026-emerald?style=for-the-badge)](https://citech.polinema.ac.id)
 
-The current product experience is centred on Malang and demonstrates how route information, community verification, and emergency assistance can work together in one interface.
+</div>
 
-## User journey for people with disabilities
+---
 
-1. **Start with a destination** — From the accessible map, enter a starting point and destination to explore a route.
-2. **Understand accessibility before travelling** — Review route conditions, verified reporters, ramps, lift availability, transit priority access, and the `Accessible & Safe` or `Caution / Vulnerable` status.
-3. **Make a confident route choice** — Use the map details and condition photos to avoid obstacles and choose a more suitable alternative when necessary.
-4. **Get assistance when conditions change** — Report an obstacle on the map or use SOS to request help from nearby volunteers.
-5. **Stay informed and supported** — Use Help & Support for guidance, feedback, or a support request.
+## 👥 Identitas Tim Pengembang
 
-## Community journey
+- **Nama Tim**: `Bu, baguz izin ikut citech 2026`
+- **Disusun oleh**:
+  1. **Ananda Priya Yustira** (NIM: `244107020131`)
+  2. **Bagus Wichaksono Amanulloh** (NIM: `244107020238`)
+- **Penyelenggara Kompetisi**: CITECH 2026 (City Technology Competition)
+- **Institusi**: Politeknik Negeri Malang
+- **Lokasi**: Kota Malang, Jawa Timur
+- **Tahun**: 2026
 
-1. **Browse live reports** — Search reports by location, status, or keyword in the Community Hub.
-2. **Review trusted local context** — Open a report to see its details, verified location, discussions, comments, and the contributor profile.
-3. **Publish an update** — Create a community report with a title, location, category, photo evidence, and a description of the accessibility condition.
-4. **Build shared route knowledge** — Report conditions such as damaged pavement, a blocked route, a ramp, or lift availability so other people can plan ahead.
-5. **Join local activities** — Discover accessibility walks and community events that help verify and improve route information.
+---
 
-## Key product areas
+## 📌 1. What is Inkluvy? (Tentang Inkluvy)
 
-- **Home** — Explains Inkluvy's purpose, core features, impact, map preview, and community stories.
-- **Accessible Map** — Plans a journey, shows route conditions, supports obstacle reporting, and provides SOS assistance.
-- **Community** — Hosts reports, contributor profiles, discussion, and accessibility events.
-- **Help & Support** — Provides FAQs and a support-request form.
-- **Profile and notifications** — Shows contribution activity and emergency SOS dispatch updates.
+**Inkluvy** adalah platform navigasi perkotaan ramah disabilitas yang mengintegrasikan pemetaan rute aksesibel, laporan kondisi jalan berbasis _crowdsourcing_, visualisasi spasial 3D interaktif, serta sistem bantuan darurat (_SOS Civic Alert_) dalam satu ekosistem digital terpadu.
 
-## Technology stack
+### 📍 Latar Belakang & Masalah
 
-| Area | Technology |
-| --- | --- |
-| Application | React, React DOM, React Router |
-| Build tooling | Vite |
-| Styling | Tailwind CSS, PostCSS, Autoprefixer |
-| Motion | Framer Motion |
-| Maps | MapLibre GL |
-| Charts | Recharts |
-| Icons | Lucide React, React Icons |
-| Utility styling | clsx, tailwind-merge |
+Infrastruktur perkotaan sering kali belum ramah bagi penyandang disabilitas (pengguna kursi roda, tunanetra, lansia, dan orang dengan mobilitas terbatas). Permasalahan utama yang dihadapi meliputi:
 
-## Getting started
+- **Informasi Rute yang Tidak Akurat**: Aplikasi peta konvensional tidak menyediakan data spesifik mengenai kelayakan trotoar, ketersediaan rampa, atau lift peron stasiun.
+- **Hambatan Lapangan Mendadak**: Galian utilitas tanpa pembatas, ubin pemandu (_tactile block_) terputus, dan rampa kayu darurat yang curam.
+- **Resiko Keselamatan**: Tingginya risiko kecelakaan bagi penyandang disabilitas saat menavigasi area berpotensi bahaya tanpa panduan visual/audio.
+
+**Inkluvy hadir sebagai solusi** untuk memberikan kepastian rute sebelum bepergian, memvisualisasikan kondisi nyata secara 360°, serta memberikan respon cepat saat terjadi situasi darurat di jalan.
+
+---
+
+## ✨ 2. Key Features (Fitur Unggulan)
+
+### 🌐 1. Interactive Accessible Map & Route Condition Filter
+
+Peta navigasi interaktif dengan kategori indikator keselamatan rute yang terverifikasi secara real-time:
+
+- **Accessible & Safe** (`🟢` / `<LuCheck />`): Rampa beton standar, elevator aktif, ubin pengarah utuh.
+- **Caution / Vulnerable** (`🟡` / `<LuShieldAlert />`): Rampa kayu sementara, ubin aus, konstruksi ringan.
+- **Severe Hazard** (`⛔` / `<LuShieldAlert />` - _Orange Segment_): Galian kabel terbuka, trotoar amblas, jalur terputus.
+- **Emergency SOS** (`🚨` / `<LuLifeBuoy />` - _Rose Segment_): Lokasi difabel membutuhkan bantuan darurat langsung dari relawan terdekat.
+
+### 🕶️ 2. AI 3D Spatial POV Visualizer (Panoramic Inspection)
+
+- Menggunakan teknologi **Three.js** 360° imersif (_Inverted Sphere Damping Geometry_).
+- Memungkinkan pengguna melihat inspeksi ruang 360° kondisi rampa, lebar pintu lift, dan tekstur jalan berdasarkan foto laporan lapangan sebelum melangkah keluar rumah.
+
+### 🚨 3. One-Tap SOS Civic Emergency Alert
+
+- Tombol darurat _Emergency SOS_ yang langsung menyiarkan posisi koordinat presisi penyandang disabilitas ke jaringan relawan terdekat & verifikator Inkluvy saat terjebak hambatan fatal.
+
+### 👥 4. Crowdsourced Community Feed & Verification
+
+- Forum komunitas warga dan difabel untuk mengunggah laporan foto kondisi jalan, melakukan upvote, berdiskusi, serta memverifikasi keamanan rute.
+
+### 🚌 5. Priority Transit & Multi-modal Guidance
+
+- Panduan integrasi moda transportasi umum (ketersediaan lift peron stasiun, gerbong prioritas, dan layanan _Accessible Ride_).
+
+---
+
+## 🔄 3. Application Flow & Architecture (Alur Aplikasi)
+
+```mermaid
+flowchart TD
+    A[User / Diffable Person] -->|Pilih Destinasi| B[Accessible Map Navigation]
+    B -->|Filter Route Condition| C{Status Rute}
+    C -->|Accessible & Safe| D[Perjalanan Aman & Lancar]
+    C -->|Caution / Vulnerable| E[Gunakan Panduan Alternatif]
+    C -->|Severe Hazard| F[AI 3D Spatial POV Visualizer]
+    F -->|Inspeksi 360° Rampa/Lift| G[Pilih Rute Pengalihan]
+    A -->|Menemukan Kendala Darurat| H[Trigger Emergency SOS]
+    H -->|Civic Alert Notification| I[Relawan & Verifikator Lapangan Dispatch]
+
+    J[Community Mapper] -->|Ambil Foto Obstacle| K[Community Report Feed]
+    K -->|AI Callout Analysis| B
+```
+
+---
+
+## 🛠️ 4. Technology Stack
+
+| Component              | Technology / Library                         |
+| :--------------------- | :------------------------------------------- |
+| **Core Framework**     | React 18, Vite 8, React Router v7            |
+| **3D Engine**          | Three.js (`three`) — 360° Panoramic Renderer |
+| **Interactive Map**    | MapLibre GL, Mapcn Custom Layer Engine       |
+| **Styling & UI**       | TailwindCSS v4, Vanilla CSS Design System    |
+| **Motion & Animation** | Framer Motion                                |
+| **Icons & Visuals**    | React Icons (`react-icons/lu`), Lucide React |
+
+---
+
+## 🚀 5. Getting Started (Cara Menjalankan Project)
+
+### Prasyarat
+
+- Node.js versi 18.x atau lebih baru
+- npm v9.x atau lebih baru
+
+### Langkah Instalasi
 
 ```bash
+# 1. Clone repository
+git clone https://github.com/nandaa/inkluvy.git
+
+# 2. Masuk ke direktori project
+cd inkluvy
+
+# 3. Install dependencies
 npm install
+
+# 4. Jalankan mode pengembangan lokal
 npm run dev
 ```
 
-Create a production build with:
+Aplikasi akan berjalan secara lokal di `http://localhost:5173`.
+
+### Production Build & Verification
 
 ```bash
+# Uji coba build produksi
 npm run build
 ```
 
-## Project structure
+---
 
-```text
-src/
-  components/       Reusable layout, map, landing, profile, and UI components
-  data/             Community, contributor, and event demo data
-  hooks/            Shared React hooks
-  lib/              Shared navigation, accessibility labels, and utilities
-  pages/            Route-level application pages
-public/
-  images/           Local visual assets required by the interface
-  fonts/            Local font files
-```
+## 🏅 Identitas Penyelenggaraan
 
-## Image asset policy
+Project **Inkluvy** disusun dan dikembangkan secara khusus untuk mengikuti kompetisi **CITECH 2026** oleh Mahasiswa Jurusan Teknologi Informasi, **Politeknik Negeri Malang**.
 
-`public/images/` is intentionally excluded from Git because it contains large visual assets. Keep the supplied image files locally in that folder when running the project. The tracked `.gitkeep` file preserves the folder structure in a fresh clone.
-
+<div align="center">
+  <sub>Dedicated to a fully accessible and inclusive smart city for everyone.</sub>
+</div>

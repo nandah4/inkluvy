@@ -106,13 +106,52 @@ export const mockUsers = [
 
 export const mockPosts = [
   {
+    id: "post-danger-1",
+    authorId: "fadhil-rizky",
+    author: "Dimas Anggara",
+    avatar: "/images/avatars/avatar_budi_disability_1784680279512.png",
+    role: "Disability Advocate",
+    time: "10 minutes ago",
+    fullDate: "July 31, 2026, 23:45 WIB",
+    location: "Jl. Ijen Boulevard (Depan Perpustakaan)",
+    title: "⛔ BAHAYA: Galian Kabel Terbuka Tanpa Penutup di Trotoar Utama",
+    summary:
+      "Galian kabel galian terbuka memotong trotoar pedestrian tanpa rambu pengaman. Sangat berbahaya bagi pengguna kursi roda & tunanetra!",
+    content: `PERINGATAN BAHAYA / HAZARD REPORT:
+
+Mohon untuk pengguna kursi roda dan rekan tunanetra sementara menghindari jalur trotoar timur Jl. Ijen Boulevard (area dekat Perpustakaan Kota).
+
+**Kondisi Lapangan:**
+- Terdapat galian kabel proyek terbuka setinggi 1.2 meter tanpa penutup dan tanpa pita pengaman hazard.
+- Ubin pemandu (tactile block) terputus total sepanjang 15 meter.
+- Pengguna kursi roda terpaksa turun ke bahu jalan raya yang padat lalu lintas.
+
+Laporan bahaya darurat telah dikirimkan ke Dinas Perhubungan & Pekerjaan Umum Kota Malang via fitur Inkluvy SOS Civic Alert. Mohon berhati-hati!`,
+    tag: ACCESSIBILITY_STATUS.danger.label,
+    tagColor: "bg-red-600 text-white border-red-700 font-bold animate-pulse",
+    likes: 89,
+    commentsCount: 14,
+    isLiked: true,
+    image: "/images/map/danger_route_hole.png",
+    coordinates: { lat: -7.9722, lng: 112.6245 },
+    comments: [
+      {
+        id: "cd1",
+        author: "Siti Rahma",
+        avatar: "/images/avatars/avatar_siti.png",
+        time: "5 minutes ago",
+        text: "Bahaya sekali! Kemarin malam hampir terperosok karena tidak ada lampu penerangan di dekat galian tersebut.",
+      },
+    ],
+  },
+  {
     id: "post-1",
     authorId: "syahla-aulia",
     author: "Syahla Aulia",
     avatar: "/images/profile-avatar.png",
     role: "Verified Contributor",
-    time: "2 jam yang lalu",
-    fullDate: "28 Juli 2026, 14:30 WIB",
+    time: "2 hours ago",
+    fullDate: "July 28, 2026, 14:30 WIB",
     location: "Stasiun Malang Kota Baru (Peron 2)",
     title: "Lift Aksesibel Stasiun Kota Kembali Beroperasi Normal 🎉",
     summary:
@@ -141,7 +180,7 @@ Terima kasih kepada pihak manajemen Stasiun Malang atas respon cepatnya pasca la
         authorId: "fadhil-rizky",
         author: "Fadhil Rizky",
         avatar: "/images/avatars/avatar_fadhil.png",
-        time: "1 jam yang lalu",
+        time: "1 hour ago",
         content:
           "Mantap! Kemarin lusa saya yang bantu laporkan. Senang sekali langsung ditindaklanjuti!",
       },
@@ -150,7 +189,7 @@ Terima kasih kepada pihak manajemen Stasiun Malang atas respon cepatnya pasca la
         authorId: "siti-rahma",
         author: "Siti Rahma",
         avatar: "/images/avatars/avatar_siti.png",
-        time: "45 menit yang lalu",
+        time: "45 minutes ago",
         content:
           "Fitur audio announcer di dalam liftnya juga sangat membantu bagi penderita low vision seperti saya. Terima kasih perbaikannya!",
       },
@@ -159,7 +198,7 @@ Terima kasih kepada pihak manajemen Stasiun Malang atas respon cepatnya pasca la
         authorId: "syahla-aulia",
         author: "Syahla Aulia",
         avatar: "/images/profile-avatar.png",
-        time: "10 menit yang lalu",
+        time: "10 minutes ago",
         content:
           "Sama-sama Kak Fadhil & Mbak Siti! Mari terus kawal fasilitas publik kota kita ♿💪",
       },
@@ -171,8 +210,8 @@ Terima kasih kepada pihak manajemen Stasiun Malang atas respon cepatnya pasca la
     author: "Fadhil Rizky",
     avatar: "/images/avatars/avatar_fadhil.png",
     role: "Gold Mapper",
-    time: "5 jam yang lalu",
-    fullDate: "28 Juli 2026, 11:15 WIB",
+    time: "5 hours ago",
+    fullDate: "July 28, 2026, 11:15 WIB",
     location: "Jl. Veteran (Depan UB Gate 1)",
     title: "Perbaikan Trotoar Sementara — Rampa Kayu Disediakan 🚧",
     summary:
@@ -198,7 +237,7 @@ Saat ini sedang berlangsung proyek pemasangan pipa dan jaringan fiber optik bawa
         authorId: "syahla-aulia",
         author: "Syahla Aulia",
         avatar: "/images/profile-avatar.png",
-        time: "3 jam yang lalu",
+        time: "3 hours ago",
         content:
           "Terima kasih info lalulintasnya Kak Fadhil. Nanti sore saya lewat sana untuk cek kemiringannya.",
       },
@@ -211,11 +250,11 @@ export const mockEvents = [
     id: "event-1",
     title: "Malang Accessibility Walk & Mapping Day",
     slug: "malang-accessibility-walk-2026",
-    date: "Saturday, July 28, 2026",
+    date: "Saturday, August 8, 2026",
     time: "08:00 - 12:00 WIB",
     location: "Tugu Square, Malang & Surrounding Area",
     address: "Jl. Tugu No.1, Kiduldalem, Kec. Klojen, Kota Malang",
-    organizer: "AksesKota Community & Malang City Government",
+    organizer: "Inkluvy Community & Malang City Government",
     category: "Mapping Walk",
     banner: "/images/community/event_accessibility_walk.png",
     status: "Upcoming",
@@ -277,7 +316,7 @@ Participants will work in small groups alongside wheelchair users, blind partici
     id: "event-2",
     title: "Voice Navigation Workshop for Blind and Low-Vision Participants",
     slug: "workshop-navigasi-suara-tunanetra",
-    date: "Sunday, August 5, 2026",
+    date: "Wednesday, August 5, 2026",
     time: "10:00 - 14:00 WIB",
     location: "Gedung UB TV, Universitas Brawijaya",
     address: "Jl. Veteran, Ketawanggede, Kec. Lowokwaru, Kota Malang",

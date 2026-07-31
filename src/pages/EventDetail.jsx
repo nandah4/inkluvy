@@ -68,7 +68,7 @@ export default function EventDetail() {
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-700 hover:text-black bg-white px-3.5 py-2 rounded-xl border border-gray-200 shadow-2xs hover:bg-gray-50 transition-all"
           >
             <LuArrowLeft className="size-4" />
-            <span>Kembali</span>
+            <span>Back</span>
           </button>
 
           <button
@@ -77,7 +77,7 @@ export default function EventDetail() {
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 bg-white px-3 py-2 rounded-xl border border-gray-200 shadow-2xs hover:bg-gray-50 transition-all"
           >
             <LuShare2 className="size-3.5" />
-            <span>{copied ? "Link Tersalin! ✓" : "Bagikan Event"}</span>
+            <span>{copied ? "Link Copied! ✓" : "Share Event"}</span>
           </button>
         </div>
 
@@ -116,12 +116,13 @@ export default function EventDetail() {
             {/* Location & Organizer Info (Clean Unboxed Layout) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
               <div className="flex items-start gap-3">
-                <div className="size-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
-                  <LuMapPin className="size-4" />
-                </div>
+                <SectionIcon
+                  icon={LuMapPin}
+                  colorClass="from-emerald-50 text-emerald-600"
+                />
                 <div>
                   <h4 className="font-bold text-xs text-gray-500 uppercase tracking-wider">
-                    Lokasi Acara
+                    Event Location
                   </h4>
                   <p className="text-sm text-gray-900 font-bold mt-0.5">
                     {event.location}
@@ -133,18 +134,19 @@ export default function EventDetail() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="size-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-100">
-                  <LuBuilding2 className="size-4" />
-                </div>
+                <SectionIcon
+                  icon={LuBuilding2}
+                  colorClass="from-amber-50 text-amber-600"
+                />
                 <div>
                   <h4 className="font-bold text-xs text-gray-500 uppercase tracking-wider">
-                    Penyelenggara
+                    Organizer
                   </h4>
                   <p className="text-sm text-gray-900 font-bold mt-0.5">
                     {event.organizer}
                   </p>
                   <p className="text-xs text-gray-500 font-normal mt-0.5">
-                    Komunitas Resmi Inkluvy Malang
+                    Official Inkluvy Malang Community
                   </p>
                 </div>
               </div>
@@ -164,7 +166,7 @@ export default function EventDetail() {
                   colorClass="from-blue-50 text-blue-600"
                 />
                 <h3 className="font-bold text-base sm:text-lg text-gray-900">
-                  Deskripsi Kegiatan
+                  Event Description
                 </h3>
               </div>
 
@@ -182,7 +184,7 @@ export default function EventDetail() {
                     colorClass="from-emerald-50 text-emerald-600"
                   />
                   <h3 className="font-bold text-base sm:text-lg text-gray-900">
-                    Rangkaian Acara (Agenda)
+                    Event Schedule (Agenda)
                   </h3>
                 </div>
 
@@ -226,13 +228,13 @@ export default function EventDetail() {
 
                 <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full text-[11px] font-bold border border-emerald-500/30">
                   <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Kuota Terisi</span>
+                  <span>Capacity Filled</span>
                 </div>
               </div>
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs font-semibold text-gray-300">
-                  <span>Peserta Terdaftar</span>
+                  <span>Registered Attendees</span>
                   <span className="font-extrabold text-white text-sm">
                     {attendeesCount}{" "}
                     <span className="text-gray-500 font-normal">
@@ -264,10 +266,10 @@ export default function EventDetail() {
                 {isAttending ? (
                   <>
                     <LuCheck className="size-4 stroke-[3]" />
-                    <span>Anda Terdaftar (Batal RSVP)</span>
+                    <span>You're Registered (Cancel RSVP)</span>
                   </>
                 ) : (
-                  <span>Konfirmasi Kehadiran (RSVP) →</span>
+                  <span>Confirm Attendance (RSVP) →</span>
                 )}
               </button>
             </div>
@@ -280,7 +282,7 @@ export default function EventDetail() {
                   colorClass="from-emerald-50 text-emerald-600"
                 />
                 <h3 className="font-bold text-sm text-gray-900">
-                  Fasilitas Aksesibilitas Disediakan
+                  Accessibility Features Available
                 </h3>
               </div>
 

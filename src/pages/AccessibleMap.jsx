@@ -14,6 +14,7 @@ import {
   LuHeadphones,
   LuHeart,
   LuImage,
+  LuInfo,
   LuLayers,
   LuLifeBuoy,
   LuMapPin,
@@ -42,6 +43,7 @@ import {
   MapRoute,
 } from "../components/map/MapCanvas";
 import { ACCESSIBILITY_STATUS } from "../lib/accessibilityStatus";
+import SectionIcon from "../components/ui/SectionIcon";
 import AI3DPovModal from "../components/map/AI3DPovModal";
 
 // Route coordinates through Malang city
@@ -68,7 +70,7 @@ const initialStops = [
     vulnerability: "safe",
     vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
     details:
-      "Rampa beton khusus disabilitas dengan railing stainless ganda. Kondisi sangat baik.",
+      "Accessible concrete ramp with dual stainless-steel handrails. The ramp is in excellent condition.",
     updatedTime: "10 mins ago",
     reporter: "Syahla Aulia",
     reporterAvatar: "/images/profile-avatar.png",
@@ -86,7 +88,7 @@ const initialStops = [
     vulnerability: "safe",
     vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
     details:
-      "Pintu masuk khusus kursi roda di sisi barat, lift peron aktif dan toilet aksesibel bersih.",
+      "A dedicated wheelchair entrance is available on the west side, with an active platform elevator and a clean accessible restroom.",
     updatedTime: "15 mins ago",
     reporter: "Siti Rahma",
     reporterAvatar: "/images/avatars/avatar_siti.png",
@@ -95,16 +97,16 @@ const initialStops = [
   },
   {
     id: "stop-3",
-    name: "Trotoar Jl. Veteran",
+    name: "Jl. Veteran Sidewalk",
     category: "Construction Obstacle",
     coordinates: [112.6319, -7.9858],
     slope: "Caution Needed",
-    status: "Rampa Kayu Sementara",
+    status: "Temporary Wooden Ramp",
     type: "warning",
     vulnerability: "vulnerable",
     vulnerabilityLabel: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
     details:
-      "Pengerjaan saluran air di trotoar. Kontraktor memasang rampa kayu darurat dengan rambu kuning.",
+      "Drainage work is underway on the sidewalk. The contractor has installed a temporary wooden ramp with yellow warning signs.",
     updatedTime: "1 hour ago",
     reporter: "Fadhil Rizky",
     reporterAvatar: "/images/avatars/avatar_fadhil.png",
@@ -113,7 +115,7 @@ const initialStops = [
   },
   {
     id: "stop-4",
-    name: "Stasiun Malang Kota Baru (Lift Peron)",
+    name: "Malang Kota Baru Station (Platform Elevator)",
     category: "Transit Elevator Hub",
     coordinates: [112.6375, -7.9892],
     slope: "0° (Level Access)",
@@ -122,7 +124,7 @@ const initialStops = [
     vulnerability: "safe",
     vulnerabilityLabel: ACCESSIBILITY_STATUS.safe.labelWithBadge,
     details:
-      "Lift peron 2 beroperasi penuh. Petugas siap membantu pengguna kursi roda dan lansia.",
+      "The Platform 2 elevator is fully operational. Staff are ready to assist wheelchair users and older passengers.",
     updatedTime: "5 mins ago",
     reporter: "Budi Santoso",
     reporterAvatar: "/images/avatars/avatar_budi.png",
@@ -131,16 +133,16 @@ const initialStops = [
   },
   {
     id: "stop-5",
-    name: "Ubin Pemandu Aus Depan Pasar Besar",
+    name: "Worn Tactile Paving near Pasar Besar",
     category: "Tactile Block Warning",
     coordinates: [112.6345, -7.983],
     slope: "Medium Caution",
-    status: "Perlu Perbaikan Ubin",
+    status: "Tactile Paving Needs Repair",
     type: "warning",
     vulnerability: "vulnerable",
     vulnerabilityLabel: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
     details:
-      "Sebagian ubin pengarah tunanetra aus/terlepas akibat gesekan kendaraan parkir tepi jalan.",
+      "Several tactile paving blocks are worn or dislodged due to contact with vehicles parked along the roadside.",
     updatedTime: "2 hours ago",
     reporter: "Maya Indah",
     reporterAvatar: "/images/avatars/avatar_maya.png",
@@ -148,16 +150,36 @@ const initialStops = [
     image: "/images/community/community_sidewalk_ramp.png",
   },
   {
+    id: "stop-danger-1",
+    name: "Open Cable Trench and Collapsed Sidewalk",
+    category: ACCESSIBILITY_STATUS.danger.label,
+    coordinates: [112.62635, -7.97475],
+    slope: "Extremely Dangerous",
+    status: "Impassable",
+    type: "danger",
+    vulnerability: "danger",
+    vulnerabilityLabel: ACCESSIBILITY_STATUS.danger.labelWithBadge,
+    details:
+      "An unprotected cable trench cuts across the main sidewalk. The deep opening is extremely dangerous for wheelchair users and blind pedestrians.",
+    updatedTime: "10 mins ago",
+    reporter: "Dimas Anggara",
+    reporterAvatar: "/images/avatars/avatar_budi_disability_1784680279512.png",
+    badgeColor:
+      "bg-orange-600 text-white border-orange-700 font-bold shadow-xs animate-pulse",
+    image: "/images/map/danger_route_hole.png",
+  },
+  {
     id: "stop-sos-1",
     name: "[SOS] Wheelchair Assistance Needed",
     category: "Emergency SOS Support",
-    coordinates: [112.6268, -7.9760],
+    coordinates: [112.6268, -7.976],
     slope: "Immediate Help Req",
     status: "Awaiting Volunteer",
     type: "sos",
     vulnerability: "vulnerable",
     vulnerabilityLabel: "🚨 Emergency SOS",
-    details: "Wheelchair user stuck at high curb due to sidewalk excavation. Requests manual lift support.",
+    details:
+      "Wheelchair user stuck at high curb due to sidewalk excavation. Requests manual lift support.",
     updatedTime: "2 mins ago",
     reporter: "Budi Handoko (Wheelchair Commuter)",
     reporterAvatar: "/images/avatars/avatar_budi_disability_1784680279512.png",
@@ -168,13 +190,14 @@ const initialStops = [
     id: "stop-sos-2",
     name: "[SOS] Blind Guide Companion Requested",
     category: "Emergency SOS Support",
-    coordinates: [112.6335, -7.9870],
+    coordinates: [112.6335, -7.987],
     slope: "Immediate Help Req",
     status: "Awaiting Volunteer",
     type: "sos",
     vulnerability: "vulnerable",
     vulnerabilityLabel: "🚨 Emergency SOS",
-    details: "Tunanetra commuter lost connection to tactile path due to sudden blockades. Requests guide to terminal.",
+    details:
+      "A blind commuter lost access to the tactile path because of a sudden obstruction and is requesting guidance to the terminal.",
     updatedTime: "5 mins ago",
     reporter: "Siti Aminah (Visually Impaired)",
     reporterAvatar: "/images/avatars/avatar_siti_disability_1784680263685.png",
@@ -190,8 +213,8 @@ const transitItinerary = [
     step: 1,
     type: "bus",
     lineName: "Malang Trans Line 1A (Ijen Direction)",
-    from: "Halte Ijen Boulevard",
-    to: "Halte Alun-Alun Malang",
+    from: "Ijen Boulevard Bus Stop",
+    to: "Alun-Alun Malang Bus Stop",
     duration: "12 mins",
     wheelchairPriority: true,
     priorityIndicator: "Priority Seating & Wheelchair Space Available ♿",
@@ -206,7 +229,7 @@ const transitItinerary = [
     step: 2,
     type: "transfer",
     lineName: "Tactile Platform Connection",
-    from: "Halte Alun-Alun Malang",
+    from: "Alun-Alun Malang Bus Stop",
     to: "Alun-Alun Transit Point",
     duration: "3 mins",
     wheelchairPriority: false,
@@ -223,7 +246,7 @@ const transitItinerary = [
     type: "bus",
     lineName: "City Shuttle Bus B2 (Malang Hub)",
     from: "Alun-Alun Transit Point",
-    to: "Stasiun Malang (South Gate)",
+    to: "Malang Station (South Gate)",
     duration: "8 mins",
     wheelchairPriority: true,
     priorityIndicator: "Priority Seating Available ♿",
@@ -238,7 +261,7 @@ const transitItinerary = [
     step: 4,
     type: "train",
     lineName: "Malang Commuter Line (Platform 1)",
-    from: "Stasiun Malang Kota Baru",
+    from: "Malang Kota Baru Station",
     to: "Tujuan Akhir (Destination)",
     duration: "Local Rail",
     wheelchairPriority: true,
@@ -251,6 +274,68 @@ const transitItinerary = [
   },
 ];
 
+const renderStatusBadge = (stop, isSelected = false) => {
+  const badgeClasses = isSelected
+    ? "bg-white/20 text-white border-white/30"
+    : stop.badgeColor || "bg-gray-100 text-gray-800 border-gray-200";
+
+  if (stop.vulnerability === "danger" || stop.type === "danger") {
+    return (
+      <span
+        className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 flex items-center gap-1.5 ${badgeClasses}`}
+      >
+        <LuShieldAlert
+          className={`size-3 ${isSelected ? "text-white" : "text-white"}`}
+        />
+        <span>{ACCESSIBILITY_STATUS.danger.label}</span>
+      </span>
+    );
+  }
+  if (stop.vulnerability === "safe" || stop.type === "safe") {
+    return (
+      <span
+        className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 flex items-center gap-1.5 ${badgeClasses}`}
+      >
+        <LuCheck
+          className={`size-3 ${isSelected ? "text-white" : "text-emerald-600"} font-bold stroke-[3]`}
+        />
+        <span>{ACCESSIBILITY_STATUS.safe.label}</span>
+      </span>
+    );
+  }
+  if (stop.vulnerability === "vulnerable" || stop.type === "warning") {
+    return (
+      <span
+        className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 flex items-center gap-1.5 ${badgeClasses}`}
+      >
+        <LuShieldAlert
+          className={`size-3 ${isSelected ? "text-white" : "text-amber-600"}`}
+        />
+        <span>{ACCESSIBILITY_STATUS.vulnerable.label}</span>
+      </span>
+    );
+  }
+  if (stop.type === "sos") {
+    return (
+      <span
+        className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 flex items-center gap-1.5 ${badgeClasses}`}
+      >
+        <LuLifeBuoy
+          className={`size-3 ${isSelected ? "text-white" : "text-rose-600"} animate-pulse`}
+        />
+        <span>Emergency SOS</span>
+      </span>
+    );
+  }
+  return (
+    <span
+      className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 ${badgeClasses}`}
+    >
+      {stop.vulnerabilityLabel}
+    </span>
+  );
+};
+
 export default function AccessibleMap() {
   const [stops, setStops] = useState(initialStops);
   const [activeStopId, setActiveStopId] = useState("stop-2");
@@ -258,6 +343,7 @@ export default function AccessibleMap() {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [showSosModal, setShowSosModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedImageModal, setSelectedImageModal] = useState(null);
   const [show3DPovModal, setShow3DPovModal] = useState(false);
@@ -280,7 +366,7 @@ export default function AccessibleMap() {
   // Search & Navigation States
   const [startPoint, setStartPoint] = useState("Jl. Ijen Boulevard, Malang");
   const [destinationPoint, setDestinationPoint] = useState(
-    "Stasiun Malang Kota Baru",
+    "Malang Kota Baru Station",
   );
   const [accessNeed, setAccessNeed] = useState("Wheelchair Ramps");
 
@@ -305,10 +391,30 @@ export default function AccessibleMap() {
           className="w-full h-full"
         >
           {/* Main Accessible Polyline Route Path - Segmented by condition */}
-          {/* Segment 1: Safe (Blue) */}
+          {/* Segment 1a: Safe Start (Blue) */}
           <MapRoute
             coordinates={[
               [112.6245, -7.9722], // Start: Jl. Ijen Boulevard
+              [112.6255, -7.9735], // Pre-hazard junction
+            ]}
+            color="#3874FF"
+            width={6}
+            opacity={0.95}
+          />
+          {/* Segment 1b: Severe Hazard Zone (Continuous Red Line on Main Route) */}
+          <MapRoute
+            coordinates={[
+              [112.6255, -7.9735], // Hazard start
+              [112.6272, -7.976], // Hazard end (Galian Kabel Terbuka)
+            ]}
+            color="#EA580C" // High visibility Orange/Coral Red for Danger Hazard
+            width={8}
+            opacity={0.95}
+          />
+          {/* Segment 1c: Safe Continuation (Blue) */}
+          <MapRoute
+            coordinates={[
+              [112.6272, -7.976],
               [112.6289, -7.9785], // Mid 1: Museum Brawijaya
             ]}
             color="#3874FF"
@@ -325,7 +431,7 @@ export default function AccessibleMap() {
             width={6}
             opacity={0.95}
           />
-          {/* Segment 3: Safe (Blue) */}
+          {/* Segment 3: Safe End (Blue) */}
           <MapRoute
             coordinates={[
               [112.6319, -7.9858], // Mid 2: Trotoar Jl. Veteran
@@ -376,19 +482,25 @@ export default function AccessibleMap() {
                     className={`cursor-pointer px-3 py-1.5 rounded-full shadow-md border flex items-center gap-1.5 transition-all duration-200 ${
                       isSelected
                         ? stop.type === "sos"
-                          ? "bg-red-600 text-white border-red-700 shadow-lg z-30 font-bold"
-                          : "bg-[#79B9F3] text-white border-[#5ca8ee] shadow-lg  z-30 font-bold"
+                          ? "bg-rose-600 text-white border-rose-700 shadow-lg z-30 font-bold"
+                          : stop.type === "danger"
+                            ? "bg-orange-600 text-white border-orange-700 shadow-lg z-30 font-bold"
+                            : "bg-[#79B9F3] text-white border-[#5ca8ee] shadow-lg z-30 font-bold"
                         : stop.type === "sos"
-                          ? "bg-red-50 text-red-700 border-red-300 shadow-md shadow-red-200/40 z-25 font-bold animate-pulse"
-                          : stop.vulnerability === "vulnerable"
-                            ? "bg-amber-50 text-amber-900 border-amber-300/90 shadow-2xs z-10 font-semibold"
-                            : "bg-white text-gray-800 border-gray-200/90 hover:border-gray-300 shadow-2xs z-20"
+                          ? "bg-rose-600 text-white border-rose-700 shadow-md shadow-rose-500/40 z-28 font-bold animate-pulse"
+                          : stop.type === "danger"
+                            ? "bg-orange-600 text-white border-orange-700 shadow-md shadow-orange-500/40 z-28 font-bold animate-pulse"
+                            : stop.vulnerability === "vulnerable"
+                              ? "bg-amber-50 text-amber-900 border-amber-300/90 shadow-2xs z-10 font-semibold"
+                              : "bg-white text-gray-800 border-gray-200/90 hover:border-gray-300 shadow-2xs z-20"
                     }`}
                   >
-                    {stop.type === "sos" ? (
-                      <LuShieldAlert className={`size-3.5 shrink-0 ${isSelected ? "text-white" : "text-red-500 animate-bounce"}`} />
+                    {stop.type === "sos" || stop.type === "danger" ? (
+                      <LuShieldAlert
+                        className={`size-3.5 shrink-0 ${isSelected ? "text-white" : "text-white animate-bounce"}`}
+                      />
                     ) : stop.vulnerability === "vulnerable" ? (
-                      <LuShieldAlert className="size-3.5  shrink-0" />
+                      <LuShieldAlert className="size-3.5 shrink-0 text-amber-600" />
                     ) : (
                       <LuMapPin
                         className={`size-3.5 ${
@@ -448,6 +560,17 @@ export default function AccessibleMap() {
                 <span className="text-[11px] sm:text-xs">Open Panel</span>
               </>
             )}
+          </button>
+
+          {/* Map Feature Info Guide Button (i) */}
+          <button
+            type="button"
+            onClick={() => setShowInfoModal(true)}
+            className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md text-gray-800 border border-gray-200/90 shadow-md hover:bg-gray-100 transition-all flex items-center justify-center cursor-pointer"
+            title="Map Guide & Menu Usage Info"
+            aria-label="Map Guide & Info"
+          >
+            <LuInfo className="size-4 text-blue-600" />
           </button>
 
           <span className="hidden md:inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-emerald-200">
@@ -543,7 +666,7 @@ export default function AccessibleMap() {
             <button
               type="button"
               onClick={() => setShowReportModal(true)}
-              className="w-full py-1.5 rounded-lg text-xs font-bold bg-gradient-to-b from-black to-black/50 text-white hover:from-black hover:to-black/70 transition-all shadow-2xs flex items-center justify-center gap-1"
+              className="w-full py-2.5 rounded-lg text-xs font-bold bg-gradient-to-b from-black to-black/50 text-white hover:from-black hover:to-black/70 transition-all shadow-2xs flex items-center justify-center gap-1"
             >
               <LuPlus className="size-3" />
               <span>Report Route Condition</span>
@@ -580,19 +703,27 @@ export default function AccessibleMap() {
                 </div>
 
                 {/* Access Need Selector */}
-                <div className="flex items-center justify-between gap-2 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pt-1 min-w-0">
                   <span className="text-[11px] font-bold text-gray-500 uppercase shrink-0">
                     Access Need:
                   </span>
                   <select
                     value={accessNeed}
                     onChange={(e) => setAccessNeed(e.target.value)}
-                    className="text-xs font-bold text-gray-900 bg-[#F5F5F3] border border-gray-200/60 rounded-lg px-2.5 py-1 focus:outline-none cursor-pointer truncate"
+                    className="w-full sm:w-auto max-w-full text-xs font-bold text-gray-900 bg-[#F5F5F3] border border-gray-200/60 rounded-lg px-2.5 py-1.5 focus:outline-none cursor-pointer truncate min-w-0"
                   >
-                    <option value="wheelchair">👩‍🦽 Wheelchair & Low Slope (&lt;5° Ramp)</option>
-                    <option value="blind">🦯 Blind & Tactile Guiding (Guiding Blocks)</option>
-                    <option value="senior">🦼 Senior & Low Stairs (Gentle Pathway)</option>
-                    <option value="deaf">👂 Visual & Elevator Access (Lifts & Signals)</option>
+                    <option value="wheelchair">
+                      👩‍🦽 Wheelchair & Low Slope (&lt;5° Ramp)
+                    </option>
+                    <option value="blind">
+                      🦯 Blind & Tactile Guiding (Guiding Blocks)
+                    </option>
+                    <option value="senior">
+                      🦼 Senior & Low Stairs (Gentle Pathway)
+                    </option>
+                    <option value="deaf">
+                      👂 Visual & Elevator Access (Lifts & Signals)
+                    </option>
                   </select>
                 </div>
               </div>
@@ -610,174 +741,172 @@ export default function AccessibleMap() {
                 </div>
 
                 <div className="space-y-2.5">
-                  {stops.filter((s) => s.type !== "sos").map((stop, idx) => {
-                    const isSelected = activeStopId === stop.id;
-                    return (
-                      <div
-                        key={stop.id}
-                        onClick={() => setActiveStopId(stop.id)}
-                        className={`p-3 rounded-xl border transition-all cursor-pointer flex flex-col gap-2 ${
-                          isSelected
-                            ? "bg-gradient-to-b from-black to-black/50 text-white border-black shadow-md"
-                            : "bg-white hover:bg-gray-50 border-gray-200 text-gray-900"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span
-                              className={`size-5 rounded-full text-[10px] font-bold flex items-center justify-center shrink-0 ${
-                                isSelected
-                                  ? "bg-white text-black"
-                                  : "bg-gray-100 text-gray-700"
-                              }`}
-                            >
-                              {idx + 1}
-                            </span>
-                            <h5 className="font-bold text-xs truncate">
-                              {stop.name}
-                            </h5>
+                  {stops
+                    .filter((s) => s.type !== "sos")
+                    .map((stop, idx) => {
+                      const isSelected = activeStopId === stop.id;
+                      return (
+                        <div
+                          key={stop.id}
+                          onClick={() => setActiveStopId(stop.id)}
+                          className={`p-3 rounded-xl border transition-all cursor-pointer flex flex-col gap-2 ${
+                            isSelected
+                              ? "bg-gradient-to-b from-black to-black/50 text-white border-black shadow-md"
+                              : "bg-white hover:bg-gray-50 border-gray-200 text-gray-900"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span
+                                className={`size-5 rounded-full text-[10px] font-bold flex items-center justify-center shrink-0 ${
+                                  isSelected
+                                    ? "bg-white text-black"
+                                    : "bg-gray-100 text-gray-700"
+                                }`}
+                              >
+                                {idx + 1}
+                              </span>
+                              <h5 className="font-bold text-xs truncate">
+                                {stop.name}
+                              </h5>
+                            </div>
+
+                            {renderStatusBadge(stop, isSelected)}
                           </div>
 
-                          <span
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border shrink-0 ${
-                              isSelected
-                                ? "bg-white/20 text-white border-white/30"
-                                : stop.badgeColor
+                          <p
+                            className={`text-[11px] leading-relaxed font-normal ${
+                              isSelected ? "text-gray-100" : "text-gray-800"
                             }`}
                           >
-                            {stop.vulnerabilityLabel}
-                          </span>
-                        </div>
+                            {stop.details}
+                          </p>
 
-                        <p
-                          className={`text-[11px] leading-relaxed font-normal ${
-                            isSelected ? "text-gray-300" : "text-gray-600"
-                          }`}
-                        >
-                          {stop.details}
-                        </p>
-
-                      {/* Real Spot Condition Image Preview with 3D POV Badge */}
-                        {stop.image && (
-                          <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedImageModal(stop);
-                            }}
-                            className="relative group rounded-lg overflow-hidden h-28 w-full border border-gray-200/60 mt-0.5 cursor-zoom-in"
-                          >
-                            <img
-                              src={stop.image}
-                              alt={stop.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold gap-1">
-                              <LuImage className="size-4" />
-                              <span>View Condition Photo</span>
-                            </div>
-
-                            <button
-                              type="button"
+                          {/* Real Spot Condition Image Preview with 3D POV Badge */}
+                          {stop.image && (
+                            <div
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setPovLocationName(stop.name);
-                                setShow3DPovModal(true);
+                                setSelectedImageModal(stop);
                               }}
-                              className="absolute bottom-2 left-2 z-10 bg-black/80 hover:bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-lg border border-emerald-500/40 backdrop-blur-xs flex items-center gap-1 shadow-sm transition-all cursor-pointer"
+                              className="relative group rounded-lg overflow-hidden h-28 w-full border border-gray-200/60 mt-0.5 cursor-zoom-in"
                             >
-                              <LuSparkles className="size-3 text-emerald-400 animate-pulse" />
-                              <span>POV 360° AI</span>
-                            </button>
-                          </div>
-                        )}
+                              <img
+                                src={stop.image}
+                                alt={stop.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold gap-1">
+                                <LuImage className="size-4" />
+                                <span>View Condition Photo</span>
+                              </div>
 
-                        {/* Accessible Ride Options to this Stop */}
-                        {isSelected && (
-                          <div className="mt-3 pt-3 border-t border-gray-800 space-y-2 text-left">
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
-                              Accessible Ride Options
-                            </span>
-                            <div className="grid grid-cols-3 gap-2">
-                              <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
-                                <img
-                                  src="/images/map/inkluvy_cab.png"
-                                  alt="Inkluvy Cab"
-                                  className="w-10 h-auto object-contain rounded bg-white p-0.5"
-                                />
-                                <span className="text-[9px] font-bold text-white block leading-tight">
-                                  Inkluvy Cab
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setPovLocationName(stop.name);
+                                  setShow3DPovModal(true);
+                                }}
+                                className="absolute bottom-2 left-2 z-10 bg-primary/90 hover:bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-lg border border-emerald-500/40 backdrop-blur-xs flex items-center gap-1 shadow-sm transition-all cursor-pointer"
+                              >
+                                <LuSparkles className="size-3 text-white animate-pulse" />
+                                <span className="tracking-wide">
+                                  POV 360° AI
                                 </span>
-                                <span className="text-[8px] text-emerald-400 font-semibold leading-none">
-                                  Ready
-                                </span>
-                              </div>
-                              <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
-                                <img
-                                  src="/images/map/low_floor_bus.png"
-                                  alt="Low Bus"
-                                  className="w-10 h-auto object-contain rounded bg-white p-0.5"
-                                />
-                                <span className="text-[9px] font-bold text-white block leading-tight">
-                                  Low Bus
-                                </span>
-                                <span className="text-[8px] text-emerald-400 font-semibold leading-none">
-                                  Every 10m
-                                </span>
-                              </div>
-                              <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
-                                <img
-                                  src="/images/map/electric_shuttle.png"
-                                  alt="E-Shuttle"
-                                  className="w-10 h-auto object-contain rounded bg-white p-0.5"
-                                />
-                                <span className="text-[9px] font-bold text-white block leading-tight">
-                                  E-Shuttle
-                                </span>
-                                <span className="text-[8px] text-amber-400 font-semibold leading-none">
-                                  Req Assist
-                                </span>
+                              </button>
+                            </div>
+                          )}
+
+                          {/* Accessible Ride Options to this Stop */}
+                          {isSelected && (
+                            <div className="mt-3 space-y-2 text-left">
+                              <span className="text-[10px] font-bold text-white uppercase tracking-wider block">
+                                Accessible Ride Options
+                              </span>
+                              <div className="grid grid-cols-3 gap-2">
+                                <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
+                                  <img
+                                    src="/images/map/inkluvy_cab.png"
+                                    alt="Inkluvy Cab"
+                                    className="w-10 h-auto object-contain rounded bg-white p-0.5"
+                                  />
+                                  <span className="text-[9px] font-bold text-white block leading-tight">
+                                    Inkluvy Cab
+                                  </span>
+                                  <span className="text-[8px] text-emerald-400 font-semibold leading-none">
+                                    Ready
+                                  </span>
+                                </div>
+                                <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
+                                  <img
+                                    src="/images/map/low_floor_bus.png"
+                                    alt="Low Bus"
+                                    className="w-10 h-auto object-contain rounded bg-white p-0.5"
+                                  />
+                                  <span className="text-[9px] font-bold text-white block leading-tight">
+                                    Low Bus
+                                  </span>
+                                  <span className="text-[8px] text-emerald-400 font-semibold leading-none">
+                                    Every 10m
+                                  </span>
+                                </div>
+                                <div className="bg-[#1C1C1E] p-2 rounded-lg text-center flex flex-col items-center gap-1.5 border border-gray-800">
+                                  <img
+                                    src="/images/map/electric_shuttle.png"
+                                    alt="E-Shuttle"
+                                    className="w-10 h-auto object-contain rounded bg-white p-0.5"
+                                  />
+                                  <span className="text-[9px] font-bold text-white block leading-tight">
+                                    E-Shuttle
+                                  </span>
+                                  <span className="text-[8px] text-amber-400 font-semibold leading-none">
+                                    Req Assist
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          )}
 
-                        {/* Reporter & Updated Time Footer */}
-                        <div
-                          className={`pt-2 flex items-center justify-between text-[11px] font-medium ${
-                            isSelected ? "text-gray-300" : "text-gray-500"
-                          }`}
-                        >
-                          <div className="flex items-center gap-1.5 min-w-0">
-                            <img
-                              src={stop.reporterAvatar}
-                              alt={stop.reporter}
-                              className="size-4 rounded-full object-cover border border-gray-300 shrink-0"
-                            />
-                            <span className="truncate flex items-center gap-1">
-                              Reported by{" "}
-                              <strong
-                                className={
-                                  isSelected ? "text-white" : "text-gray-900"
-                                }
-                              >
-                                {stop.reporter}
-                              </strong>
-                              <LuShieldCheck
-                                className={`size-3 shrink-0 ${
-                                  isSelected ? "text-emerald-300" : "text-emerald-600"
-                                }`}
-                                title="Verified Reporter"
+                          {/* Reporter & Updated Time Footer */}
+                          <div
+                            className={`pt-2 flex items-center justify-between text-[11px] font-medium ${
+                              isSelected ? "text-gray-300" : "text-gray-500"
+                            }`}
+                          >
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              <img
+                                src={stop.reporterAvatar}
+                                alt={stop.reporter}
+                                className="size-4 rounded-full object-cover border border-gray-300 shrink-0"
                               />
+                              <span className="truncate flex items-center gap-1">
+                                Reported by{" "}
+                                <strong
+                                  className={
+                                    isSelected ? "text-white" : "text-gray-900"
+                                  }
+                                >
+                                  {stop.reporter}
+                                </strong>
+                                <LuShieldCheck
+                                  className={`size-3 shrink-0 ${
+                                    isSelected
+                                      ? "text-emerald-300"
+                                      : "text-emerald-600"
+                                  }`}
+                                  title="Verified Reporter"
+                                />
+                              </span>
+                            </div>
+                            <span className=" text-white flex items-center gap-1 shrink-0 text-[10px]">
+                              <LuClock className="size-3" />
+                              {stop.updatedTime}
                             </span>
                           </div>
-                          <span className="flex items-center gap-1 shrink-0 text-[10px]">
-                            <LuClock className="size-3" />
-                            {stop.updatedTime}
-                          </span>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -792,31 +921,50 @@ export default function AccessibleMap() {
 
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { label: "All", type: "all" },
                   {
-                    label: ACCESSIBILITY_STATUS.safe.labelWithBadge,
+                    label: "All",
+                    type: "all",
+                    icon: <LuFilter className="size-3.5 text-gray-500" />,
+                  },
+                  {
+                    label: ACCESSIBILITY_STATUS.safe.label,
                     type: "safe",
+                    icon: (
+                      <LuCheck className="size-3.5 text-emerald-500 font-bold stroke-[3]" />
+                    ),
                   },
                   {
-                    label: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
+                    label: ACCESSIBILITY_STATUS.vulnerable.label,
                     type: "vulnerable",
+                    icon: <LuShieldAlert className="size-3.5 text-amber-500" />,
                   },
                   {
-                    label: "🚨 Emergency SOS",
+                    label: ACCESSIBILITY_STATUS.danger.label,
+                    type: "danger",
+                    icon: (
+                      <LuShieldAlert className="size-3.5 text-orange-500" />
+                    ),
+                  },
+                  {
+                    label: "Emergency SOS",
                     type: "sos",
+                    icon: (
+                      <LuLifeBuoy className="size-3.5 text-rose-500 animate-pulse" />
+                    ),
                   },
                 ].map((f) => (
                   <button
                     key={f.type}
                     type="button"
                     onClick={() => setSelectedFilter(f.type)}
-                    className={`py-2 px-2 rounded-xl text-xs font-bold border text-center transition-all ${
+                    className={`py-2 px-2 rounded-xl text-xs font-bold border text-center transition-all flex items-center justify-center gap-1.5 ${
                       selectedFilter === f.type
                         ? "bg-gradient-to-b from-black to-black/50 text-white border-black"
                         : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                     }`}
                   >
-                    {f.label}
+                    {f.icon}
+                    <span>{f.label}</span>
                   </button>
                 ))}
               </div>
@@ -832,11 +980,7 @@ export default function AccessibleMap() {
                       <h5 className="font-bold text-xs text-gray-900">
                         {stop.name}
                       </h5>
-                      <span
-                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${stop.badgeColor}`}
-                      >
-                        {stop.vulnerabilityLabel}
-                      </span>
+                      {renderStatusBadge(stop, false)}
                     </div>
                     <p className="text-xs text-gray-500">{stop.details}</p>
 
@@ -849,7 +993,10 @@ export default function AccessibleMap() {
                         />
                         <span className="flex items-center gap-1">
                           Reporter: {stop.reporter}
-                          <LuShieldCheck className="size-3 text-emerald-600 shrink-0" title="Verified Reporter" />
+                          <LuShieldCheck
+                            className="size-3 text-emerald-600 shrink-0"
+                            title="Verified Reporter"
+                          />
                         </span>
                       </div>
                       <span className="text-[10px] text-gray-400">
@@ -954,25 +1101,48 @@ export default function AccessibleMap() {
             Route Condition:
           </span>
           {[
-            { label: "All", type: "all" },
-            { label: ACCESSIBILITY_STATUS.safe.labelWithBadge, type: "safe" },
             {
-              label: ACCESSIBILITY_STATUS.vulnerable.labelWithBadge,
-              type: "vulnerable",
+              label: "All",
+              type: "all",
+              icon: <LuFilter className="size-3.5 text-gray-500" />,
             },
-            { label: "🚨 Emergency SOS", type: "sos" },
+            {
+              label: ACCESSIBILITY_STATUS.safe.label,
+              type: "safe",
+              icon: (
+                <LuCheck className="size-3.5 text-emerald-500 font-bold stroke-[3]" />
+              ),
+            },
+            {
+              label: ACCESSIBILITY_STATUS.vulnerable.label,
+              type: "vulnerable",
+              icon: <LuShieldAlert className="size-3.5 text-amber-500" />,
+            },
+            {
+              label: ACCESSIBILITY_STATUS.danger.label,
+              type: "danger",
+              icon: <LuShieldAlert className="size-3.5 text-orange-500" />,
+            },
+            {
+              label: "Emergency SOS",
+              type: "sos",
+              icon: (
+                <LuLifeBuoy className="size-3.5 text-rose-500 animate-pulse" />
+              ),
+            },
           ].map((item) => (
             <button
               key={item.type}
               type="button"
               onClick={() => setSelectedFilter(item.type)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                 selectedFilter === item.type
                   ? "bg-gradient-to-b from-black to-black/50 text-white shadow-2xs"
                   : "bg-[#F5F5F3] text-gray-700 hover:bg-gray-200"
               }`}
             >
-              {item.label}
+              {item.icon}
+              <span>{item.label}</span>
             </button>
           ))}
         </div>
@@ -1009,11 +1179,7 @@ export default function AccessibleMap() {
                   <h4 className="font-bold text-base text-gray-900">
                     {selectedImageModal.name}
                   </h4>
-                  <span
-                    className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${selectedImageModal.badgeColor}`}
-                  >
-                    {selectedImageModal.vulnerabilityLabel}
-                  </span>
+                  {renderStatusBadge(selectedImageModal, false)}
                 </div>
                 <p className="text-xs text-gray-600 font-normal">
                   {selectedImageModal.details}
@@ -1175,6 +1341,9 @@ export default function AccessibleMap() {
                       <option value="safe">
                         {ACCESSIBILITY_STATUS.safe.labelWithBadge}
                       </option>
+                      <option value="danger">
+                        {ACCESSIBILITY_STATUS.danger.labelWithBadge}
+                      </option>
                     </select>
                   </div>
 
@@ -1218,6 +1387,142 @@ export default function AccessibleMap() {
                   </button>
                 </div>
               </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Map Information & Usage Guide Modal */}
+      <AnimatePresence>
+        {showInfoModal && (
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white rounded-3xl p-5 sm:p-7 max-w-2xl w-full shadow-2xl relative overflow-hidden border border-gray-200/90 max-h-[88vh] flex flex-col"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100 shrink-0">
+                <div className="flex items-center gap-3">
+                  <SectionIcon
+                    icon={LuInfo}
+                    colorClass="from-blue-50 text-blue-600"
+                  />
+                  <div>
+                    <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-snug">
+                      Map Guide & Menu Usage
+                    </h3>
+                    <p className="text-xs text-gray-500 font-normal">
+                      Learn how to navigate, inspect, and filter accessible
+                      routes
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowInfoModal(false)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer"
+                  title="Close Guide"
+                >
+                  <LuX className="size-5" />
+                </button>
+              </div>
+
+              {/* Guide Content Sections (Scrollable) */}
+              <div className="overflow-y-auto py-4 space-y-3.5 pr-1 custom-scrollbar text-xs sm:text-sm text-gray-700">
+                {/* 1. Route Planner */}
+                <div className="p-4 rounded-2xl bg-[#F5F5F3] border border-gray-200/80 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-gray-900 font-bold">
+                    <span className="size-6 rounded-lg bg-black text-white text-xs flex items-center justify-center shrink-0">
+                      1
+                    </span>
+                    <h4>Route Tab — Journey Planner & 3D Inspections</h4>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed font-normal pl-8">
+                    Select origin and destination to calculate accessible
+                    routes. Click on any waypoint card to expand reporter
+                    details, condition photo evidence, or launch the{" "}
+                    <strong>POV 360° AI</strong> spatial sphere visualizer to
+                    inspect ramps & elevators before leaving.
+                  </p>
+                </div>
+
+                {/* 2. Transportation */}
+                <div className="p-4 rounded-2xl bg-[#F5F5F3] border border-gray-200/80 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-gray-900 font-bold">
+                    <span className="size-6 rounded-lg bg-black text-white text-xs flex items-center justify-center shrink-0">
+                      2
+                    </span>
+                    <h4>Transportation Tab — Transit Priority Access</h4>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed font-normal pl-8">
+                    View step-by-step transit itineraries (low-floor buses,
+                    station platform elevators, and dedicated wheelchair
+                    priority coaches). Access one-tap booking for accessible cab
+                    rides to your destination.
+                  </p>
+                </div>
+
+                {/* 3. Facilities & Route Condition */}
+                <div className="p-4 rounded-2xl bg-[#F5F5F3] border border-gray-200/80 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-gray-900 font-bold">
+                    <span className="size-6 rounded-lg bg-black text-white text-xs flex items-center justify-center shrink-0">
+                      3
+                    </span>
+                    <h4>Facilities & Route Condition Filters</h4>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed font-normal pl-8">
+                    Filter map markers by real-time safety status:
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 pl-8 pt-1">
+                    <div className="p-2 rounded-xl bg-white border border-gray-200 text-[11px] font-semibold text-emerald-800 flex items-center gap-1.5 shadow-2xs">
+                      <span className="size-2 rounded-full bg-emerald-500 shrink-0" />
+                      <span>Accessible & Safe</span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-white border border-gray-200 text-[11px] font-semibold text-amber-800 flex items-center gap-1.5 shadow-2xs">
+                      <span className="size-2 rounded-full bg-amber-500 shrink-0" />
+                      <span>Caution / Vulnerable</span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-white border border-gray-200 text-[11px] font-semibold text-orange-800 flex items-center gap-1.5 shadow-2xs">
+                      <span className="size-2 rounded-full bg-orange-600 shrink-0" />
+                      <span>Severe Hazard</span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-white border border-gray-200 text-[11px] font-semibold text-rose-800 flex items-center gap-1.5 shadow-2xs">
+                      <span className="size-2 rounded-full bg-rose-600 shrink-0" />
+                      <span>Emergency SOS</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Emergency SOS */}
+                <div className="p-4 rounded-2xl bg-[#F5F5F3] border border-gray-200/80 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-gray-900 font-bold">
+                    <span className="size-6 rounded-lg bg-black text-white text-xs flex items-center justify-center shrink-0">
+                      4
+                    </span>
+                    <h4>Emergency SOS Button</h4>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed font-normal pl-8">
+                    When encountering severe obstacles or urgent distress, tap
+                    the red <strong>Emergency SOS</strong> button. It broadcasts
+                    your live coordinates to nearby verified volunteers and
+                    field responders.
+                  </p>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="pt-4 border-t border-gray-100 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setShowInfoModal(false)}
+                  className="w-full py-3 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs sm:text-sm font-bold shadow-md hover:from-black hover:to-black/70 transition-all cursor-pointer"
+                >
+                  Got It, Continue to Map
+                </button>
+              </div>
             </motion.div>
           </div>
         )}

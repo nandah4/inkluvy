@@ -235,7 +235,7 @@ export default function PostDetail() {
                 <LuMapPin className="size-3.5 text-emerald-600 shrink-0" />
                 <div className="truncate">
                   <span className="font-bold text-emerald-950">
-                    Lokasi Terverifikasi:{" "}
+                    Verified Location:{" "}
                   </span>
                   <span>{post.location}</span>
                 </div>

@@ -52,7 +52,7 @@ const activeReports = [
   },
   {
     id: "rep-3",
-    title: "Trotoar Jl. Veteran",
+    title: "Jl. Veteran Sidewalk",
     category: "Lowokwaru, Malang",
     status: "vulnerable",
     statusLabel: ACCESSIBILITY_STATUS.vulnerable.label,
@@ -145,7 +145,7 @@ export default function Profile() {
                   />
                   <div>
                     <h2 className="font-sans font-bold text-sm sm:text-base text-gray-900 leading-tight">
-                      September 15, 2026
+                      August 1, 2026
                     </h2>
                     <p className="text-[11px] sm:text-xs text-gray-500 font-medium mt-0.5">
                       2 Events, Today

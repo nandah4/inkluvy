@@ -27,7 +27,7 @@ const initialSosNotifications = [
     title: "Active SOS Request: Wheelchair Lift Support Needed",
     message:
       "Budi Handoko requested manual lift assistance near Museum Brawijaya due to sidewalk curb excavation blockages.",
-    locationName: "Jl. Ijen (Depan Museum Brawijaya)",
+    locationName: "Jl. Ijen (in front of Museum Brawijaya)",
     coordinates: [112.6268, -7.976],
     time: "Just Now",
     read: false,
@@ -44,7 +44,7 @@ const initialSosNotifications = [
     title: "Active SOS Request: Guide Companion Requested",
     message:
       "Siti Aminah requested human guide assistance to Stasiun Malang terminal platform due to sudden path construction blockades.",
-    locationName: "Stasiun Malang (Sisi Barat)",
+    locationName: "Malang Station (West Side)",
     coordinates: [112.6335, -7.987],
     time: "5 Minutes Ago",
     read: false,

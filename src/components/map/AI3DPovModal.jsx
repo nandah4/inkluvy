@@ -168,7 +168,7 @@ export default function AI3DPovModal({ isOpen, onClose, locationName, imageUrl }
               <span>AI 3D POV</span>
             </div>
             <h3 className="text-white text-xs sm:text-sm font-bold truncate max-w-[200px] sm:max-w-md">
-              {locationName || "Area Rampa & Pintu Aksesibel"}
+              {locationName || "Accessible Ramp and Entrance Area"}
             </h3>
           </div>
 
@@ -185,10 +185,10 @@ export default function AI3DPovModal({ isOpen, onClose, locationName, imageUrl }
         <div className="relative w-full h-full bg-black cursor-grab active:cursor-grabbing">
           <div ref={mountRef} className="w-full h-full" />
 
-          {/* Controls Bar Overlay (ONLY Geser 360°) */}
+          {/* Controls Bar Overlay */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md border border-white/15 rounded-full px-5 py-2.5 flex items-center gap-2 text-white text-xs z-20 shadow-lg">
             <LuCompass className="size-4 text-emerald-400" />
-            <span className="font-medium text-gray-200">Geser 360°</span>
+            <span className="font-medium text-gray-200">Drag to Explore 360°</span>
           </div>
         </div>
       </motion.div>

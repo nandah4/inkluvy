@@ -12,4 +12,10 @@ export const ACCESSIBILITY_STATUS = Object.freeze({
     labelWithBadge: "Caution / Vulnerable 🟡",
     badge: "🟡",
   }),
+  danger: Object.freeze({
+    id: "danger",
+    label: "Severe Hazard",
+    labelWithBadge: "Severe Hazard ⛔",
+    badge: "⛔",
+  }),
 });

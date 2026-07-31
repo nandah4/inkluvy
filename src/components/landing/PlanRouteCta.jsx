@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LuArrowRight,
@@ -6,6 +7,7 @@ import {
   LuNavigation,
   LuShieldCheck,
   LuSparkles,
+  LuUsers,
 } from "react-icons/lu";
 
 const ctaContainerVariants = {
@@ -55,21 +57,21 @@ export default function PlanRouteCta() {
 
             {/* Action Buttons (Centered at Top Area) */}
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-              <a
-                href="/map"
+              <Link
+                to="/map"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 px-7 py-3.5 text-sm sm:text-base font-medium text-white shadow-lg hover:from-black hover:to-black/70 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Explore Interactive Map</span>
                 <LuArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
 
-              <a
-                href="#map"
+              <Link
+                to="/community"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300/90 bg-white/90 backdrop-blur-md px-6 py-3.5 text-sm sm:text-base font-medium text-gray-800 shadow-2xs transition-all duration-300 hover:bg-white hover:border-gray-400"
               >
-                <LuMapPin className="size-4 text-black" />
-                <span>Report an Obstacle</span>
-              </a>
+                <LuUsers className="size-4 text-black" />
+                <span>Join Community Reports</span>
+              </Link>
             </div>
           </div>
         </motion.div>

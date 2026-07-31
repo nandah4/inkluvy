@@ -188,6 +188,7 @@ export default function Community() {
                     "All",
                     ACCESSIBILITY_STATUS.safe.label,
                     ACCESSIBILITY_STATUS.vulnerable.label,
+                    ACCESSIBILITY_STATUS.danger.label,
                   ].map((cat) => (
                     <button
                       key={cat}

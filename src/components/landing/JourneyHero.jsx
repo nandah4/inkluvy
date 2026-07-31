@@ -311,7 +311,7 @@ export default function JourneyHero() {
                 <input
                   type="text"
                   placeholder="Current Location / Point A"
-                  defaultValue="Stasiun Malang (Peron 1)"
+                  defaultValue="Malang Station (Platform 1)"
                   className="mt-2 text-xs sm:text-sm w-full border-0 bg-transparent p-0 font-normal text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0"
                 />
               </motion.div>
@@ -356,8 +356,8 @@ export default function JourneyHero() {
                     Access Need
                   </label>
                 </div>
-                <div className="relative mt-2 flex cursor-pointer items-center justify-between">
-                  <select className="w-full cursor-pointer appearance-none border-0 bg-transparent p-0 pr-6 text-xs sm:text-sm font-normal text-gray-900 focus:outline-none focus:ring-0">
+                <div className="relative mt-2 flex cursor-pointer items-center justify-between min-w-0">
+                  <select className="w-full cursor-pointer appearance-none border-0 bg-transparent p-0 pr-6 text-xs sm:text-sm font-normal text-gray-900 focus:outline-none focus:ring-0 truncate min-w-0">
                     <option value="">Select Access Need</option>
                     <option value="wheelchair">
                       👩‍🦽 Wheelchair & Low Slope (&lt;5° Ramp)
