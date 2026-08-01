@@ -349,6 +349,11 @@ export default function AccessibleMap() {
   const [show3DPovModal, setShow3DPovModal] = useState(false);
   const [povLocationName, setPovLocationName] = useState("");
 
+  const [reportVulnerability, setReportVulnerability] = useState("vulnerable");
+  const [reportLocation, setReportLocation] = useState("Jl. Veteran (In front of Gate 2)");
+  const [reportPhoto, setReportPhoto] = useState(null);
+  const [sosDetails, setSosDetails] = useState("");
+
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -570,7 +575,7 @@ export default function AccessibleMap() {
             title="Map Guide & Menu Usage Info"
             aria-label="Map Guide & Info"
           >
-            <LuInfo className="size-4 text-blue-600" />
+            <LuInfo className="size-4 text-primary" />
           </button>
 
           <span className="hidden md:inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-emerald-200">
@@ -1224,88 +1229,164 @@ export default function AccessibleMap() {
       {/* Emergency SOS Modal */}
       <AnimatePresence>
         {showSosModal && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-white rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl border border-red-200 text-center relative"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white rounded-2xl p-5 sm:p-6 max-w-md w-full shadow-2xl relative overflow-hidden border border-rose-200 flex flex-col"
             >
-              <button
-                type="button"
-                onClick={() => setShowSosModal(false)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
-              >
-                <LuX className="size-4" />
-              </button>
-
-              <div className="size-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3 animate-bounce">
-                <LuLifeBuoy className="size-7" />
-              </div>
-
-              <h3 className="font-bold text-xl text-gray-900 mb-1">
-                Emergency SOS Assist
-              </h3>
-              <p className="text-xs text-gray-600 mb-5 leading-relaxed">
-                Send your real-time GPS location ({activeStop.name}) to nearest
-                verified volunteers & emergency services.
-              </p>
-
-              <div className="space-y-2.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    alert(
-                      "Emergency alert sent! Nearby volunteer team has been notified.",
-                    );
-                    setShowSosModal(false);
-                  }}
-                  className="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  <LuPhoneCall className="size-4" />
-                  <span>Call Nearby Volunteer Assist</span>
-                </button>
+              {/* Header */}
+              <div className="flex items-start justify-between pb-3.5 border-b border-gray-100 shrink-0">
+                <div className="flex items-center gap-3">
+                  <SectionIcon
+                    icon={LuLifeBuoy}
+                    colorClass="from-rose-50 text-rose-600"
+                  />
+                  <div>
+                    <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-snug">
+                      Emergency SOS Assist
+                    </h3>
+                    <p className="text-xs text-gray-500 font-normal">
+                      Broadcast real-time coordinates to nearby volunteers
+                    </p>
+                  </div>
+                </div>
 
                 <button
                   type="button"
                   onClick={() => setShowSosModal(false)}
-                  className="w-full py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100"
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer"
+                  title="Close Modal"
                 >
-                  Cancel
+                  <LuX className="size-5" />
                 </button>
               </div>
+
+              {/* Modal Body / Form */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert(
+                    "Emergency SOS dispatched! Nearby volunteer team & responders have been notified with your real-time GPS location.",
+                  );
+                  setShowSosModal(false);
+                }}
+                className="py-4 space-y-3.5 text-xs sm:text-sm text-gray-700"
+              >
+                {/* 1. Auto-detected Location & Profile Box */}
+                <div className="p-3 rounded-xl bg-rose-50/70 border border-rose-200/80 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src="/images/profile-avatar.png"
+                        alt="Syahla Aulia Avatar"
+                        className="size-7 rounded-full object-cover border border-rose-300 shrink-0"
+                      />
+                      <div>
+                        <div className="flex items-center gap-1">
+                          <span className="font-bold text-xs text-rose-950">
+                            Syahla Aulia
+                          </span>
+                          <span className="text-[10px] text-rose-700 font-medium">
+                            (Wheelchair Commuter)
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-rose-600 text-white animate-pulse">
+                      SOS Active
+                    </span>
+                  </div>
+
+                  <div className="text-[11px] text-rose-900 font-medium flex items-center gap-1.5 pt-0.5">
+                    <LuNavigation className="size-3.5 text-rose-600 shrink-0" />
+                    <span>
+                      <strong>Location:</strong> Jl. Ijen (in front of Museum Brawijaya) <span className="font-mono text-[10px] opacity-80">[112.6268, -7.976]</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Emergency Details (Optional) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Emergency Details <span className="text-gray-400 font-normal">(Optional)</span>
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={sosDetails}
+                    onChange={(e) => setSosDetails(e.target.value)}
+                    placeholder="Describe urgent help needed (e.g. wheelchair lift support, blocked ramp)..."
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs sm:text-sm text-gray-900 focus:border-rose-400 focus:bg-white focus:outline-none resize-none transition-all"
+                  />
+                  <p className="text-[10px] text-gray-400 mt-1 font-medium pl-1">
+                    If empty, standard emergency assistance request will be broadcasted automatically.
+                  </p>
+                </div>
+
+                {/* Actions: Primary CTA "Need Help" & Cancel */}
+                <div className="pt-2 space-y-2">
+                  <button
+                    type="submit"
+                    className="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border border-red-600 active:scale-[0.98]"
+                  >
+                    <LuLifeBuoy className="size-4 shrink-0" />
+                    <span>Need Help</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowSosModal(false)}
+                    className="w-full py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
       {/* Clean Refined Report Obstacle Modal */}
+      {/* Report Route Condition Modal */}
       <AnimatePresence>
         {showReportModal && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-2xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-gray-200 relative max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white rounded-2xl p-5 sm:p-6 max-w-xl w-full shadow-2xl relative overflow-hidden border border-gray-200/90 max-h-[90vh] flex flex-col"
             >
-              <button
-                type="button"
-                onClick={() => setShowReportModal(false)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-              >
-                <LuX className="size-4" />
-              </button>
+              {/* Header */}
+              <div className="flex items-start justify-between pb-3.5 border-b border-gray-100 shrink-0">
+                <div className="flex items-center gap-3">
+                  <SectionIcon
+                    icon={LuShieldAlert}
+                    colorClass="from-amber-50 text-amber-600"
+                  />
+                  <div>
+                    <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-snug">
+                      Report Route Condition
+                    </h3>
+                    <p className="text-xs text-gray-500 font-normal">
+                      Help citizens & mappers with real-time accessibility data
+                    </p>
+                  </div>
+                </div>
 
-              <h3 className="font-bold text-xl text-gray-900 mb-3">
-                Report Accessibility Obstacle
-              </h3>
+                <button
+                  type="button"
+                  onClick={() => setShowReportModal(false)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer"
+                  title="Close Modal"
+                >
+                  <LuX className="size-5" />
+                </button>
+              </div>
 
-              <p className="text-xs md:text-sm text-gray-500 mb-6 leading-relaxed">
-                Help citizens and fellow mappers by sharing real-time route
-                conditions or obstacle updates on the map.
-              </p>
-
+              {/* Form Content (Scrollable) */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1314,76 +1395,179 @@ export default function AccessibleMap() {
                   );
                   setShowReportModal(false);
                 }}
-                className="space-y-4"
+                className="overflow-y-auto py-4 space-y-4 pr-1 custom-scrollbar text-xs sm:text-sm text-gray-700"
               >
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                    Location Name
-                  </label>
-                  <input
-                    type="text"
-                    value={activeStop.name}
-                    readOnly
-                    className="w-full rounded-xl bg-[#EAEAEA] border border-gray-200/90 px-3.5 py-2.5 text-xs sm:text-sm font-medium text-gray-600 cursor-not-allowed focus:outline-none"
-                  />
+                {/* 1. Reporter Identity (Auto-filled Account Info) */}
+                <div className="p-3 rounded-xl bg-[#F5F5F3] border border-gray-200/80 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src="/images/profile-avatar.png"
+                      alt="Reporter Avatar"
+                      className="size-8 rounded-full object-cover border border-gray-200 shrink-0"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <span className="font-bold text-xs text-gray-900">
+                          Syahla Aulia
+                        </span>
+                        <LuShieldCheck
+                          className="size-3.5 text-emerald-600 shrink-0"
+                          title="Verified Reporter"
+                        />
+                      </div>
+                      <p className="text-[10px] text-gray-500 font-medium">
+                        Verified Reporter • Auto Timestamp (Just now)
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Active Account
+                  </span>
                 </div>
 
-                {/* Route Status & Photo Evidence in 1 Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                      Route Status
-                    </label>
-                    <select className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none cursor-pointer transition-all">
-                      <option value="vulnerable">
-                        {ACCESSIBILITY_STATUS.vulnerable.labelWithBadge}
-                      </option>
-                      <option value="safe">
-                        {ACCESSIBILITY_STATUS.safe.labelWithBadge}
-                      </option>
-                      <option value="danger">
-                        {ACCESSIBILITY_STATUS.danger.labelWithBadge}
-                      </option>
-                    </select>
+                {/* 2. Spot Location (Auto GPS / Picker) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Location Name & GPS Spot
+                  </label>
+                  <div className="relative">
+                    <LuNavigation className="absolute left-3.5 top-3 size-4 text-primary" />
+                    <input
+                      type="text"
+                      value={reportLocation}
+                      onChange={(e) => setReportLocation(e.target.value)}
+                      placeholder="e.g. Jl. Veteran (In front of Gate 2)"
+                      className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 pl-10 pr-3.5 py-2.5 text-xs sm:text-sm font-medium text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
+                      required
+                    />
                   </div>
+                  <p className="text-[10px] text-gray-400 mt-1 font-medium pl-1">
+                    GPS Coordinates auto-detected: Lat -7.9735, Lng 112.6255
+                  </p>
+                </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                {/* 3. Route Risk Level (Vulnerability with React Icons) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1.5">
+                    Route Risk Level (Vulnerability)
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {/* Safe */}
+                    <button
+                      type="button"
+                      onClick={() => setReportVulnerability("safe")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        reportVulnerability === "safe"
+                          ? "bg-emerald-50/90 border-emerald-500 text-emerald-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuCheck className="size-4 text-emerald-600 shrink-0" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Accessible & Safe</div>
+                        <div className="text-[9px] opacity-75 font-normal">Normal path</div>
+                      </div>
+                    </button>
+
+                    {/* Vulnerable */}
+                    <button
+                      type="button"
+                      onClick={() => setReportVulnerability("vulnerable")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        reportVulnerability === "vulnerable"
+                          ? "bg-amber-50/90 border-amber-500 text-amber-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuShieldAlert className="size-4 text-amber-600 shrink-0" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Caution / Vulnerable</div>
+                        <div className="text-[9px] opacity-75 font-normal">Proceed with care</div>
+                      </div>
+                    </button>
+
+                    {/* Severe Hazard */}
+                    <button
+                      type="button"
+                      onClick={() => setReportVulnerability("danger")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        reportVulnerability === "danger"
+                          ? "bg-orange-50/90 border-orange-500 text-orange-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuShieldAlert className="size-4 text-orange-600 shrink-0 animate-pulse" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Severe Hazard</div>
+                        <div className="text-[9px] opacity-75 font-normal">Fatal obstacle</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4. Photo Evidence (Used by AI 3D Spatial POV Visualizer) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-gray-700 uppercase">
                       Photo Evidence
                     </label>
-                    <label className="flex items-center justify-center gap-2 bg-[#F5F5F3] hover:bg-gray-200/60 border border-dashed border-gray-300 rounded-xl px-3 py-2.5 cursor-pointer text-xs md:text-sm font-medium text-gray-700 transition-colors">
-                      <LuUpload className="size-4 text-gray-500 shrink-0" />
-                      <span className="truncate">Upload Photo</span>
-                      <input type="file" accept="image/*" className="hidden" />
-                    </label>
+                    <span className="text-[10px] text-primary font-medium">
+                      Used by AI 3D Spatial Visualizer
+                    </span>
                   </div>
+                  <label className="flex items-center justify-center gap-2.5 bg-[#F5F5F3] hover:bg-gray-200/70 border border-dashed border-gray-300 rounded-xl p-3.5 cursor-pointer text-xs sm:text-sm font-medium text-gray-700 transition-colors">
+                    <LuUpload className="size-5 text-gray-500 shrink-0" />
+                    <div className="text-center">
+                      <span className="font-bold text-gray-900">Upload Photo Evidence</span>
+                      <p className="text-[11px] text-gray-500 font-normal">
+                        PNG, JPG or WebP (Snap camera or upload file)
+                      </p>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setReportPhoto(e.target.files[0].name);
+                        }
+                      }}
+                    />
+                  </label>
+                  {reportPhoto && (
+                    <p className="text-[10px] text-emerald-600 font-bold mt-1.5 flex items-center gap-1">
+                      <LuCheck className="size-3" /> Attached: {reportPhoto}
+                    </p>
+                  )}
                 </div>
 
+                {/* 5. Condition Details (Description) */}
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                    Condition Details
+                    Condition Details (Description)
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Describe obstacle condition, ramp slope, or alternative accessible route..."
-                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none resize-none transition-all"
+                    placeholder='e.g. "Pavement collapsed by 15cm, damaged ramp with steep slope, wheelchair cannot pass through..."'
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs sm:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none resize-none transition-all"
                     required
                   />
                 </div>
 
-                <div className="pt-2 flex items-center justify-end gap-2.5">
+                {/* Buttons */}
+                <div className="pt-3 border-t border-gray-100 flex items-center justify-end gap-2.5 shrink-0">
                   <button
                     type="button"
                     onClick={() => setShowReportModal(false)}
-                    className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100 transition-colors"
+                    className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs font-bold shadow-md hover:from-black hover:to-black/70 transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs sm:text-sm font-bold shadow-md hover:from-black hover:to-black/70 transition-all cursor-pointer"
                   >
-                    Report Now
+                    Publish Report
                   </button>
                 </div>
               </form>
@@ -1407,7 +1591,7 @@ export default function AccessibleMap() {
                 <div className="flex items-center gap-3">
                   <SectionIcon
                     icon={LuInfo}
-                    colorClass="from-blue-50 text-blue-600"
+                    colorClass="from-sky-50 text-primary"
                   />
                   <div>
                     <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-snug">

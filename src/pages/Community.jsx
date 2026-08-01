@@ -3,12 +3,16 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LuArrowRight,
+  LuCheck,
+  LuFileText,
   LuHeart,
   LuMapPin,
   LuMessageSquare,
+  LuNavigation,
   LuPlus,
   LuSearch,
   LuShare2,
+  LuShieldAlert,
   LuShieldCheck,
   LuSlidersHorizontal,
   LuSparkles,
@@ -31,8 +35,10 @@ export default function Community() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
-  const [newLocation, setNewLocation] = useState("");
+  const [newLocation, setNewLocation] = useState("Jl. Veteran (In front of Gate 2)");
   const [newTag, setNewTag] = useState("Obstacle Warning");
+  const [newVulnerability, setNewVulnerability] = useState("vulnerable");
+  const [reportPhoto, setReportPhoto] = useState(null);
 
   const handleLike = (id) => {
     setPosts(
@@ -438,112 +444,213 @@ export default function Community() {
       {/* Modal: Create Post / Report */}
       <AnimatePresence>
         {showCreateModal && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-2xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-gray-200 relative max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white rounded-2xl p-5 sm:p-6 max-w-xl w-full shadow-2xl relative overflow-hidden border border-gray-200/90 max-h-[90vh] flex flex-col"
             >
-              <button
-                type="button"
-                onClick={() => setShowCreateModal(false)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-              >
-                <LuX className="size-4" />
-              </button>
-
-              <h3 className="font-bold text-xl text-gray-900 mb-3">
-                Create a Community Report
-              </h3>
-
-              <p className="text-xs md:text-sm text-gray-500 mb-6 leading-relaxed">
-                Share real-time route conditions, lift updates, or report a
-                physical obstacle on the street.
-              </p>
-
-              <form onSubmit={handleCreatePost} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                    Report Title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Example: Station Platform 2 Lift Is Working Again"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
-                    required
+              {/* Header */}
+              <div className="flex items-start justify-between pb-3.5 border-b border-gray-100 shrink-0">
+                <div className="flex items-center gap-3">
+                  <SectionIcon
+                    icon={LuShieldAlert}
+                    colorClass="from-amber-50 text-amber-600"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                    Location / Place Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Example: Jl. Veteran No. 8, Malang"
-                    value={newLocation}
-                    onChange={(e) => setNewLocation(e.target.value)}
-                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
-                  />
-                </div>
-
-                {/* Category & Photo Evidence in 1 Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                      Category
-                    </label>
-                    <select
-                      value={newTag}
-                      onChange={(e) => setNewTag(e.target.value)}
-                      className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none cursor-pointer transition-all"
-                    >
-                      <option value="Obstacle Warning">Obstacle Warning 🚧</option>
-                      <option value="Verified Update">Verified Update ✅</option>
-                      <option value="Community Praise">Community Praise 🎉</option>
-                    </select>
+                    <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-snug">
+                      Report Route Condition
+                    </h3>
+                    <p className="text-xs text-gray-500 font-normal">
+                      Help citizens & mappers with real-time accessibility data
+                    </p>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer"
+                  title="Close Modal"
+                >
+                  <LuX className="size-5" />
+                </button>
+              </div>
+
+              {/* Form Content (Scrollable) */}
+              <form onSubmit={handleCreatePost} className="overflow-y-auto py-4 space-y-4 pr-1 custom-scrollbar text-xs sm:text-sm text-gray-700">
+                {/* 1. Reporter Identity (Auto-filled Account Info) */}
+                <div className="p-3 rounded-xl bg-[#F5F5F3] border border-gray-200/80 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src="/images/profile-avatar.png"
+                      alt="Reporter Avatar"
+                      className="size-8 rounded-full object-cover border border-gray-200 shrink-0"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <span className="font-bold text-xs text-gray-900">
+                          Syahla Aulia
+                        </span>
+                        <LuShieldCheck
+                          className="size-3.5 text-emerald-600 shrink-0"
+                          title="Verified Reporter"
+                        />
+                      </div>
+                      <p className="text-[10px] text-gray-500 font-medium">
+                        Verified Reporter • Auto Timestamp (Just now)
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Active Account
+                  </span>
+                </div>
+
+                {/* 2. Spot Location (Auto GPS / Picker) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                    Location Name & GPS Spot
+                  </label>
+                  <div className="relative">
+                    <LuNavigation className="absolute left-3.5 top-3 size-4 text-primary" />
+                    <input
+                      type="text"
+                      value={newLocation}
+                      onChange={(e) => setNewLocation(e.target.value)}
+                      placeholder="e.g. Jl. Veteran (In front of Gate 2)"
+                      className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 pl-10 pr-3.5 py-2.5 text-xs sm:text-sm font-medium text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none transition-all"
+                      required
+                    />
+                  </div>
+                  <p className="text-[10px] text-gray-400 mt-1 font-medium pl-1">
+                    GPS Coordinates auto-detected: Lat -7.9735, Lng 112.6255
+                  </p>
+                </div>
+
+                {/* 3. Route Risk Level (Vulnerability with React Icons) */}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1.5">
+                    Route Risk Level (Vulnerability)
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {/* Safe */}
+                    <button
+                      type="button"
+                      onClick={() => setNewVulnerability("safe")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        newVulnerability === "safe"
+                          ? "bg-emerald-50/90 border-emerald-500 text-emerald-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuCheck className="size-4 text-emerald-600 shrink-0" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Accessible & Safe</div>
+                        <div className="text-[9px] opacity-75 font-normal">Normal path</div>
+                      </div>
+                    </button>
+
+                    {/* Vulnerable */}
+                    <button
+                      type="button"
+                      onClick={() => setNewVulnerability("vulnerable")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        newVulnerability === "vulnerable"
+                          ? "bg-amber-50/90 border-amber-500 text-amber-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuShieldAlert className="size-4 text-amber-600 shrink-0" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Caution / Vulnerable</div>
+                        <div className="text-[9px] opacity-75 font-normal">Proceed with care</div>
+                      </div>
+                    </button>
+
+                    {/* Severe Hazard */}
+                    <button
+                      type="button"
+                      onClick={() => setNewVulnerability("danger")}
+                      className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                        newVulnerability === "danger"
+                          ? "bg-orange-50/90 border-orange-500 text-orange-900 font-bold shadow-xs"
+                          : "bg-[#F5F5F3] border-gray-200/90 text-gray-700 hover:border-gray-300"
+                      }`}
+                    >
+                      <LuShieldAlert className="size-4 text-orange-600 shrink-0 animate-pulse" />
+                      <div className="text-[11px] leading-tight">
+                        <div className="font-bold">Severe Hazard</div>
+                        <div className="text-[9px] opacity-75 font-normal">Fatal obstacle</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4. Photo Evidence (Used by AI 3D Spatial POV Visualizer) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-gray-700 uppercase">
                       Photo Evidence
                     </label>
-                    <label className="flex items-center justify-center gap-2 bg-[#F5F5F3] hover:bg-gray-200/60 border border-dashed border-gray-300 rounded-xl px-3 py-2.5 cursor-pointer text-xs md:text-sm font-medium text-gray-700 transition-colors">
-                      <LuUpload className="size-4 text-gray-500 shrink-0" />
-                      <span className="truncate">Upload Photo</span>
-                      <input type="file" accept="image/*" className="hidden" />
-                    </label>
+                    <span className="text-[10px] text-primary font-medium">
+                      Used by AI 3D Spatial Visualizer
+                    </span>
                   </div>
+                  <label className="flex items-center justify-center gap-2.5 bg-[#F5F5F3] hover:bg-gray-200/70 border border-dashed border-gray-300 rounded-xl p-3.5 cursor-pointer text-xs sm:text-sm font-medium text-gray-700 transition-colors">
+                    <LuUpload className="size-5 text-gray-500 shrink-0" />
+                    <div className="text-center">
+                      <span className="font-bold text-gray-900">Upload Photo Evidence</span>
+                      <p className="text-[11px] text-gray-500 font-normal">
+                        PNG, JPG or WebP (Snap camera or upload file)
+                      </p>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setReportPhoto(e.target.files[0].name);
+                        }
+                      }}
+                    />
+                  </label>
+                  {reportPhoto && (
+                    <p className="text-[10px] text-emerald-600 font-bold mt-1.5 flex items-center gap-1">
+                      <LuCheck className="size-3" /> Attached: {reportPhoto}
+                    </p>
+                  )}
                 </div>
 
+                {/* 5. Condition Details (Description) */}
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                    Report Details
+                    Condition Details (Description)
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Describe the ramp condition, lift status, or an alternative route..."
+                    placeholder='e.g. "Pavement collapsed by 15cm, damaged ramp with steep slope, wheelchair cannot pass through..."'
                     value={newContent}
                     onChange={(e) => setNewContent(e.target.value)}
-                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs md:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none resize-none transition-all"
+                    className="w-full rounded-xl bg-[#F5F5F3] border border-gray-200/90 px-3.5 py-2.5 text-xs sm:text-sm text-gray-900 focus:border-gray-400 focus:bg-white focus:outline-none resize-none transition-all"
                     required
                   />
                 </div>
 
-                <div className="pt-2 flex items-center justify-end gap-2.5">
+                {/* Buttons */}
+                <div className="pt-3 border-t border-gray-100 flex items-center justify-end gap-2.5 shrink-0">
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-100 transition-colors"
+                    className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs font-bold shadow-md hover:from-black hover:to-black/70 transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-b from-black to-black/50 text-white text-xs sm:text-sm font-bold shadow-md hover:from-black hover:to-black/70 transition-all cursor-pointer"
                   >
                     Publish Report
                   </button>
