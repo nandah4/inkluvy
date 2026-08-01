@@ -11,6 +11,7 @@
   **Aplikasi Navigasi Inklusif Cerdas Berbasis Crowdsourcing & AI 3D Spatial Visualization**
 
 [![Competitive Event](https://img.shields.io/badge/CITECH-2026-emerald?style=for-the-badge)](https://citech.polinema.ac.id)
+[![Institution](https://img.shields.io/badge/POLITEKNIK_NEGERI_MALANG-2026-blue?style=for-the-badge)](https://www.polinema.ac.id)
 
 </div>
 
@@ -31,7 +32,7 @@
 
 ## 📌 1. What is Inkluvy? (Tentang Inkluvy)
 
-**Inkluvy** adalah platform navigasi perkotaan ramah disabilitas yang mengintegrasikan pemetaan rute aksesibel, laporan kondisi jalan berbasis _crowdsourcing_, visualisasi spasial 3D interaktif, serta sistem bantuan darurat (_SOS Civic Alert_) dalam satu ekosistem digital terpadu.
+**Inkluvy** adalah platform navigasi perkotaan ramah disabilitas yang mengintegrasikan pemetaan rute aksesibel, laporan kondisi jalan berbasis _crowdsourcing_, visualisasi spasial 3D interaktif berbasis AI, serta sistem bantuan darurat (_SOS Darurat_) dalam satu ekosistem digital terpadu.
 
 ### 📍 Latar Belakang & Masalah
 
@@ -45,69 +46,129 @@ Infrastruktur perkotaan sering kali belum ramah bagi penyandang disabilitas (pen
 
 ---
 
-## ✨ 2. Key Features (Fitur Unggulan)
+## ✨ 2. Fitur Utama (Core Features)
 
-### 🌐 1. Interactive Accessible Map & Route Condition Filter
+### 🌐 1. Peta Aksesibilitas (Accessibility Map)
 
-Peta navigasi interaktif dengan kategori indikator keselamatan rute yang terverifikasi secara real-time:
+Menampilkan informasi fasilitas aksesibilitas, kondisi rute, serta lokasi permintaan bantuan darurat (Emergency SOS) pada peta interaktif sehingga pengguna dapat memperoleh gambaran aksesibilitas suatu wilayah secara menyeluruh.
 
 - **Accessible & Safe** (`🟢` / `<LuCheck />`): Rampa beton standar, elevator aktif, ubin pengarah utuh.
 - **Caution / Vulnerable** (`🟡` / `<LuShieldAlert />`): Rampa kayu sementara, ubin aus, konstruksi ringan.
 - **Severe Hazard** (`⛔` / `<LuShieldAlert />` - _Orange Segment_): Galian kabel terbuka, trotoar amblas, jalur terputus.
 - **Emergency SOS** (`🚨` / `<LuLifeBuoy />` - _Rose Segment_): Lokasi difabel membutuhkan bantuan darurat langsung dari relawan terdekat.
 
-### 🕶️ 2. AI 3D Spatial POV Visualizer (Panoramic Inspection)
+### 📍 2. Perencana Rute (Route Planner)
 
-- Menggunakan teknologi **Three.js** 360° imersif (_Inverted Sphere Damping Geometry_).
-- Memungkinkan pengguna melihat inspeksi ruang 360° kondisi rampa, lebar pintu lift, dan tekstur jalan berdasarkan foto laporan lapangan sebelum melangkah keluar rumah.
+Membantu pengguna menentukan rute perjalanan yang mempertimbangkan informasi aksesibilitas sehingga lebih sesuai dengan kebutuhan mobilitas penyandang disabilitas.
 
-### 🚨 3. One-Tap SOS Civic Emergency Alert
+### 🚌 3. Informasi Transportasi
 
-- Tombol darurat _Emergency SOS_ yang langsung menyiarkan posisi koordinat presisi penyandang disabilitas ke jaringan relawan terdekat & verifikator Inkluvy saat terjebak hambatan fatal.
+Menyediakan informasi mengenai layanan transportasi yang mendukung mobilitas penyandang disabilitas, termasuk halte, terminal, maupun moda transportasi yang memiliki fasilitas aksesibilitas (bus _low-floor_, elevator peron stasiun, dan gerbong prioritas).
 
-### 👥 4. Crowdsourced Community Feed & Verification
+### 🕶️ 4. Visualisasi Spasial 3D Berbasis AI (AI 3D Spatial Visualizer)
 
-- Forum komunitas warga dan difabel untuk mengunggah laporan foto kondisi jalan, melakukan upvote, berdiskusi, serta memverifikasi keamanan rute.
+Memanfaatkan teknologi Artificial Intelligence (AI) untuk menghasilkan visualisasi tiga dimensi sebagai representasi kondisi lingkungan berdasarkan foto yang diunggah pengguna. Visualisasi ini membantu pengguna memperoleh gambaran kondisi aksesibilitas suatu lokasi secara lebih nyata sebelum melakukan perjalanan (seperti kecuraman rampa, pintu lift, dan ubin pengarah).
 
-### 🚌 5. Priority Transit & Multi-modal Guidance
+### 👥 5. Pelaporan Masyarakat (Community Reporting)
 
-- Panduan integrasi moda transportasi umum (ketersediaan lift peron stasiun, gerbong prioritas, dan layanan _Accessible Ride_).
+Memungkinkan masyarakat berpartisipasi dalam melaporkan perubahan maupun kendala aksesibilitas pada fasilitas publik, baik di area outdoor maupun indoor, sehingga data aksesibilitas pada platform tetap akurat, terkini, dan bermanfaat bagi pengguna lainnya.
+
+### 🚨 6. SOS Darurat (Emergency SOS)
+
+Memungkinkan pengguna mengirimkan informasi lokasi kepada kontak darurat yang telah didaftarkan serta relawan terdekat ketika menghadapi situasi darurat sehingga dapat mendukung proses permintaan bantuan secara cepat.
 
 ---
 
-## 🔄 3. Application Flow & Architecture (Alur Aplikasi)
+## 🎯 3. Skenario Penggunaan Produk (Target User Scenarios)
+
+Inkluvy dirancang untuk mendukung ekosistem kota inklusif melalui keterlibatan 4 kelompok pemangku kepentingan utama:
+
+```mermaid
+graph TD
+    subgraph Target Users & Stakeholders
+        U1[♿ Penyandang Disabilitas<br/><i>Pengguna Utama</i>]
+        U2[👥 Masyarakat Umum<br/><i>Kontributor Crowdsourcing</i>]
+        U3[🏛️ Pemerintah Daerah<br/><i>Pengambil Kebijakan</i>]
+        U4[🏢 Pengelola Fasilitas Publik<br/><i>Penyedia Fasilitas</i>]
+    end
+
+    subgraph Ekosistem Platform Inkluvy
+        F1[Peta Aksesibilitas & Perencana Rute]
+        F2[Visualisasi Spasial 3D AI & SOS Darurat]
+        F3[Mesin Pelaporan Masyarakat]
+        F4[Analitik Data & Incident Heatmap]
+    end
+
+    U1 -->|1. Rencanakan Rute & Inspeksi 3D| F1
+    U1 -->|2. Kirim SOS Darurat saat Bahaya| F2
+    U2 -->|3. Laporkan Kendala & Update Data| F3
+    F3 -->|4. Verifikasi Data Real-time| F1
+    U3 -->|5. Monitor Heatmap Kendala & Evaluasi| F4
+    U4 -->|6. Identifikasi Laporan & Perbaiki Fasilitas| F4
+```
+
+### ♿ 1. Penyandang Disabilitas (Pengguna Utama)
+
+Pengguna utama Inkluvy yang memanfaatkan platform untuk memperoleh informasi aksesibilitas fasilitas publik, merencanakan perjalanan yang sesuai dengan kebutuhan mobilitas, serta memperoleh dukungan dalam situasi darurat.
+
+- **Penggunaan**: Mencari rute ramah kursi roda/tunanetra, memvisualisasikan kondisi rampa via 3D POV, dan menekan tombol SOS Darurat saat menemui hambatan fatal.
+
+### 👥 2. Masyarakat Umum (Kontributor Crowdsourcing)
+
+Berperan sebagai kontributor melalui sistem crowdsourcing dengan melaporkan kondisi fasilitas publik dan memperbarui informasi aksesibilitas agar data pada platform tetap akurat dan terkini.
+
+- **Penggunaan**: Mengunggah foto trotoar rusak/galian, memberikan deskripsi kendala, serta melakukan upvote verifikasi pada laporan warga lain.
+
+### 🏛️ 3. Pemerintah Daerah (Pengambil Kebijakan)
+
+Memanfaatkan data hasil pelaporan masyarakat sebagai bahan evaluasi, penyusunan kebijakan, dan penentuan prioritas pembangunan fasilitas publik yang lebih inklusif.
+
+- **Penggunaan**: Memantau peta persebaran kendala jalan (_incident heatmap_) dan menentukan pengalokasian anggaran perbaikan fasilitas transportasi perkotaan.
+
+### 🏢 4. Pengelola Fasilitas Publik (Penyedia Fasilitas)
+
+Menggunakan informasi dan laporan pengguna untuk mengidentifikasi kondisi fasilitas, menentukan prioritas perbaikan, serta meningkatkan kualitas pelayanan dan aksesibilitas fasilitas publik.
+
+- **Penggunaan**: Menerima notifikasi masalah fasilitas di area gedung/terminal yang dikelola dan memperbarui status rampa/lift secara berkala.
+
+---
+
+## 🔄 4. Alur Aplikasi (Application Flow)
+
+Diagram alur keputusan dan navigasi pengguna dalam memanfaatkan fitur Inkluvy:
 
 ```mermaid
 flowchart TD
-    A[User / Diffable Person] -->|Pilih Destinasi| B[Accessible Map Navigation]
+    A[Pengguna / Penyandang Disabilitas] -->|Input Destinasi| B[Peta Aksesibilitas & Route Planner]
     B -->|Filter Route Condition| C{Status Rute}
     C -->|Accessible & Safe| D[Perjalanan Aman & Lancar]
-    C -->|Caution / Vulnerable| E[Gunakan Panduan Alternatif]
-    C -->|Severe Hazard| F[AI 3D Spatial POV Visualizer]
-    F -->|Inspeksi 360° Rampa/Lift| G[Pilih Rute Pengalihan]
-    A -->|Menemukan Kendala Darurat| H[Trigger Emergency SOS]
-    H -->|Civic Alert Notification| I[Relawan & Verifikator Lapangan Dispatch]
+    C -->|Caution / Vulnerable| E[Berhati-hati ➔ Inspeksi Visualisasi 3D AI POV]
+    C -->|Severe Hazard| F[Berhati-hati ➔ Inspeksi Visualisasi 3D AI POV]
 
-    J[Community Mapper] -->|Ambil Foto Obstacle| K[Community Report Feed]
-    K -->|AI Callout Analysis| B
+    A -->|Terjebak Hambatan Fatal| H[Kirim SOS Darurat]
+    H -->|Notifikasi Darurat Presisi| I[Relawan & Responder Lapangan Dispatch]
+
+    J[Masyarakat / Kontributor] -->|Unggah Foto Kendala| K[Pelaporan Masyarakat Feed]
+    K -->|Verifikasi & AI Callout Analysis| B
 ```
 
 ---
 
-## 🛠️ 4. Technology Stack
+## 🛠️ 5. Detail Technology Stack
 
-| Component              | Technology / Library                         |
-| :--------------------- | :------------------------------------------- |
-| **Core Framework**     | React 18, Vite 8, React Router v7            |
-| **3D Engine**          | Three.js (`three`) — 360° Panoramic Renderer |
-| **Interactive Map**    | MapLibre GL, Mapcn Custom Layer Engine       |
-| **Styling & UI**       | TailwindCSS v4, Vanilla CSS Design System    |
-| **Motion & Animation** | Framer Motion                                |
-| **Icons & Visuals**    | React Icons (`react-icons/lu`), Lucide React |
+| Komponen Platform           | Teknologi / Library                          | Deskripsi Peran & Implementasi                                                                                            |
+| :-------------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **Core Framework**          | React 18, Vite 8, React Router v7            | Arsitektur Single Page Application (SPA) ultra-cepat dengan perutean dinamis & Hot Module Replacement (HMR).              |
+| **3D POV Engine**           | Three.js (`three` r160+)                     | Engine rendering 360° panoramic sphere berbasis _Inverted Geometry_ & _Orbit Controls Damping_ untuk inspeksi spasial AI. |
+| **Interactive Mapping**     | MapLibre GL JS, Mapcn Custom Layer           | Renderer peta vektor interaktif dengan dukungan _Custom Polyline Segments_ untuk membedakan rute aman, bahaya, dan SOS.   |
+| **Design System & UI**      | TailwindCSS v4, Vanilla CSS Tokens           | CSS Design System modern dengan konsistensi _HSL Color Tokens_, _Glassmorphic Backdrop Blur_, dan respon fleksibel.       |
+| **Motion & Animation**      | Framer Motion                                | Animasi mikro interaktif, transisi halaman, serta pergeseran modal sheet yang halus bagi kenyamanan pengguna.             |
+| **Icons & Visual System**   | React Icons (`react-icons/lu`), Lucide React | Sistem ikonografi konsisten dengan gaya stroke modern dan pembungkusan gradien (_SectionIcon_).                           |
+| **Data & State Management** | React Context API, LocalStorage Hooks        | Manajemen status aplikasi terpusat untuk sinkronisasi rute, filter keamanan, dan pengiriman SOS darurat.                  |
 
 ---
 
-## 🚀 5. Getting Started (Cara Menjalankan Project)
+## 🚀 6. Getting Started (Cara Menjalankan Project)
 
 ### Prasyarat
 
